@@ -2,7 +2,7 @@
 
 openseat shows which of the next 90 days have reward seats on **Emirates Skywards**, **Etihad Guest** and **Qatar Airways Privilege Club**. You pick a day, see every flight with its miles and taxes, then book on the airline site with your own miles. openseat never sells tickets or touches miles.
 
-The site works in English and Arabic (right to left), on desktop and phones, in light and dark mode.
+The site works in English and Arabic (right to left), on desktop and phones, in light and dark mode. There are also native apps for iPhone and Android.
 
 | English | Arabic |
 | --- | --- |
@@ -12,6 +12,10 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 | --- | --- |
 | ![Day sheet on a phone](docs/screenshots/mobile-en.png) | ![Search page in dark mode](docs/screenshots/dark-en.png) |
 
+| iPhone app | Android app in Arabic |
+| --- | --- |
+| ![Calendar in the iPhone app](docs/screenshots/mobile-ios-en-calendar.png) | ![Search in the Android app in Arabic](docs/screenshots/mobile-android-ar-search.png) |
+
 > Prices and seat counts are **sample data** unless the API runs with a real source. Real data comes from the seats.aero partner API for Emirates and Etihad. See [docs/data-sources.md](docs/data-sources.md).
 
 ## What is in this repo
@@ -19,6 +23,7 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 ```
 apps/web         The website (Preact + Vite + TypeScript)
 apps/api         The API (Node + Fastify + Postgres + Redis)
+apps/mobile      The iOS and Android app (Expo + React Native + TypeScript)
 packages/shared  Reference data, types, the sample data generator and day summaries
 design/          Design prototypes, the handoff spec and app icons
 deploy/          nginx config for the static site
@@ -49,6 +54,14 @@ VITE_API_URL=http://localhost:8787 npm run dev
 
 The API also runs without Postgres or Redis. It then keeps data in memory and coordinates within one process, which is fine for local work.
 
+### Mobile app
+
+```bash
+npm run dev:mobile
+```
+
+Scan the QR code with Expo Go, or press `i` or `a` for a simulator. It runs on sample data until you set `EXPO_PUBLIC_API_URL`. See [apps/mobile/README.md](apps/mobile/README.md) for store builds.
+
 ### Docker
 
 ```bash
@@ -63,6 +76,7 @@ Site on http://localhost:8080, API on http://localhost:8787, with Postgres and R
 | --- | --- |
 | `npm run dev` | Website dev server |
 | `npm run dev:api` | API dev server with reload |
+| `npm run dev:mobile` | Mobile app dev server (Expo) |
 | `npm run build` | Build shared, API and website |
 | `npm run typecheck` | Type check every package |
 | `npm test` | Run all tests. API tests also run against Postgres and Redis when `DATABASE_URL` and `REDIS_URL` are set |
@@ -83,7 +97,7 @@ Results stream in. Days the API already has show at once, and the rest arrive in
 
 The site follows the browser language: Arabic if the browser prefers Arabic, English otherwise. The switch in the header changes it at once and remembers the choice. `?lang=ar` or `?lang=en` in a link also works.
 
-All copy lives in `apps/web/src/i18n/en.ts` and `ar.ts`. A test fails if Arabic is missing any English string. The Arabic text, and the Terms page in both languages, should be reviewed by a native editor and by counsel before launch.
+All copy lives in `apps/web/src/i18n/en.ts` and `ar.ts`. The mobile app reads the same files. A test fails if Arabic is missing any English string. The Arabic text, and the Terms page in both languages, should be reviewed by a native editor and by counsel before launch.
 
 ## Configuration
 
@@ -108,21 +122,23 @@ Every setting is in [.env.example](.env.example) with a short note. The ones tha
 Done:
 
 - Web app from the design: search sentence, pickers, 90-day calendar, return trips, day panel and bottom sheet on phones, booking steps, alerts, copy link, How to use and Terms pages.
+- Native apps for iOS and Android with the same features: the search sentence, 90-day calendar, day and flights, booking steps, email alerts, How to use and Terms. iOS and Android each get their own look. English and Arabic, following the phone language with a setting to change it, and light and dark mode. See [apps/mobile/README.md](apps/mobile/README.md).
 - English and Arabic with right-to-left layout, and dark mode.
 - API with streaming search, request merging, per-search ids, refresh with cooldowns, alerts with email, a tiered refresh scheduler, Postgres storage and Redis coordination.
-- Tests for shared logic, the API (including real Postgres and Redis) and the web app's URL and copy.
+- Tests for shared logic, the API (including real Postgres and Redis), the web app's URL and copy, and the mobile app's stream reader, links and copy.
 - Real data for Emirates and Etihad through the seats.aero partner API. Needs a key and, for a public site, their written approval.
-- Alerts by Telegram and WhatsApp as well as email.
-- Taxes in USD, AED, SAR or QAR.
+- Alerts by Telegram and WhatsApp as well as email on the website.
+- Taxes in USD, AED, SAR or QAR on the website.
 - Cloudflare Turnstile bot check on alerts and refresh.
 
 Not done yet:
 
 - **Real data for Qatar.** seats.aero does not list Qatar Privilege Club yet. [docs/data-sources.md](docs/data-sources.md) explains how to add another source.
-- **Native apps.** The iOS and Android designs are in `design/prototypes/Openseat Native Apps.dc.html`, with the spec in [design/HANDOFF.md](design/HANDOFF.md).
+- Tablet layouts for the native apps (two and three columns, in [design/HANDOFF.md](design/HANDOFF.md)). Tablets get the phone layout for now.
+- Store release of the native apps. They build with EAS but are not yet in the App Store or Google Play.
+- Telegram and WhatsApp alerts, currency choice and Turnstile in the native apps. The apps offer email alerts and show taxes in US dollars.
 - Booking links that open the airline site with the search filled in. The airlines do not publish reward search URLs, so the button opens the home page.
 - Bank points and partner program prices.
-- Turnstile in the native apps. See [docs/alerts.md](docs/alerts.md).
 
 ## Licence
 
