@@ -1,0 +1,48 @@
+# Full stack on one machine: Postgres, Redis, the API and the site.
+#   docker compose up --build
+# Site: http://localhost:8080   API: http://localhost:8787
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: openseat
+      POSTGRES_PASSWORD: openseat
+      POSTGRES_DB: openseat
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openseat"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    environment:
+      DATABASE_URL: postgres://openseat:openseat@postgres:5432/openseat
+      REDIS_URL: redis://redis:6379
+      ALLOWED_ORIGINS: http://localhost:8080
+      PUBLIC_URL: http://localhost:8080
+      API_PUBLIC_URL: http://localhost:8787
+      ADAPTER: mock
+    ports: ["8787:8787"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8787
+    ports: ["8080:80"]
+    depends_on: [api]
+
+volumes:
+  pgdata:

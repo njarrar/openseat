@@ -1,0 +1,14 @@
+{
+  "name": "openseat",
+  "short_name": "openseat",
+  "description": "Find reward seats on Emirates, Etihad and Qatar Airways for the next 90 days.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f3f1",
+  "theme_color": "#1d7a52",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/openseat-icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

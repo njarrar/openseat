@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to use openseat</title>
+<meta name="description" content="Four worked examples of finding and booking reward seats with openseat.">
+<meta name="theme-color" content="#f3f3f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/icons/openseat-icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<script>
+/* Pick the language before first paint: ?lang=, then the saved choice, then the browser. Preload only the fonts it needs. */
+(function () {
+  var d = document.documentElement, l = null;
+  try { l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('openseat-lang'); } catch (e) {}
+  if (l !== 'ar' && l !== 'en') l = String((navigator.languages && navigator.languages[0]) || navigator.language || 'en').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+  d.lang = l; d.dir = l === 'ar' ? 'rtl' : 'ltr';
+  var f = l === 'ar' ? ['ibm-plex-sans-arabic-500', 'ibm-plex-sans-arabic-400', 'hanken-grotesk-latin'] : ['hanken-grotesk-latin'];
+  for (var i = 0; i < f.length; i++) {
+    var k = document.createElement('link');
+    k.rel = 'preload'; k.as = 'font'; k.type = 'font/woff2'; k.crossOrigin = 'anonymous'; k.href = '/fonts/' + f[i] + '.woff2';
+    document.head.appendChild(k);
+  }
+})();
+</script>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="font:16px/1.6 system-ui,sans-serif;max-width:60ch;margin:40px auto;padding:0 20px">openseat needs JavaScript to search for seats.</p></noscript>
+<script type="module" src="/src/pages/how.tsx"></script>
+</body>
+</html>

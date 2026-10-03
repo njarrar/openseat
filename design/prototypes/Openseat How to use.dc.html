@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/svg+xml" href="openseat-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;background:#f3f3f1;-webkit-font-smoothing:antialiased}
+a{color:#1d7a52}a:hover{color:#14201b}
+</style>
+</helmet>
+<div lang="en" style="min-height:100dvh;background:#f3f3f1;color:#14201b;font-family:'Hanken Grotesk',system-ui,sans-serif;">
+  <header style="max-width:1200px;margin:0 auto;padding:24px 20px 8px;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <a href="Openseat%20v2.dc.html" style="display:flex;align-items:center;gap:10px;font-size:23px;font-weight:700;letter-spacing:-0.03em;color:#14201b;text-decoration:none;"><img src="openseat-icon.svg" alt="" width="32" height="32" style="width:32px;height:32px;border-radius:8px;display:block;">openseat</a>
+    <nav style="display:flex;gap:6px;flex-wrap:wrap;font-size:15px;">
+      <a href="Openseat%20v2.dc.html" style="padding:8px 14px;border-radius:999px;color:#14201b;text-decoration:none;" style-hover="color:#1d7a52;">Search</a>
+      <a href="Openseat%20How%20to%20use.dc.html" aria-current="page" style="padding:8px 14px;border-radius:999px;color:#14201b;text-decoration:none;background:#e6f3eb;">How to use</a>
+      <a href="Openseat%20Terms.dc.html" style="padding:8px 14px;border-radius:999px;color:#14201b;text-decoration:none;" style-hover="color:#1d7a52;">Terms</a>
+    </nav>
+  </header>
+
+  <main style="max-width:1200px;margin:0 auto;padding:0 20px;">
+    <section style="padding:40px 0 8px;max-width:720px;display:flex;flex-direction:column;gap:14px;">
+      <h1 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:600;letter-spacing:-0.03em;line-height:1.08;">How to use Openseat</h1>
+      <p style="margin:0;font-size:18px;line-height:1.6;color:#4d5a54;">Find a day with reward seats, then book it on the airline site with your own miles. Below are four real ways people search, step by step.</p>
+    </section>
+
+    <section aria-labelledby="basics" style="margin-top:44px;background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px 32px;">
+      <h2 id="basics" style="margin:0;font-size:22px;font-weight:600;letter-spacing:-0.02em;grid-column:1/-1;">The basics in four moves</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:40px;height:40px;border-radius:999px;background:#e6f3eb;color:#1d7a52;display:flex;align-items:center;justify-content:center;font-size:19px;"><i class="ph ph-wallet"></i></span>
+        <span style="font-size:17px;font-weight:600;">Start with your miles</span>
+        <span style="font-size:15px;line-height:1.55;color:#33413b;">Pick the program you hold miles in. Skywards, Etihad Guest or Privilege Club.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:40px;height:40px;border-radius:999px;background:#e6f3eb;color:#1d7a52;display:flex;align-items:center;justify-content:center;font-size:19px;"><i class="ph ph-text-aa"></i></span>
+        <span style="font-size:17px;font-weight:600;">Finish the sentence</span>
+        <span style="font-size:15px;line-height:1.55;color:#33413b;">Set cabin, travellers, airports and an optional return. Search by city, code or Arabic name.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:40px;height:40px;border-radius:999px;background:#e6f3eb;color:#1d7a52;display:flex;align-items:center;justify-content:center;font-size:19px;"><i class="ph ph-calendar-check"></i></span>
+        <span style="font-size:17px;font-weight:600;">Read the numbers</span>
+        <span style="font-size:15px;line-height:1.55;color:#33413b;">Each day shows how many seats are open on its best flight: 1, 2, 3 or 4+. Empty days have none.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:40px;height:40px;border-radius:999px;background:#1d7a52;color:#fbfbfa;display:flex;align-items:center;justify-content:center;font-size:19px;"><i class="ph ph-arrow-square-out"></i></span>
+        <span style="font-size:17px;font-weight:600;">Book with the airline</span>
+        <span style="font-size:15px;line-height:1.55;color:#33413b;">Open the day, follow How to book, and finish on the airline site before the seat goes.</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="examples" style="margin-top:64px;display:flex;flex-direction:column;gap:20px;">
+      <h2 id="examples" style="margin:0;font-size:clamp(26px,3vw,34px);font-weight:600;letter-spacing:-0.025em;">Examples</h2>
+
+      <article style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 48px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <h3 style="margin:0;font-size:21px;font-weight:600;letter-spacing:-0.015em;">A family of four to London for the winter break</h3>
+          <p style="margin:0;font-size:19px;line-height:1.7;font-weight:500;">Using <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Emirates Skywards</span>, show me <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Economy</span> seats for <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">4 travellers</span> from <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Dubai</span> to <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">London</span>, <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">and back 2 weeks later</span>.</p>
+          <a href="Openseat%20v2.dc.html?p=EK&amp;o=DXB&amp;d=LHR&amp;c=economy&amp;n=4&amp;r=14" style="align-self:flex-start;height:44px;padding:0 18px;border-radius:999px;background:#14201b;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#1d7a52;color:#fbfbfa;">Try this search<i class="ph ph-arrow-right"></i></a>
+        </div>
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span><span>With 4 travellers, a day only shows seats when one flight has 4 open. Look for days marked <strong>4+</strong> in dark green.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span><span>Pick an outbound day, then switch to the <strong>Return</strong> tab. Days with a short bar fit a trip of 11 to 17 nights.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span><span>Book both legs in one session on emirates.com, so the seats you found are still there for the second leg.</span></li>
+        </ol>
+      </article>
+
+      <article style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 48px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <h3 style="margin:0;font-size:21px;font-weight:600;letter-spacing:-0.015em;">A last-minute Business seat to Bangkok</h3>
+          <p style="margin:0;font-size:19px;line-height:1.7;font-weight:500;">Using <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Etihad Guest</span>, show me <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Business</span> seats for <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">1 traveller</span> from <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Abu Dhabi</span> to <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Bangkok</span>, <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">one way</span>.</p>
+          <a href="Openseat%20v2.dc.html?p=EY&amp;o=AUH&amp;d=BKK&amp;c=business&amp;n=1&amp;r=0" style="align-self:flex-start;height:44px;padding:0 18px;border-radius:999px;background:#14201b;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#1d7a52;color:#fbfbfa;">Try this search<i class="ph ph-arrow-right"></i></a>
+        </div>
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span><span>Airlines often release unsold seats in the last two weeks, so check the first rows of the calendar.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span><span>Use the arrows next to the date to step through days without going back to the calendar.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span><span>If Business is full but <strong>Also open</strong> shows Economy, tap it to see that price on the same flight.</span></li>
+        </ol>
+      </article>
+
+      <article style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 48px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <h3 style="margin:0;font-size:21px;font-weight:600;letter-spacing:-0.015em;">Two First seats to Tokyo with Avios</h3>
+          <p style="margin:0;font-size:19px;line-height:1.7;font-weight:500;">Using <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Qatar Airways Privilege Club</span>, show me <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">First</span> seats for <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">2 travellers</span> from <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Doha</span> to <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Tokyo</span>, <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">one way</span>.</p>
+          <a href="Openseat%20v2.dc.html?p=QR&amp;o=DOH&amp;d=NRT&amp;c=first&amp;n=2&amp;r=0" style="align-self:flex-start;height:44px;padding:0 18px;border-radius:999px;background:#14201b;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#1d7a52;color:#fbfbfa;">Try this search<i class="ph ph-arrow-right"></i></a>
+        </div>
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span><span>Qatar sells First only on its A380, so many routes show <strong>not offered</strong>. That is a fact about the plane, not a lack of seats.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span><span>Two seats together in First are rare. If the calendar is empty, tap <strong>Alert me when seats open</strong>.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span><span>Short on Avios? You can move Avios from British Airways Executive Club before you book.</span></li>
+        </ol>
+      </article>
+
+      <article style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 48px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <h3 style="margin:0;font-size:21px;font-weight:600;letter-spacing:-0.015em;">Starting from a city that is not a hub</h3>
+          <p style="margin:0;font-size:19px;line-height:1.7;font-weight:500;">Using <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Emirates Skywards</span>, show me <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Business</span> seats for <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">1 traveller</span> from <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">Riyadh</span> to <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">London</span>, <span style="padding:1px 10px;border-radius:999px;border:1.5px solid #dcdfdb;color:#1d7a52;font-weight:600;">one way</span>.</p>
+          <a href="Openseat%20v2.dc.html?p=EK&amp;o=RUH&amp;d=LHR&amp;c=business&amp;n=1&amp;r=0" style="align-self:flex-start;height:44px;padding:0 18px;border-radius:999px;background:#14201b;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#1d7a52;color:#fbfbfa;">Try this search<i class="ph ph-arrow-right"></i></a>
+        </div>
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span><span>Flights from Riyadh connect in Dubai. A day shows seats only when both flights have one open.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span><span>Each flight card shows the stop and the time on the ground, so you can skip long connections.</span></li>
+          <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.55;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span><span>Compare with a search from Dubai. If you can reach the hub yourself, there are often more days to choose from.</span></li>
+        </ol>
+      </article>
+    </section>
+
+    <section aria-labelledby="faq" style="margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px 56px;">
+      <h2 id="faq" style="margin:0;font-size:clamp(26px,3vw,34px);font-weight:600;letter-spacing:-0.025em;grid-column:1/-1;">Common questions</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <h3 style="margin:0;font-size:17px;font-weight:600;">Why did a seat disappear when I tried to book?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#33413b;">Availability refreshes at midnight and noon Gulf time. Seats can be taken between refreshes, so the airline site always has the final word.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <h3 style="margin:0;font-size:17px;font-weight:600;">Why can't I pick dates further out?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#33413b;">The window is always the next 90 days. That keeps searches fast, and a shared link shows everyone the same dates.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <h3 style="margin:0;font-size:17px;font-weight:600;">Are the prices exact?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#33413b;">Miles are the published reward price for one way, per traveller. Taxes are an estimate in US dollars and can change at checkout.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <h3 style="margin:0;font-size:17px;font-weight:600;">How do I share a search?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#33413b;">Tap Copy link next to the date. The link keeps your program, cabin, travellers, airports and return, so others see what you see.</p>
+      </div>
+    </section>
+
+    <a href="Openseat%20v2.dc.html" style="margin-top:48px;height:48px;padding:0 22px;border-radius:999px;background:#1d7a52;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;" style-hover="background:#16633f;color:#fbfbfa;">Start a search<i class="ph ph-arrow-right"></i></a>
+
+    <footer style="margin-top:72px;padding:28px 0 56px;border-top:1px solid #dcdfdb;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;">
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#4d5a54;max-width:72ch;">Openseat is independent and not affiliated with or endorsed by Emirates, Etihad Airways or Qatar Airways. Program names are trademarks of their owners.</p>
+      <p style="margin:0;font-size:13px;color:#4d5a54;width:100%;order:3;">© 2026 Openseat · v1.0.0</p>
+      <nav style="display:flex;gap:20px;font-size:14px;"><a href="Openseat%20v2.dc.html" style="color:#14201b;">Search</a><a href="Openseat%20Terms.dc.html" style="color:#14201b;">Terms</a></nav>
+    </footer>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

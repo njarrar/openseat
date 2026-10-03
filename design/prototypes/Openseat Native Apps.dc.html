@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Roboto:wght@400;500;700&amp;family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;background:#e4e5e1;-webkit-font-smoothing:antialiased}
+a{color:#1d7a52}a:hover{color:#14201b}
+button{font-family:inherit}
+</style>
+</helmet>
+<section style="padding:56px 64px 24px;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#14201b;display:flex;flex-direction:column;gap:40px;">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px;">
+    <h1 style="margin:0;font-size:36px;font-weight:600;letter-spacing:-0.025em;">openseat on tablets</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#4d5a54;">In landscape, search, calendar and day sit side by side, so nothing needs a back button. How to book opens inside the flight card instead of a sheet.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:72px 96px;">
+
+    <div id="2a" style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#14201b;color:#fbfbfa;">2a</span>
+        <span style="font-size:22px;font-weight:600;letter-spacing:-0.015em;">iPad</span>
+        <span style="font-size:15px;color:#4d5a54;">Floating tab bar at the top, three columns, calendar in a glass panel</span>
+      </div>
+      <div style="width:1194px;height:834px;border:12px solid #1c1c1e;border-radius:44px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.18);">
+        <div style="position:relative;width:100%;height:100%;background:#f2f2f7;font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;color:#000;">
+          <div style="position:absolute;top:0;left:0;right:0;height:28px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;">
+            <span style="display:flex;gap:8px;">9:41<span style="font-weight:500;">Sat 3 Oct</span></span>
+            <span style="display:flex;gap:6px;align-items:center;font-size:16px;"><i class="ph-fill ph-wifi-high"></i><span style="font-size:13px;">100%</span><i class="ph-fill ph-battery-full" style="font-size:22px;"></i></span>
+          </div>
+          <div style="position:absolute;top:34px;left:50%;transform:translateX(-50%);height:44px;padding:4px;border-radius:999px;background:rgba(255,255,255,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,0.08), inset 0 0 0 0.5px rgba(0,0,0,0.06);display:flex;gap:2px;box-sizing:border-box;font-size:15px;">
+            <span style="height:36px;padding:0 18px;border-radius:999px;background:rgba(0,0,0,0.06);display:flex;align-items:center;font-weight:600;color:#1d7a52;">Search</span>
+            <span style="height:36px;padding:0 18px;display:flex;align-items:center;">Alerts</span>
+            <span style="height:36px;padding:0 18px;display:flex;align-items:center;">Settings</span>
+          </div>
+          <div style="position:absolute;top:34px;left:24px;height:44px;display:flex;align-items:center;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:#1d7a52;">openseat</div>
+          <div style="position:absolute;inset:92px 0 0;display:grid;grid-template-columns:330px minmax(0,1fr) 370px;">
+
+            <div style="overflow:auto;padding:0 0 24px;display:flex;flex-direction:column;gap:8px;">
+              <h2 style="margin:0 0 6px;padding:0 24px;font-size:28px;font-weight:700;">Search</h2>
+              <span style="padding:0 40px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Miles program</span>
+              <div style="margin:0 24px 14px;padding:2px;border-radius:9px;background:rgba(118,118,128,0.12);display:flex;gap:2px;">
+                <sc-for list="{{ ipad.programs }}" as="o" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ o.onClick }}" style="flex:1;height:32px;border:0;border-radius:7px;background:{{ o.bg }};box-shadow:{{ o.shadow }};font-size:13px;font-weight:{{ o.fw }};color:#000;cursor:pointer;">{{ o.label }}</button>
+                </sc-for>
+              </div>
+              <span style="padding:0 40px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Route</span>
+              <div style="margin:0 24px 14px;background:#ffffff;border-radius:22px;overflow:hidden;">
+                <div style="min-height:50px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;"><i class="ph ph-airplane-takeoff" style="font-size:20px;color:#1d7a52;"></i><span style="flex:1;">From</span><span style="color:#6e6e73;">Dubai</span><span style="font-size:13px;color:#8e8e93;">DXB</span></div>
+                <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                <div style="min-height:50px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;"><i class="ph ph-airplane-landing" style="font-size:20px;color:#1d7a52;"></i><span style="flex:1;">To</span><span style="color:#6e6e73;">London</span><span style="font-size:13px;color:#8e8e93;">LHR</span></div>
+              </div>
+              <span style="padding:0 40px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Trip</span>
+              <div style="margin:0 24px;background:#ffffff;border-radius:22px;overflow:hidden;">
+                <div style="min-height:50px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                  <i class="ph ph-users" style="font-size:20px;color:#1d7a52;"></i><span style="flex:1;">Travellers</span>
+                  <span style="color:#6e6e73;min-width:16px;text-align:center;">{{ ipad.pax }}</span>
+                  <div style="display:flex;align-items:center;height:32px;border-radius:8px;background:rgba(118,118,128,0.12);">
+                    <button type="button" onClick="{{ ipad.decPax }}" aria-label="Fewer travellers" style="width:44px;height:32px;border:0;background:transparent;color:#000;cursor:pointer;"><i class="ph ph-minus" style="font-size:15px;"></i></button>
+                    <span style="width:1px;height:18px;background:rgba(60,60,67,0.29);"></span>
+                    <button type="button" onClick="{{ ipad.incPax }}" aria-label="More travellers" style="width:44px;height:32px;border:0;background:transparent;color:#000;cursor:pointer;"><i class="ph ph-plus" style="font-size:15px;"></i></button>
+                  </div>
+                </div>
+                <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                <div style="min-height:50px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                  <i class="ph ph-arrows-left-right" style="font-size:20px;color:#1d7a52;"></i><span style="flex:1;">Return trip</span>
+                  <button type="button" role="switch" aria-checked="{{ ipad.retOn }}" onClick="{{ ipad.toggleRet }}" aria-label="Return trip" style="position:relative;width:51px;height:31px;border:0;border-radius:999px;background:{{ ipad.trackBg }};cursor:pointer;padding:0;transition:background .2s;">
+                    <span style="position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:999px;background:#ffffff;box-shadow:0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16);transform:translateX({{ ipad.knobX }});transition:transform .25s cubic-bezier(.3,1.4,.6,1);"></span>
+                  </button>
+                </div>
+                <sc-if value="{{ ipad.retOn }}">
+                  <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                  <div style="min-height:50px;padding:0 16px 0 48px;display:flex;align-items:center;gap:12px;font-size:17px;"><span style="flex:1;">Back after</span><span style="color:#1d7a52;">2 weeks</span><i class="ph ph-caret-up-down" style="font-size:14px;color:#1d7a52;"></i></div>
+                </sc-if>
+              </div>
+              <p style="margin:6px 0 0;padding:0 40px;font-size:13px;line-height:1.4;color:#6e6e73;">Changes update the calendar straight away.</p>
+            </div>
+
+            <div style="margin:0 8px 16px;background:rgba(255,255,255,0.9);border-radius:30px;box-shadow:0 4px 24px rgba(0,0,0,0.06), inset 0 0 0 0.5px rgba(0,0,0,0.06);overflow:auto;padding:20px 0 24px;display:flex;flex-direction:column;gap:14px;">
+              <div style="padding:0 20px;display:flex;align-items:center;gap:12px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:22px;font-weight:700;">Dubai → London</span>
+                  <span style="font-size:13px;color:#6e6e73;">{{ ipad.navSub }}</span>
+                </div>
+                <button type="button" onClick="{{ ipad.toggleAlert }}" aria-pressed="{{ ipad.alert }}" aria-label="Alert me when seats open" style="width:40px;height:40px;border:0;border-radius:999px;background:{{ ipad.bellBg }};box-shadow:0 2px 10px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ ipad.bellFg }};"><i class="{{ ipad.bellIcon }}" style="font-size:19px;"></i></button>
+              </div>
+              <div style="margin:0 20px;padding:2px;border-radius:9px;background:rgba(118,118,128,0.12);display:flex;gap:2px;">
+                <sc-for list="{{ ipad.cabins }}" as="o" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ o.onClick }}" style="flex:1;height:32px;border:0;border-radius:7px;background:{{ o.bg }};box-shadow:{{ o.shadow }};font-size:13px;font-weight:{{ o.fw }};color:#000;cursor:pointer;">{{ o.label }}</button>
+                </sc-for>
+              </div>
+              <div style="padding:0 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:center;">
+                <span style="font-size:15px;color:#3c3c43;">{{ ipad.summary }}</span>
+                <div style="display:flex;gap:12px;font-size:12px;color:#6e6e73;">
+                  <sc-for list="{{ ipad.legend }}" as="lg" hint-placeholder-count="4">
+                    <span style="display:flex;align-items:center;gap:5px;"><span style="width:14px;height:14px;border-radius:4px;background:{{ lg.bg }};box-shadow:inset 0 0 0 1px {{ lg.bd }};"></span>{{ lg.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-for list="{{ ipad.months }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;flex-direction:column;gap:6px;padding:0 20px;">
+                  <span style="font-size:17px;font-weight:700;padding:8px 2px 2px;">{{ m.title }}</span>
+                  <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;font-size:11px;font-weight:600;color:#8e8e93;text-align:center;">
+                    <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;">
+                    <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35">
+                      <sc-if value="{{ c.blank }}"><span></span></sc-if>
+                      <sc-if value="{{ c.isPast }}"><span style="height:50px;padding:6px 8px;box-sizing:border-box;font-size:12px;color:#c7c7cc;">{{ c.day }}</span></sc-if>
+                      <sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+                        <button type="button" onClick="{{ c.onClick }}" aria-label="{{ c.aria }}" style="position:relative;height:50px;padding:0;border:0;border-radius:12px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.ring }};cursor:pointer;">
+                          <span style="position:absolute;top:5px;left:8px;font-size:12px;font-weight:500;">{{ c.day }}</span>
+                          <span style="position:absolute;right:8px;bottom:5px;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+                        </button>
+                      </sc-if>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="overflow:auto;padding:0 24px 24px 12px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <h2 style="margin:0;flex:1;font-size:22px;font-weight:700;line-height:1.2;">{{ ipad.dayLong }}</h2>
+                <div style="height:40px;border-radius:999px;background:#ffffff;box-shadow:0 2px 10px rgba(0,0,0,0.06);display:flex;align-items:center;">
+                  <button type="button" onClick="{{ ipad.prevDay }}" aria-label="Previous day" style="width:42px;height:40px;border:0;background:transparent;cursor:pointer;color:#000;"><i class="ph ph-caret-left" style="font-size:17px;"></i></button>
+                  <button type="button" onClick="{{ ipad.nextDay }}" aria-label="Next day" style="width:42px;height:40px;border:0;background:transparent;cursor:pointer;color:#000;"><i class="ph ph-caret-right" style="font-size:17px;"></i></button>
+                </div>
+              </div>
+              <p style="margin:0 0 4px;font-size:14px;line-height:1.4;color:#6e6e73;">{{ ipad.daySub }}</p>
+              <sc-for list="{{ ipad.flights }}" as="f" hint-placeholder-count="2">
+                <div style="background:#ffffff;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+                  <div style="display:flex;flex-direction:column;gap:3px;">
+                    <span style="font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px;">{{ f.dep }}<i class="ph ph-arrow-right" style="font-size:14px;color:#8e8e93;"></i>{{ f.arr }}<sup style="font-size:12px;color:#1d7a52;margin-left:-5px;">{{ f.plus }}</sup></span>
+                    <span style="font-size:13px;color:#6e6e73;">{{ f.nums }} · {{ f.meta }}</span>
+                  </div>
+                  <div style="height:0.5px;background:rgba(60,60,67,0.29);"></div>
+                  <sc-if value="{{ f.ok }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;">{{ f.miles }} <span style="font-size:14px;font-weight:500;color:#6e6e73;">{{ f.unit }}</span></span>
+                        <span style="font-size:13px;color:#6e6e73;">{{ f.sub }}</span>
+                      </div>
+                      <button type="button" onClick="{{ f.onBook }}" aria-expanded="{{ f.expanded }}" style="height:34px;padding:0 16px;border:0;border-radius:999px;background:rgba(29,122,82,0.12);color:#1d7a52;font-size:15px;font-weight:600;cursor:pointer;">{{ f.bookLabel }}</button>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ f.notOk }}"><span style="font-size:15px;color:#6e6e73;">{{ f.status }}</span></sc-if>
+                  <sc-if value="{{ f.hasOthers }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+                      <span style="font-size:13px;color:#6e6e73;">Also open</span>
+                      <sc-for list="{{ f.others }}" as="o" hint-placeholder-count="2">
+                        <button type="button" onClick="{{ o.onClick }}" style="height:28px;padding:0 10px;border:0;border-radius:999px;background:#f2f2f7;color:#000;font-size:13px;cursor:pointer;">{{ o.label }} {{ o.price }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ f.expanded }}">
+                    <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;">
+                      <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+                        <sc-for list="{{ f.steps }}" as="st" hint-placeholder-count="3">
+                          <li style="display:grid;grid-template-columns:30px 1fr;font-size:14px;line-height:1.4;"><span style="width:22px;height:22px;border-radius:999px;background:rgba(29,122,82,0.12);color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">{{ st.n }}</span><span>{{ st.text }}</span></li>
+                        </sc-for>
+                      </ol>
+                      <div style="background:#f2f2f7;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;gap:10px;font-size:14px;">
+                        <span style="color:#6e6e73;">{{ f.totalLabel }}</span><span style="font-weight:600;font-variant-numeric:tabular-nums;text-align:right;">{{ f.totalValue }}</span>
+                      </div>
+                      <button type="button" style="height:44px;border:0;border-radius:999px;background:#1d7a52;color:#ffffff;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">Open {{ f.site }}<i class="ph ph-arrow-up-right" style="font-size:15px;"></i></button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:8px;left:50%;margin-left:-160px;width:320px;height:5px;border-radius:999px;background:rgba(0,0,0,0.25);"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2b" style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#14201b;color:#fbfbfa;">2b</span>
+        <span style="font-size:22px;font-weight:600;letter-spacing:-0.015em;">Android tablet</span>
+        <span style="font-size:15px;color:#4d5a54;">Material 3 navigation rail, list-detail panes, inline booking steps</span>
+      </div>
+      <div style="width:1280px;height:800px;border:10px solid #1f1f1f;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.2);">
+        <div style="position:relative;width:100%;height:100%;background:#f6fbf3;font-family:Roboto,system-ui,sans-serif;color:#171d19;display:flex;flex-direction:column;">
+          <div style="height:32px;flex:0 0 32px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:500;">
+            <span>9:41</span>
+            <span style="display:flex;gap:4px;align-items:center;"><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">wifi</span><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">signal_cellular_alt</span><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;transform:rotate(90deg);">battery_full</span></span>
+          </div>
+          <div style="flex:1;min-height:0;display:flex;">
+            <nav style="width:96px;flex:0 0 96px;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px;">
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">menu</span></span>
+              <span style="width:56px;height:56px;border-radius:16px;background:#b1f1c3;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.15);"><span style="font-family:'Material Symbols Rounded';font-size:24px;color:#002110;">add_alert</span></span>
+              <span style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="width:56px;height:32px;border-radius:999px;background:#d0e8d5;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:'FILL' 1;color:#0b1f13;">search</span></span><span style="font-size:12px;font-weight:700;">Search</span></span>
+              <span style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:56px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">notifications</span></span><span style="font-size:12px;font-weight:500;">Alerts</span></span>
+              <span style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:56px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">settings</span></span><span style="font-size:12px;font-weight:500;">Settings</span></span>
+            </nav>
+
+            <div style="width:320px;flex:0 0 320px;margin:0 0 16px;background:#f0f5ee;border-radius:16px;overflow:auto;padding:20px 0;display:flex;flex-direction:column;">
+              <span style="padding:0 20px;font-size:22px;font-weight:500;letter-spacing:-0.01em;color:#2b6a46;">openseat</span>
+              <span style="padding:4px 20px 20px;font-size:14px;color:#414942;">Reward seats, the next 90 days</span>
+              <span style="padding:0 20px 8px;font-size:14px;font-weight:500;color:#414942;">Miles program</span>
+              <div style="padding:0 20px 20px;display:flex;flex-wrap:wrap;gap:8px;">
+                <sc-for list="{{ atab.programs }}" as="o" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 16px 0 {{ o.padL }};border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;">
+                    <sc-if value="{{ o.on }}"><span style="font-family:'Material Symbols Rounded';font-size:18px;">check</span></sc-if>{{ o.label }}
+                  </button>
+                </sc-for>
+              </div>
+              <div style="padding:0 20px;display:flex;flex-direction:column;gap:16px;">
+                <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;gap:12px;padding:0 12px;">
+                  <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f0f5ee;font-size:12px;color:#414942;">From</span>
+                  <span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">flight_takeoff</span><span style="font-size:16px;">Dubai (DXB)</span>
+                </div>
+                <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;gap:12px;padding:0 12px;">
+                  <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f0f5ee;font-size:12px;color:#414942;">To</span>
+                  <span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">flight_land</span><span style="font-size:16px;">London (LHR)</span>
+                </div>
+                <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;padding:0 0 0 16px;">
+                  <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f0f5ee;font-size:12px;color:#414942;">Travellers</span>
+                  <span style="flex:1;font-size:16px;">{{ atab.pax }}</span>
+                  <button type="button" onClick="{{ atab.decPax }}" aria-label="Fewer travellers" style="width:44px;height:48px;border:0;background:transparent;cursor:pointer;color:#414942;"><span style="font-family:'Material Symbols Rounded';font-size:22px;">remove</span></button>
+                  <button type="button" onClick="{{ atab.incPax }}" aria-label="More travellers" style="width:44px;height:48px;border:0;background:transparent;cursor:pointer;color:#414942;"><span style="font-family:'Material Symbols Rounded';font-size:22px;">add</span></button>
+                </div>
+              </div>
+              <div style="margin-top:8px;min-height:72px;padding:8px 20px;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;">Return trip</span><span style="font-size:14px;color:#414942;">{{ atab.retSub }}</span></div>
+                <button type="button" role="switch" aria-checked="{{ atab.retOn }}" onClick="{{ atab.toggleRet }}" aria-label="Return trip" style="position:relative;width:52px;height:32px;padding:0;border:2px solid {{ atab.trackBd }};border-radius:999px;background:{{ atab.trackBg }};cursor:pointer;box-sizing:border-box;transition:background .2s;">
+                  <span style="position:absolute;top:{{ atab.thumbT }};left:{{ atab.thumbL }};width:{{ atab.thumbS }};height:{{ atab.thumbS }};border-radius:999px;background:{{ atab.thumbBg }};display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(.2,0,0,1);"><sc-if value="{{ atab.retOn }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#2b6a46;">check</span></sc-if></span>
+                </button>
+              </div>
+            </div>
+
+            <div style="position:relative;flex:1;min-width:0;overflow:auto;padding:4px 24px 24px;display:flex;flex-direction:column;gap:12px;">
+              <div style="min-height:56px;display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;display:flex;flex-direction:column;"><span style="font-size:22px;line-height:28px;">Dubai to London</span><span style="font-size:14px;color:#414942;">{{ atab.navSub }}</span></div>
+                <button type="button" onClick="{{ atab.toggleAlert }}" aria-pressed="{{ atab.alert }}" aria-label="Alert me when seats open" style="width:48px;height:48px;border:0;border-radius:999px;background:{{ atab.bellBg }};cursor:pointer;color:{{ atab.bellFg }};display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:{{ atab.bellFill }};">{{ atab.bellIcon }}</span></button>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <sc-for list="{{ atab.cabins }}" as="o" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 16px 0 {{ o.padL }};border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                    <sc-if value="{{ o.on }}"><span style="font-family:'Material Symbols Rounded';font-size:18px;">check</span></sc-if>{{ o.label }}
+                  </button>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:center;">
+                <span style="font-size:14px;color:#414942;">{{ atab.summary }}</span>
+                <div style="display:flex;gap:12px;font-size:12px;color:#414942;">
+                  <sc-for list="{{ atab.legend }}" as="lg" hint-placeholder-count="4">
+                    <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:999px;background:{{ lg.bg }};box-shadow:inset 0 0 0 1px {{ lg.bd }};"></span>{{ lg.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-for list="{{ atab.months }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <span style="font-size:16px;font-weight:500;padding:10px 2px 2px;">{{ m.title }}</span>
+                  <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;font-size:12px;color:#414942;text-align:center;">
+                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;">
+                    <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35">
+                      <sc-if value="{{ c.blank }}"><span></span></sc-if>
+                      <sc-if value="{{ c.isPast }}"><span style="height:50px;padding:6px 10px;box-sizing:border-box;font-size:12px;color:#c1c9c0;">{{ c.day }}</span></sc-if>
+                      <sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+                        <button type="button" onClick="{{ c.onClick }}" aria-label="{{ c.aria }}" style="position:relative;height:50px;padding:0;border:0;border-radius:16px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.ring }};cursor:pointer;">
+                          <span style="position:absolute;top:6px;left:10px;font-size:12px;">{{ c.day }}</span>
+                          <span style="position:absolute;right:10px;bottom:6px;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+                        </button>
+                      </sc-if>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="position:relative;width:380px;flex:0 0 380px;margin:0 16px 16px 0;background:#f0f5ee;border-radius:16px;overflow:auto;padding:12px 16px 20px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;">
+              <div style="min-height:48px;display:flex;align-items:center;gap:4px;">
+                <span style="flex:1;font-size:22px;padding-left:4px;">{{ atab.dayShort }}</span>
+                <button type="button" onClick="{{ atab.prevDay }}" aria-label="Previous day" style="width:48px;height:48px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:#171d19;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">chevron_left</span></button>
+                <button type="button" onClick="{{ atab.nextDay }}" aria-label="Next day" style="width:48px;height:48px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:#171d19;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">chevron_right</span></button>
+              </div>
+              <p style="margin:0 0 4px;padding:0 4px;font-size:14px;line-height:20px;color:#414942;">{{ atab.daySub }}</p>
+              <sc-for list="{{ atab.flights }}" as="f" hint-placeholder-count="2">
+                <div style="background:#ffffff;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:20px;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px;">{{ f.dep }}<span style="color:#717971;">–</span>{{ f.arr }}<sup style="font-size:12px;color:#2b6a46;margin-left:-5px;">{{ f.plus }}</sup></span>
+                    <span style="font-size:13px;line-height:18px;color:#414942;">{{ f.nums }} · {{ f.meta }}</span>
+                  </div>
+                  <div style="height:1px;background:#c1c9c0;"></div>
+                  <sc-if value="{{ f.ok }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:20px;font-weight:500;font-variant-numeric:tabular-nums;">{{ f.miles }} <span style="font-size:14px;font-weight:400;color:#414942;">{{ f.unit }}</span></span>
+                        <span style="font-size:13px;color:#414942;">{{ f.sub }}</span>
+                      </div>
+                      <button type="button" onClick="{{ f.onBook }}" aria-expanded="{{ f.expanded }}" style="height:40px;padding:0 20px;border:0;border-radius:999px;background:#d0e8d5;color:#0b1f13;font-size:14px;font-weight:500;cursor:pointer;">{{ f.bookLabel }}</button>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ f.notOk }}"><span style="font-size:14px;color:#414942;">{{ f.status }}</span></sc-if>
+                  <sc-if value="{{ f.hasOthers }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                      <sc-for list="{{ f.others }}" as="o" hint-placeholder-count="2">
+                        <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 14px 0 8px;border:1px solid #717971;border-radius:8px;background:transparent;color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:18px;color:#2b6a46;">airline_seat_recline_normal</span>{{ o.label }} {{ o.price }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ f.expanded }}">
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                      <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+                        <sc-for list="{{ f.steps }}" as="st" hint-placeholder-count="3">
+                          <li style="display:grid;grid-template-columns:36px 1fr;font-size:14px;line-height:20px;"><span style="width:24px;height:24px;border-radius:999px;background:#b1f1c3;color:#002110;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;">{{ st.n }}</span><span>{{ st.text }}</span></li>
+                        </sc-for>
+                      </ol>
+                      <div style="border-top:1px solid #c1c9c0;padding-top:10px;display:flex;justify-content:space-between;gap:10px;font-size:14px;">
+                        <span style="color:#414942;">{{ f.totalLabel }}</span><span style="font-weight:500;font-variant-numeric:tabular-nums;text-align:right;">{{ f.totalValue }}</span>
+                      </div>
+                      <button type="button" style="height:40px;border:0;border-radius:999px;background:#2b6a46;color:#ffffff;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">Open {{ f.site }}<span style="font-family:'Material Symbols Rounded';font-size:18px;">open_in_new</span></button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ tabToast }}">
+            <div role="status" style="position:absolute;left:50%;bottom:32px;margin-left:-180px;width:440px;z-index:20;background:#2c322d;color:#ecf2ea;border-radius:4px;padding:6px 8px 6px 16px;min-height:48px;box-sizing:border-box;display:flex;align-items:center;gap:8px;box-shadow:0 3px 8px rgba(0,0,0,0.2);">
+              <span style="flex:1;font-size:14px;line-height:20px;">{{ toast }}</span>
+              <button type="button" onClick="{{ undoToast }}" style="height:40px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:#95d5ab;font-size:14px;font-weight:500;cursor:pointer;">Undo</button>
+            </div>
+          </sc-if>
+          <div style="position:absolute;bottom:5px;left:50%;margin-left:-60px;width:120px;height:4px;border-radius:999px;background:#171d19;opacity:0.4;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section style="padding:56px 64px 96px;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#14201b;display:flex;flex-direction:column;gap:40px;">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px;">
+    <h1 style="margin:0;font-size:36px;font-weight:600;letter-spacing:-0.025em;">openseat as a native app</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#4d5a54;">The same search, calendar and booking flow, built with each platform's own controls. Tap programs, cabins, days, Book and the bell to try it.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:72px 96px;">
+
+    <div id="1a" style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#14201b;color:#fbfbfa;">1a</span>
+        <span style="font-size:22px;font-weight:600;letter-spacing:-0.015em;">iOS</span>
+        <span style="font-size:15px;color:#4d5a54;">Inset grouped lists, segmented controls, glass tab bar, floating sheet</span>
+      </div>
+      <div style="display:flex;gap:40px;align-items:flex-start;">
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Search</span>
+          <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+            <div style="position:relative;height:100%;background:#f2f2f7;font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;color:#000;">
+              <div style="height:100%;overflow:auto;padding:62px 0 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;">
+                <div style="padding:0 20px;display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:15px;font-weight:700;letter-spacing:-0.02em;color:#1d7a52;">openseat</span>
+                  <span style="width:36px;height:36px;border-radius:999px;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.08);"><i class="ph ph-user" style="font-size:18px;"></i></span>
+                </div>
+                <h2 style="margin:4px 0 0;padding:0 20px;font-size:34px;font-weight:700;letter-spacing:0.01em;line-height:41px;">Search</h2>
+                <p style="margin:0 0 12px;padding:0 20px;font-size:15px;line-height:1.4;color:#6e6e73;">Reward seats on Emirates, Etihad and Qatar Airways.</p>
+                <span style="padding:0 36px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Miles program</span>
+                <div style="margin:0 20px 16px;padding:2px;border-radius:9px;background:rgba(118,118,128,0.12);display:flex;gap:2px;">
+                  <sc-for list="{{ ios.programs }}" as="o" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ o.onClick }}" style="flex:1;height:32px;border:0;border-radius:7px;background:{{ o.bg }};box-shadow:{{ o.shadow }};font-size:13px;font-weight:{{ o.fw }};color:#000;cursor:pointer;">{{ o.label }}</button>
+                  </sc-for>
+                </div>
+                <span style="padding:0 36px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Route</span>
+                <div style="margin:0 20px 16px;background:#ffffff;border-radius:22px;overflow:hidden;">
+                  <div style="min-height:52px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                    <i class="ph ph-airplane-takeoff" style="font-size:20px;color:#1d7a52;"></i>
+                    <span style="flex:1;">From</span>
+                    <span style="color:#6e6e73;">Dubai</span><span style="font-size:13px;color:#8e8e93;">DXB</span>
+                    <i class="ph ph-caret-right" style="font-size:14px;color:#c4c4c7;"></i>
+                  </div>
+                  <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                  <div style="min-height:52px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                    <i class="ph ph-airplane-landing" style="font-size:20px;color:#1d7a52;"></i>
+                    <span style="flex:1;">To</span>
+                    <span style="color:#6e6e73;">London</span><span style="font-size:13px;color:#8e8e93;">LHR</span>
+                    <i class="ph ph-caret-right" style="font-size:14px;color:#c4c4c7;"></i>
+                  </div>
+                </div>
+                <span style="padding:0 36px;font-size:13px;color:#6e6e73;text-transform:uppercase;">Trip</span>
+                <div style="margin:0 20px;background:#ffffff;border-radius:22px;overflow:hidden;">
+                  <button type="button" onClick="{{ ios.cycleCabin }}" style="width:100%;min-height:52px;padding:0 16px;border:0;background:transparent;display:flex;align-items:center;gap:12px;font-size:17px;color:#000;cursor:pointer;text-align:left;">
+                    <i class="ph ph-seat" style="font-size:20px;color:#1d7a52;"></i>
+                    <span style="flex:1;">Cabin</span>
+                    <span style="color:#1d7a52;">{{ ios.cabinLabel }}</span>
+                    <i class="ph ph-caret-up-down" style="font-size:14px;color:#1d7a52;"></i>
+                  </button>
+                  <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                  <div style="min-height:52px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                    <i class="ph ph-users" style="font-size:20px;color:#1d7a52;"></i>
+                    <span style="flex:1;">Travellers</span>
+                    <span style="color:#6e6e73;min-width:16px;text-align:center;">{{ ios.pax }}</span>
+                    <div style="display:flex;align-items:center;height:32px;border-radius:8px;background:rgba(118,118,128,0.12);">
+                      <button type="button" onClick="{{ ios.decPax }}" aria-label="Fewer travellers" style="width:46px;height:32px;border:0;background:transparent;color:#000;cursor:pointer;"><i class="ph ph-minus" style="font-size:15px;"></i></button>
+                      <span style="width:1px;height:18px;background:rgba(60,60,67,0.29);"></span>
+                      <button type="button" onClick="{{ ios.incPax }}" aria-label="More travellers" style="width:46px;height:32px;border:0;background:transparent;color:#000;cursor:pointer;"><i class="ph ph-plus" style="font-size:15px;"></i></button>
+                    </div>
+                  </div>
+                  <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                  <div style="min-height:52px;padding:0 16px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                    <i class="ph ph-arrows-left-right" style="font-size:20px;color:#1d7a52;"></i>
+                    <span style="flex:1;">Return trip</span>
+                    <button type="button" role="switch" aria-checked="{{ ios.retOn }}" onClick="{{ ios.toggleRet }}" aria-label="Return trip" style="position:relative;width:51px;height:31px;border:0;border-radius:999px;background:{{ ios.trackBg }};cursor:pointer;padding:0;transition:background .2s;">
+                      <span style="position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:999px;background:#ffffff;box-shadow:0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16);transform:translateX({{ ios.knobX }});transition:transform .25s cubic-bezier(.3,1.4,.6,1);"></span>
+                    </button>
+                  </div>
+                  <sc-if value="{{ ios.retOn }}">
+                    <div style="height:0.5px;margin-left:48px;background:rgba(60,60,67,0.29);"></div>
+                    <div style="min-height:52px;padding:0 16px 0 48px;display:flex;align-items:center;gap:12px;font-size:17px;">
+                      <span style="flex:1;">Back after</span>
+                      <span style="color:#1d7a52;">2 weeks</span>
+                      <i class="ph ph-caret-up-down" style="font-size:14px;color:#1d7a52;"></i>
+                    </div>
+                  </sc-if>
+                </div>
+                <p style="margin:6px 0 20px;padding:0 36px;font-size:13px;line-height:1.4;color:#6e6e73;">A day shows seats only when one flight has enough for every traveller.</p>
+                <button type="button" style="margin:0 20px;height:52px;border:0;border-radius:999px;background:#1d7a52;color:#ffffff;font-size:17px;font-weight:600;cursor:pointer;">Find seats</button>
+              </div>
+              <div style="position:absolute;left:20px;right:20px;bottom:26px;height:62px;border-radius:999px;background:rgba(255,255,255,0.78);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);box-shadow:0 8px 32px rgba(0,0,0,0.10), inset 0 0 0 0.5px rgba(0,0,0,0.06);display:flex;align-items:center;padding:4px;box-sizing:border-box;">
+                <span style="flex:1;height:54px;border-radius:999px;background:rgba(0,0,0,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#1d7a52;"><i class="ph-fill ph-magnifying-glass" style="font-size:24px;"></i><span style="font-size:10px;font-weight:600;">Search</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#000;"><i class="ph ph-bell" style="font-size:24px;"></i><span style="font-size:10px;font-weight:500;">Alerts</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#000;"><i class="ph ph-gear-six" style="font-size:24px;"></i><span style="font-size:10px;font-weight:500;">Settings</span></span>
+              </div>
+            </div>
+          </x-import>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Calendar</span>
+          <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+            <div style="position:relative;height:100%;background:#f2f2f7;font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;color:#000;">
+              <div style="height:100%;overflow:auto;padding:112px 0 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;">
+                <div style="margin:0 16px;padding:2px;border-radius:9px;background:rgba(118,118,128,0.12);display:flex;gap:2px;">
+                  <sc-for list="{{ ios.cabins }}" as="o" hint-placeholder-count="4">
+                    <button type="button" onClick="{{ o.onClick }}" style="flex:1;height:32px;border:0;border-radius:7px;background:{{ o.bg }};box-shadow:{{ o.shadow }};font-size:13px;font-weight:{{ o.fw }};color:#000;cursor:pointer;">{{ o.label }}</button>
+                  </sc-for>
+                </div>
+                <p style="margin:0;padding:0 20px;font-size:15px;line-height:1.4;color:#3c3c43;">{{ ios.summary }}</p>
+                <div style="padding:0 20px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:#6e6e73;">
+                  <sc-for list="{{ ios.legend }}" as="lg" hint-placeholder-count="4">
+                    <span style="display:flex;align-items:center;gap:5px;"><span style="width:14px;height:14px;border-radius:4px;background:{{ lg.bg }};box-shadow:inset 0 0 0 1px {{ lg.bd }};"></span>{{ lg.label }}</span>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ ios.months }}" as="m" hint-placeholder-count="3">
+                  <div style="display:flex;flex-direction:column;gap:6px;padding:0 16px;">
+                    <span style="font-size:20px;font-weight:700;padding:8px 4px 4px;">{{ m.title }}</span>
+                    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:11px;font-weight:600;color:#8e8e93;text-align:center;">
+                      <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;">
+                      <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35">
+                        <sc-if value="{{ c.blank }}"><span></span></sc-if>
+                        <sc-if value="{{ c.isPast }}"><span style="height:48px;display:flex;justify-content:center;padding-top:6px;box-sizing:border-box;font-size:13px;color:#c7c7cc;">{{ c.day }}</span></sc-if>
+                        <sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+                          <button type="button" onClick="{{ c.onClick }}" aria-label="{{ c.aria }}" style="height:48px;padding:5px 0 0;border:0;border-radius:12px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.ring }};cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;">
+                            <span style="font-size:12px;font-weight:500;">{{ c.day }}</span>
+                            <span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+                          </button>
+                        </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="position:absolute;top:54px;left:0;right:0;height:52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#f2f2f7 70%,rgba(242,242,247,0));">
+                <span style="width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.8);box-shadow:0 2px 10px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;"><i class="ph ph-caret-left" style="font-size:20px;"></i></span>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <span style="font-size:17px;font-weight:600;">DXB → LHR</span>
+                  <span style="font-size:12px;color:#6e6e73;">{{ ios.navSub }}</span>
+                </div>
+                <button type="button" onClick="{{ ios.toggleAlert }}" aria-pressed="{{ ios.alert }}" aria-label="Alert me when seats open" style="width:44px;height:44px;border:0;border-radius:999px;background:{{ ios.bellBg }};box-shadow:0 2px 10px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ ios.bellFg }};"><i class="{{ ios.bellIcon }}" style="font-size:20px;"></i></button>
+              </div>
+              <div style="position:absolute;left:20px;right:20px;bottom:26px;height:62px;border-radius:999px;background:rgba(255,255,255,0.78);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);box-shadow:0 8px 32px rgba(0,0,0,0.10), inset 0 0 0 0.5px rgba(0,0,0,0.06);display:flex;align-items:center;padding:4px;box-sizing:border-box;">
+                <span style="flex:1;height:54px;border-radius:999px;background:rgba(0,0,0,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#1d7a52;"><i class="ph-fill ph-magnifying-glass" style="font-size:24px;"></i><span style="font-size:10px;font-weight:600;">Search</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#000;"><i class="ph ph-bell" style="font-size:24px;"></i><span style="font-size:10px;font-weight:500;">Alerts</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#000;"><i class="ph ph-gear-six" style="font-size:24px;"></i><span style="font-size:10px;font-weight:500;">Settings</span></span>
+              </div>
+            </div>
+          </x-import>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Day and how to book</span>
+          <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+            <div style="position:relative;height:100%;background:#f2f2f7;font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;color:#000;overflow:hidden;">
+              <div style="height:100%;overflow:auto;padding:112px 0 48px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;">
+                <h2 style="margin:0;padding:0 20px;font-size:28px;font-weight:700;line-height:1.15;">{{ ios.dayLong }}</h2>
+                <p style="margin:0 0 6px;padding:0 20px;font-size:15px;line-height:1.4;color:#6e6e73;">{{ ios.daySub }}</p>
+                <sc-for list="{{ ios.flights }}" as="f" hint-placeholder-count="2">
+                  <div style="margin:0 16px;background:#ffffff;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+                    <div style="display:flex;flex-direction:column;gap:3px;">
+                      <span style="font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px;">{{ f.dep }}<i class="ph ph-arrow-right" style="font-size:15px;color:#8e8e93;"></i>{{ f.arr }}<sup style="font-size:12px;color:#1d7a52;margin-left:-5px;">{{ f.plus }}</sup></span>
+                      <span style="font-size:13px;color:#6e6e73;">{{ f.nums }} · {{ f.meta }}</span>
+                    </div>
+                    <div style="height:0.5px;background:rgba(60,60,67,0.29);"></div>
+                    <sc-if value="{{ f.ok }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                          <span style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;">{{ f.miles }} <span style="font-size:14px;font-weight:500;color:#6e6e73;">{{ f.unit }}</span></span>
+                          <span style="font-size:13px;color:#6e6e73;">{{ f.sub }}</span>
+                        </div>
+                        <button type="button" onClick="{{ f.onBook }}" style="height:36px;padding:0 18px;border:0;border-radius:999px;background:rgba(29,122,82,0.12);color:#1d7a52;font-size:15px;font-weight:600;cursor:pointer;">Book</button>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ f.notOk }}">
+                      <span style="font-size:15px;color:#6e6e73;">{{ f.status }}</span>
+                    </sc-if>
+                    <sc-if value="{{ f.hasOthers }}">
+                      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+                        <span style="font-size:13px;color:#6e6e73;">Also open</span>
+                        <sc-for list="{{ f.others }}" as="o" hint-placeholder-count="2">
+                          <button type="button" onClick="{{ o.onClick }}" style="height:28px;padding:0 10px;border:0;border-radius:999px;background:#f2f2f7;color:#000;font-size:13px;cursor:pointer;">{{ o.label }} {{ o.price }}</button>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="position:absolute;top:54px;left:0;right:0;height:52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#f2f2f7 70%,rgba(242,242,247,0));">
+                <span style="width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.8);box-shadow:0 2px 10px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;"><i class="ph ph-caret-left" style="font-size:20px;"></i></span>
+                <span style="font-size:17px;font-weight:600;">{{ ios.cabinLabel }}</span>
+                <div style="height:44px;border-radius:999px;background:rgba(255,255,255,0.8);box-shadow:0 2px 10px rgba(0,0,0,0.08);display:flex;align-items:center;">
+                  <button type="button" onClick="{{ ios.prevDay }}" aria-label="Previous day" style="width:44px;height:44px;border:0;background:transparent;cursor:pointer;color:#000;"><i class="ph ph-caret-up" style="font-size:18px;"></i></button>
+                  <button type="button" onClick="{{ ios.nextDay }}" aria-label="Next day" style="width:44px;height:44px;border:0;background:transparent;cursor:pointer;color:#000;"><i class="ph ph-caret-down" style="font-size:18px;"></i></button>
+                </div>
+              </div>
+              <sc-if value="{{ ios.sheet }}">
+                <div onClick="{{ ios.closeSheet }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.22);z-index:70;"></div>
+                <div role="dialog" aria-label="How to book" style="position:absolute;left:8px;right:8px;bottom:8px;z-index:71;background:#ffffff;border-radius:40px;padding:8px 20px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 -10px 40px rgba(0,0,0,0.15);">
+                  <span style="align-self:center;width:36px;height:5px;border-radius:999px;background:#d1d1d6;"></span>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:20px;font-weight:700;">How to book</span>
+                      <span style="font-size:13px;color:#6e6e73;">{{ ios.sheetSub }}</span>
+                    </div>
+                    <button type="button" onClick="{{ ios.closeSheet }}" aria-label="Close" style="width:36px;height:36px;border:0;border-radius:999px;background:#f2f2f7;color:#3c3c43;cursor:pointer;"><i class="ph ph-x" style="font-size:16px;"></i></button>
+                  </div>
+                  <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+                    <sc-for list="{{ ios.steps }}" as="st" hint-placeholder-count="3">
+                      <li style="display:grid;grid-template-columns:30px 1fr;font-size:15px;line-height:1.4;"><span style="width:22px;height:22px;border-radius:999px;background:rgba(29,122,82,0.12);color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">{{ st.n }}</span><span>{{ st.text }}</span></li>
+                    </sc-for>
+                  </ol>
+                  <div style="background:#f2f2f7;border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;font-size:15px;">
+                    <span style="color:#6e6e73;">{{ ios.totalLabel }}</span>
+                    <span style="font-weight:600;font-variant-numeric:tabular-nums;text-align:right;">{{ ios.totalValue }}</span>
+                  </div>
+                  <button type="button" style="height:52px;border:0;border-radius:999px;background:#1d7a52;color:#ffffff;font-size:17px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">Open {{ ios.site }}<i class="ph ph-arrow-up-right" style="font-size:16px;"></i></button>
+                </div>
+              </sc-if>
+            </div>
+          </x-import>
+        </div>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#14201b;color:#fbfbfa;">1b</span>
+        <span style="font-size:22px;font-weight:600;letter-spacing:-0.015em;">Android</span>
+        <span style="font-size:15px;color:#4d5a54;">Material 3: filter chips, outlined fields, navigation bar, modal bottom sheet, snackbar</span>
+      </div>
+      <div style="display:flex;gap:40px;align-items:flex-start;">
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Search</span>
+          <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="412px,892px">
+            <div style="position:relative;height:100%;background:#f6fbf3;font-family:Roboto,system-ui,sans-serif;color:#171d19;">
+              <div style="height:100%;overflow:auto;padding-bottom:100px;box-sizing:border-box;display:flex;flex-direction:column;">
+                <div style="height:64px;padding:0 4px 0 16px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:22px;font-weight:500;letter-spacing:-0.01em;color:#2b6a46;">openseat</span>
+                  <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:28px;color:#414942;">account_circle</span></span>
+                </div>
+                <h2 style="margin:8px 0 4px;padding:0 16px;font-size:28px;font-weight:400;line-height:36px;">Find reward seats</h2>
+                <p style="margin:0 0 20px;padding:0 16px;font-size:14px;line-height:20px;color:#414942;">Emirates, Etihad and Qatar Airways, the next 90 days.</p>
+                <span style="padding:0 16px 8px;font-size:14px;font-weight:500;color:#414942;">Miles program</span>
+                <div style="padding:0 16px 20px;display:flex;flex-wrap:wrap;gap:8px;">
+                  <sc-for list="{{ and.programs }}" as="o" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 16px 0 {{ o.padL }};border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;">
+                      <sc-if value="{{ o.on }}"><span style="font-family:'Material Symbols Rounded';font-size:18px;">check</span></sc-if>{{ o.label }}
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="position:relative;padding:0 16px;display:flex;flex-direction:column;gap:16px;">
+                  <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;gap:12px;padding:0 56px 0 12px;">
+                    <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f6fbf3;font-size:12px;color:#414942;">From</span>
+                    <span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">flight_takeoff</span>
+                    <span style="font-size:16px;">Dubai (DXB)</span>
+                  </div>
+                  <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;gap:12px;padding:0 56px 0 12px;">
+                    <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f6fbf3;font-size:12px;color:#414942;">To</span>
+                    <span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">flight_land</span>
+                    <span style="font-size:16px;">London (LHR)</span>
+                  </div>
+                  <span aria-label="Swap airports" style="position:absolute;right:28px;top:50%;margin-top:-20px;width:40px;height:40px;border-radius:999px;background:#d0e8d5;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:22px;color:#0b1f13;">swap_vert</span></span>
+                </div>
+                <div style="padding:16px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                  <button type="button" onClick="{{ and.cycleCabin }}" style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;background:transparent;display:flex;align-items:center;padding:0 4px 0 16px;cursor:pointer;color:#171d19;text-align:left;">
+                    <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f6fbf3;font-size:12px;color:#414942;">Cabin</span>
+                    <span style="flex:1;font-size:16px;">{{ and.cabinLabel }}</span>
+                    <span style="font-family:'Material Symbols Rounded';font-size:24px;color:#414942;">arrow_drop_down</span>
+                  </button>
+                  <div style="position:relative;height:56px;border:1px solid #717971;border-radius:4px;display:flex;align-items:center;padding:0 0 0 16px;">
+                    <span style="position:absolute;top:-9px;left:12px;padding:0 4px;background:#f6fbf3;font-size:12px;color:#414942;">Travellers</span>
+                    <span style="flex:1;font-size:16px;">{{ and.pax }}</span>
+                    <button type="button" onClick="{{ and.decPax }}" aria-label="Fewer travellers" style="width:40px;height:48px;border:0;background:transparent;cursor:pointer;color:#414942;"><span style="font-family:'Material Symbols Rounded';font-size:22px;">remove</span></button>
+                    <button type="button" onClick="{{ and.incPax }}" aria-label="More travellers" style="width:40px;height:48px;border:0;background:transparent;cursor:pointer;color:#414942;"><span style="font-family:'Material Symbols Rounded';font-size:22px;">add</span></button>
+                  </div>
+                </div>
+                <div style="margin-top:12px;min-height:72px;padding:8px 24px 8px 16px;display:flex;align-items:center;gap:16px;">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:16px;">Return trip</span>
+                    <span style="font-size:14px;color:#414942;">{{ and.retSub }}</span>
+                  </div>
+                  <button type="button" role="switch" aria-checked="{{ and.retOn }}" onClick="{{ and.toggleRet }}" aria-label="Return trip" style="position:relative;width:52px;height:32px;padding:0;border:2px solid {{ and.trackBd }};border-radius:999px;background:{{ and.trackBg }};cursor:pointer;box-sizing:border-box;transition:background .2s;">
+                    <span style="position:absolute;top:{{ and.thumbT }};left:{{ and.thumbL }};width:{{ and.thumbS }};height:{{ and.thumbS }};border-radius:999px;background:{{ and.thumbBg }};display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(.2,0,0,1);"><sc-if value="{{ and.retOn }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#2b6a46;">check</span></sc-if></span>
+                  </button>
+                </div>
+                <button type="button" style="margin:16px 16px 0;height:56px;border:0;border-radius:999px;background:#2b6a46;color:#ffffff;font-size:16px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><span style="font-family:'Material Symbols Rounded';font-size:22px;">search</span>Search</button>
+              </div>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:80px;background:#eaefe8;display:flex;align-items:flex-start;padding-top:12px;box-sizing:border-box;">
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="width:64px;height:32px;border-radius:999px;background:#d0e8d5;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:'FILL' 1;color:#0b1f13;">search</span></span><span style="font-size:12px;font-weight:700;">Search</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:64px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">notifications</span></span><span style="font-size:12px;font-weight:500;">Alerts</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:64px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">settings</span></span><span style="font-size:12px;font-weight:500;">Settings</span></span>
+              </div>
+            </div>
+          </x-import>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Calendar</span>
+          <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="412px,892px">
+            <div style="position:relative;height:100%;background:#f6fbf3;font-family:Roboto,system-ui,sans-serif;color:#171d19;overflow:hidden;">
+              <div style="height:100%;overflow:auto;padding-bottom:100px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;">
+                <div style="min-height:64px;padding:8px 4px;display:flex;align-items:center;gap:4px;box-sizing:border-box;">
+                  <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</span></span>
+                  <div style="flex:1;display:flex;flex-direction:column;">
+                    <span style="font-size:22px;line-height:28px;">Dubai to London</span>
+                    <span style="font-size:14px;color:#414942;">{{ and.navSub }}</span>
+                  </div>
+                  <button type="button" onClick="{{ and.toggleAlert }}" aria-pressed="{{ and.alert }}" aria-label="Alert me when seats open" style="width:48px;height:48px;border:0;border-radius:999px;background:{{ and.bellBg }};cursor:pointer;color:{{ and.bellFg }};display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:{{ and.bellFill }};">{{ and.bellIcon }}</span></button>
+                </div>
+                <div style="padding:0 16px;display:flex;gap:8px;overflow-x:auto;">
+                  <sc-for list="{{ and.cabins }}" as="o" hint-placeholder-count="4">
+                    <button type="button" onClick="{{ o.onClick }}" style="flex:0 0 auto;height:32px;padding:0 16px 0 {{ o.padL }};border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                      <sc-if value="{{ o.on }}"><span style="font-family:'Material Symbols Rounded';font-size:18px;">check</span></sc-if>{{ o.label }}
+                    </button>
+                  </sc-for>
+                </div>
+                <p style="margin:0;padding:0 16px;font-size:14px;line-height:20px;color:#414942;">{{ and.summary }}</p>
+                <div style="padding:0 16px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:#414942;">
+                  <sc-for list="{{ and.legend }}" as="lg" hint-placeholder-count="4">
+                    <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:999px;background:{{ lg.bg }};box-shadow:inset 0 0 0 1px {{ lg.bd }};"></span>{{ lg.label }}</span>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ and.months }}" as="m" hint-placeholder-count="3">
+                  <div style="display:flex;flex-direction:column;gap:6px;padding:0 12px;">
+                    <span style="font-size:16px;font-weight:500;padding:10px 4px 4px;">{{ m.title }}</span>
+                    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:12px;color:#414942;text-align:center;">
+                      <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;">
+                      <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35">
+                        <sc-if value="{{ c.blank }}"><span></span></sc-if>
+                        <sc-if value="{{ c.isPast }}"><span style="height:50px;display:flex;justify-content:center;padding-top:7px;box-sizing:border-box;font-size:13px;color:#c1c9c0;">{{ c.day }}</span></sc-if>
+                        <sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+                          <button type="button" onClick="{{ c.onClick }}" aria-label="{{ c.aria }}" style="height:50px;padding:6px 0 0;border:0;border-radius:16px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.ring }};cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;">
+                            <span style="font-size:12px;">{{ c.day }}</span>
+                            <span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+                          </button>
+                        </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ hasToast }}">
+                <div role="status" style="position:absolute;left:12px;right:12px;bottom:92px;z-index:20;background:#2c322d;color:#ecf2ea;border-radius:4px;padding:6px 8px 6px 16px;min-height:48px;box-sizing:border-box;display:flex;align-items:center;gap:8px;box-shadow:0 3px 8px rgba(0,0,0,0.2);">
+                  <span style="flex:1;font-size:14px;line-height:20px;">{{ toast }}</span>
+                  <button type="button" onClick="{{ undoToast }}" style="height:40px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:#95d5ab;font-size:14px;font-weight:500;cursor:pointer;">Undo</button>
+                </div>
+              </sc-if>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:80px;background:#eaefe8;display:flex;align-items:flex-start;padding-top:12px;box-sizing:border-box;">
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="width:64px;height:32px;border-radius:999px;background:#d0e8d5;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:'FILL' 1;color:#0b1f13;">search</span></span><span style="font-size:12px;font-weight:700;">Search</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:64px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">notifications</span></span><span style="font-size:12px;font-weight:500;">Alerts</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#414942;"><span style="width:64px;height:32px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">settings</span></span><span style="font-size:12px;font-weight:500;">Settings</span></span>
+              </div>
+            </div>
+          </x-import>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:15px;font-weight:600;">Day and how to book</span>
+          <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="412px,892px">
+            <div style="position:relative;height:100%;background:#f6fbf3;font-family:Roboto,system-ui,sans-serif;color:#171d19;overflow:hidden;">
+              <div style="height:100%;overflow:auto;padding-bottom:24px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;">
+                <div style="height:64px;padding:0 4px;display:flex;align-items:center;gap:4px;">
+                  <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</span></span>
+                  <span style="flex:1;font-size:22px;">{{ and.dayShort }}</span>
+                  <button type="button" onClick="{{ and.prevDay }}" aria-label="Previous day" style="width:48px;height:48px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:#171d19;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">chevron_left</span></button>
+                  <button type="button" onClick="{{ and.nextDay }}" aria-label="Next day" style="width:48px;height:48px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:#171d19;"><span style="font-family:'Material Symbols Rounded';font-size:24px;">chevron_right</span></button>
+                </div>
+                <p style="margin:0 0 4px;padding:0 16px;font-size:14px;line-height:20px;color:#414942;">{{ and.daySub }}</p>
+                <sc-for list="{{ and.flights }}" as="f" hint-placeholder-count="2">
+                  <div style="margin:0 16px;background:#eaefe8;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                      <span style="font-size:22px;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px;">{{ f.dep }}<span style="color:#717971;">–</span>{{ f.arr }}<sup style="font-size:12px;color:#2b6a46;margin-left:-5px;">{{ f.plus }}</sup></span>
+                      <span style="font-size:14px;line-height:20px;color:#414942;">{{ f.nums }} · {{ f.meta }}</span>
+                    </div>
+                    <div style="height:1px;background:#c1c9c0;"></div>
+                    <sc-if value="{{ f.ok }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;flex-direction:column;gap:2px;">
+                        <span style="font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;">{{ f.miles }} <span style="font-size:14px;font-weight:400;color:#414942;">{{ f.unit }}</span></span>
+                        <span style="font-size:14px;color:#414942;">{{ f.sub }}</span>
+                      </div>
+                      <button type="button" onClick="{{ f.onBook }}" style="align-self:flex-start;height:40px;padding:0 24px;border:0;border-radius:999px;background:#d0e8d5;color:#0b1f13;font-size:14px;font-weight:500;cursor:pointer;">How to book</button>
+                    </sc-if>
+                    <sc-if value="{{ f.notOk }}">
+                      <span style="font-size:14px;color:#414942;">{{ f.status }}</span>
+                    </sc-if>
+                    <sc-if value="{{ f.hasOthers }}">
+                      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <sc-for list="{{ f.others }}" as="o" hint-placeholder-count="2">
+                          <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 16px 0 8px;border:1px solid #717971;border-radius:8px;background:transparent;color:#171d19;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-family:'Material Symbols Rounded';font-size:18px;color:#2b6a46;">airline_seat_recline_normal</span>{{ o.label }} {{ o.price }}</button>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ and.sheet }}">
+                <div onClick="{{ and.closeSheet }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.32);z-index:30;"></div>
+                <div role="dialog" aria-label="How to book" style="position:absolute;left:0;right:0;bottom:0;z-index:31;background:#f0f5ee;border-radius:28px 28px 0 0;padding:0 24px 24px;display:flex;flex-direction:column;gap:16px;">
+                  <span style="align-self:center;width:32px;height:4px;margin:22px 0 6px;border-radius:999px;background:#414942;opacity:0.4;"></span>
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:22px;line-height:28px;">How to book</span>
+                    <span style="font-size:14px;color:#414942;">{{ and.sheetSub }}</span>
+                  </div>
+                  <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;">
+                    <sc-for list="{{ and.steps }}" as="st" hint-placeholder-count="3">
+                      <li style="display:grid;grid-template-columns:40px 1fr;font-size:16px;line-height:24px;"><span style="width:28px;height:28px;border-radius:999px;background:#b1f1c3;color:#002110;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;">{{ st.n }}</span><span>{{ st.text }}</span></li>
+                    </sc-for>
+                  </ol>
+                  <div style="border-top:1px solid #c1c9c0;padding-top:14px;display:flex;justify-content:space-between;gap:12px;font-size:14px;">
+                    <span style="color:#414942;">{{ and.totalLabel }}</span>
+                    <span style="font-weight:500;font-variant-numeric:tabular-nums;text-align:right;">{{ and.totalValue }}</span>
+                  </div>
+                  <button type="button" style="height:48px;border:0;border-radius:999px;background:#2b6a46;color:#ffffff;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">Open {{ and.site }}<span style="font-family:'Material Symbols Rounded';font-size:18px;">open_in_new</span></button>
+                </div>
+              </sc-if>
+            </div>
+          </x-import>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const IH=[{bg:'#ffffff',fg:'#8e8e93',bd:'rgba(60,60,67,0.18)'},{bg:'#d4ecdd',fg:'#0b2b1b',bd:'#8cc9a5'},{bg:'#5fb184',fg:'#06170e',bd:'#5fb184'},{bg:'#1b6a47',fg:'#ffffff',bd:'#1b6a47'}];
+const AH=[{bg:'#eaefe8',fg:'#717971',bd:'#c1c9c0'},{bg:'#c8ebd2',fg:'#002110',bd:'#8fd5a6'},{bg:'#7ccd98',fg:'#002110',bd:'#7ccd98'},{bg:'#2b6a46',fg:'#ffffff',bd:'#2b6a46'}];
+const lvl=n=>n===0?0:n===1?1:n<=3?2:3;
+const D0={carrier:'EK',cabin:'business',pax:1,ret:false,sel:null,sheet:false,alert:false,flight:0};
+class Component extends DCLogic {
+  state={ios:{...D0,sheet:true},and:{...D0,sheet:true},ipad:{...D0,sheet:true},atab:{...D0,sheet:true},toast:'',toastP:''};
+  componentDidMount(){this.cache={};import('./award-data.js').then(L=>{this.L=L;this.forceUpdate();}).catch(e=>console.error(e));}
+  componentWillUnmount(){clearTimeout(this.tt);}
+  set(p,patch){this.setState(s=>({[p]:{...s[p],...patch}}));}
+  scan(c,pax){const k=c+pax;return this.cache[k]||(this.cache[k]=this.L.scan({carrier:c,from:'DXB',to:'LHR',pax}));}
+  build(p){
+    const L=this.L,st=this.state[p],A=p==='and'||p==='atab',T=p==='ipad'||p==='atab',H=A?AH:IH;
+    const trav=st.pax===1?'1 traveller':st.pax+' travellers';
+    const sw=A?(st.ret?{trackBg:'#2b6a46',trackBd:'#2b6a46',thumbS:'24px',thumbT:'2px',thumbL:'22px',thumbBg:'#ffffff'}:{trackBg:'#dee4dd',trackBd:'#717971',thumbS:'16px',thumbT:'6px',thumbL:'6px',thumbBg:'#717971'})
+      :{trackBg:st.ret?'#1d7a52':'rgba(120,120,128,0.16)',knobX:st.ret?'20px':'0px'};
+    const base={...sw,pax:String(st.pax),retOn:st.ret,retSub:st.ret?'Back 2 weeks later':'One way',sheet:st.sheet,alert:st.alert,
+      toggleRet:()=>this.set(p,{ret:!st.ret}),closeSheet:()=>this.set(p,{sheet:false}),
+      incPax:()=>this.set(p,{pax:Math.min(6,st.pax+1),sel:null}),decPax:()=>this.set(p,{pax:Math.max(1,st.pax-1),sel:null}),
+      bellBg:st.alert?(A?'#d0e8d5':'#1d7a52'):(A?'transparent':'rgba(255,255,255,0.8)'),bellFg:st.alert?(A?'#0b1f13':'#ffffff'):(A?'#414942':'#000000'),
+      bellIcon:A?(st.alert?'notifications_active':'notifications'):(st.alert?'ph-fill ph-bell-ringing':'ph ph-bell'),bellFill:st.alert?"'FILL' 1":"'FILL' 0"};
+    if(!L)return{...base,programs:[],cabins:[],months:[],flights:[],legend:[],steps:[],cabinLabel:'',navSub:'',summary:'',dayLong:'',dayShort:'',daySub:'',sheetSub:'',totalLabel:'',totalValue:'',site:''};
+    const rc=L.car(st.carrier),cb=L.cabin(st.cabin),res=this.scan(st.carrier,st.pax);
+    const first=res.days.findIndex(d=>d.by[st.cabin].count>0),si=st.sel!=null?st.sel:Math.max(0,first);
+    const seg=(on,label,onClick)=>A
+      ?{label,on,onClick,bg:on?'#d0e8d5':'transparent',bd:on?'#d0e8d5':'#717971',padL:on?'8px':'16px'}
+      :{label,on,onClick,bg:on?'#ffffff':'transparent',shadow:on?'0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04)':'none',fw:on?'600':'500'};
+    const programs=L.CARRIERS.map(c=>seg(c.id===st.carrier,c.airline,()=>this.set(p,{carrier:c.id,sel:null,sheet:false})));
+    const cabins=L.CABINS.map(c=>seg(c.id===st.cabin,A?c.en:c.short,()=>this.set(p,{cabin:c.id,sel:null,sheet:false})));
+    const months=[];let cur=null;
+    res.days.forEach((d,i)=>{
+      const mk=d.date.getMonth();
+      if(!cur||cur.mk!==mk){cur={mk,title:d.date.toLocaleDateString('en-GB',{month:'long',year:'numeric'}),cells:[]};months.push(cur);
+        const off=(new Date(d.date.getFullYear(),mk,1).getDay()+6)%7;for(let k=0;k<off;k++)cur.cells.push({blank:true,isPast:false,isDay:false});
+        for(let dd=1;dd<d.date.getDate();dd++)cur.cells.push({blank:false,isPast:true,isDay:false,day:dd});}
+      const b=d.by[st.cabin],h=H[lvl(b.count)],on=i===si;
+      cur.cells.push({blank:false,isPast:false,isDay:true,day:d.date.getDate(),count:b.count?(b.count>=4?'4+':String(b.count)):'',bg:h.bg,fg:h.fg,
+        ring:on?(A?'0 0 0 2px #f6fbf3, 0 0 0 4px #171d19':'0 0 0 2px #f2f2f7, 0 0 0 4px #000000'):(lvl(b.count)===0&&!A?'inset 0 0 0 0.5px rgba(60,60,67,0.18)':'none'),
+        aria:d.date.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+', '+(b.count?(b.count>=4?'4 or more':b.count)+' seats':'no seats'),
+        onClick:()=>this.set(p,{sel:i,sheet:false})});
+    });
+    const av=res.days.filter(d=>d.by[st.cabin].count>0),offered=res.days.some(d=>d.by[st.cabin].offered);
+    const summary=!offered?rc.program+' does not offer '+cb.en+' from Dubai to London.'
+      :av.length?'Seats on '+av.length+' of the next 90 days, from '+L.num(Math.min(...av.map(d=>d.by[st.cabin].minMiles)))+' '+rc.unit+' one way.'
+      :'No '+cb.en+' seats in the next 90 days. Tap the bell to get an alert.';
+    const day=res.days[si];
+    const dayLong=day.date.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+    const dayShort=day.date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    const okIdx=day.fl.findIndex(x=>(x.seats[st.cabin]||0)>=st.pax);
+    const sfi=st.flight<day.fl.length&&(day.fl[st.flight].seats[st.cabin]||0)>=st.pax?st.flight:Math.max(0,okIdx);
+    const sf=day.fl[sfi].f;
+    const m=L.milesFor(rc,st.cabin,sf.dist)*st.pax,tx=L.taxFor(rc,st.cabin,sf.dist)*st.pax;
+    const steps=[{n:'1',text:'Sign in to '+rc.program+' on '+rc.site+'.'},{n:'2',text:'Search Dubai to London on '+dayLong+' with '+rc.term+' turned on.'},{n:'3',text:'Choose '+sf.nums.join(' and ')+' in '+cb.en+'.'}];
+    const flights=day.fl.map(({f,seats},fi)=>{
+      const exp=T&&st.sheet&&fi===sfi;
+      const n=seats[st.cabin],ok=n!==null&&n>=st.pax;
+      const others=L.CABINS.filter(c=>c.id!==st.cabin&&seats[c.id]!==null&&seats[c.id]>=st.pax).map(c=>({label:c.short,price:Math.round(L.milesFor(rc,c.id,f.dist)/1000)+'k',onClick:()=>this.set(p,{cabin:c.id})}));
+      return{dep:L.fmtT(f.dep),arr:L.fmtT(f.arr),plus:f.dayOff>0?'+'+f.dayOff:'',nums:f.nums.join(' + '),
+        meta:f.ac+' · '+(f.direct?'Nonstop':'1 stop, '+L.AP[f.hub].city)+' · '+L.fmtD(f.total),
+        ok,notOk:!ok,miles:L.num(L.milesFor(rc,st.cabin,f.dist)),unit:rc.unit,
+        sub:'+ $'+L.taxFor(rc,st.cabin,f.dist)+' taxes · '+(n>=9?'9+':n)+' seat'+(n>1?'s':'')+' left',
+        status:n===null?cb.en+' not offered on this flight':'No '+cb.en+' seats for '+trav,
+        others,hasOthers:others.length>0,expanded:exp,steps:exp?steps:[],bookLabel:exp?'Hide steps':(A?'How to book':'Book'),
+        totalLabel:'Total for '+trav,totalValue:L.num(m)+' '+rc.unit+' + $'+L.num(tx),site:rc.site,
+        onBook:()=>this.set(p,T?{sheet:!exp,flight:fi}:{sheet:true,flight:fi})};
+    });
+    const nq=day.by[st.cabin].nq;
+    return{...base,programs,cabins,months,flights,
+      legend:[{label:'None',...H[0]},{label:'1 seat',...H[1]},{label:'2 to 3',...H[2]},{label:'4 or more',...H[3]}],
+      cabinLabel:cb.en,navSub:cb.en+' · '+trav+(st.alert?' · Alert on':''),summary,dayLong,dayShort,
+      daySub:nq+' of '+day.fl.length+' flight'+(day.fl.length>1?'s':'')+' with '+cb.en+' seats. Prices per traveller, one way.',
+      prevDay:()=>this.set(p,{sel:Math.max(0,si-1),sheet:false}),nextDay:()=>this.set(p,{sel:Math.min(89,si+1),sheet:false}),
+      cycleCabin:()=>{const ix=L.CABINS.findIndex(c=>c.id===st.cabin);this.set(p,{cabin:L.CABINS[(ix+1)%4].id,sel:null,sheet:false});},
+      toggleAlert:()=>{const on=!st.alert;this.set(p,{alert:on});if(A){clearTimeout(this.tt);this.setState({toastP:p,toast:on?'You will get an alert when '+cb.en+' seats open':'Alert turned off'});this.tt=setTimeout(()=>this.setState({toast:''}),3500);}},
+      sheetSub:sf.nums.join(' + ')+' · DXB → LHR · '+dayShort,
+      steps,
+      totalLabel:'Total for '+trav,totalValue:L.num(m)+' '+rc.unit+' + $'+L.num(tx),site:rc.site};
+  }
+  renderVals(){
+    const s=this.state;
+    return{ios:this.build('ios'),and:this.build('and'),ipad:this.build('ipad'),atab:this.build('atab'),
+      hasToast:!!s.toast&&s.toastP==='and',tabToast:!!s.toast&&s.toastP==='atab',toast:s.toast,
+      undoToast:()=>{clearTimeout(this.tt);this.setState(x=>({toast:'',[x.toastP]:{...x[x.toastP],alert:!x[x.toastP].alert}}));}};
+  }
+}
+</script>
+</body>
+</html>

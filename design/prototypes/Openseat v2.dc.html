@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/svg+xml" href="openseat-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Arabic:wght@400;500&amp;display=swap">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;background:#f3f3f1;-webkit-font-smoothing:antialiased}
+a{color:#1d7a52}a:hover{color:#14201b}
+button,input{font-family:inherit}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div lang="en" style="position:relative;min-height:100dvh;background:#f3f3f1;color:#14201b;font-family:'Hanken Grotesk',system-ui,sans-serif;">
+  <header style="max-width:1200px;margin:0 auto;padding:24px 20px 8px;height:64px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="display:flex;align-items:center;gap:10px;font-size:23px;font-weight:700;letter-spacing:-0.03em;"><img src="openseat-icon.svg" alt="" width="32" height="32" style="width:32px;height:32px;border-radius:8px;display:block;">openseat</span>
+    <nav style="display:flex;gap:6px;flex-wrap:wrap;font-size:15px;">
+      <a href="Openseat%20How%20to%20use.dc.html" style="padding:8px 14px;border-radius:999px;color:#14201b;text-decoration:none;border:1px solid #dcdfdb;" style-hover="border-color:#14201b;color:#14201b;">How to use</a>
+      <a href="Openseat%20Terms.dc.html" style="padding:8px 14px;border-radius:999px;color:#14201b;text-decoration:none;" style-hover="color:#1d7a52;">Terms</a>
+    </nav>
+  </header>
+
+  <main style="max-width:1200px;margin:0 auto;padding:0 20px;">
+    <form role="search" aria-labelledby="find-title" onSubmit="{{ noSubmit }}" style="padding:24px 0 4px;max-width:1080px;margin:0;">
+      <h1 id="find-title" style="margin:0 0 10px;font-size:16px;font-weight:500;color:#4d5a54;">Find reward seats on Emirates, Etihad and Qatar Airways</h1>
+      <p style="margin:0;font-size:clamp(23px,3.2vw,40px);line-height:1.6;font-weight:500;letter-spacing:-0.015em;text-wrap:pretty;">
+        Using
+        <button type="button" onClick="{{ openProgram }}" aria-haspopup="dialog" aria-expanded="{{ programOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ programLabel }}<i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>,
+        show me
+        <button type="button" onClick="{{ openCabin }}" aria-haspopup="dialog" aria-expanded="{{ cabinOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ cabinLabel }}<i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>
+        seats for
+        <button type="button" onClick="{{ openPax }}" aria-haspopup="dialog" aria-expanded="{{ paxOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ paxLabel }}<i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>
+        from
+        <button type="button" onClick="{{ openFrom }}" aria-haspopup="dialog" aria-expanded="{{ fromOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ fromCity }}<span style="font-family:'DM Mono',monospace;font-size:0.5em;color:#4d5a54;">{{ from }}</span><i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>
+        to
+        <button type="button" onClick="{{ openTo }}" aria-haspopup="dialog" aria-expanded="{{ toOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ toCity }}<span style="font-family:'DM Mono',monospace;font-size:0.5em;color:#4d5a54;">{{ to }}</span><i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>,
+        <button type="button" onClick="{{ openRet }}" aria-haspopup="dialog" aria-expanded="{{ retOpen }}" style="display:inline-flex;align-items:center;gap:8px;padding:0 14px 2px;margin:0 2px;border-radius:999px;border:1.5px solid #dcdfdb;background:#fbfbfa;color:#1d7a52;font-size:inherit;font-weight:600;letter-spacing:inherit;cursor:pointer;line-height:1.3;" style-hover="border-color:#14201b;">{{ retLabel }}<i class="ph ph-caret-down" style="font-size:0.5em;color:#4d5a54;"></i></button>.
+      </p>
+      <sc-if value="{{ error }}">
+        <p role="alert" style="margin:12px 0 0;font-size:15px;display:flex;align-items:center;gap:8px;"><i class="ph ph-warning-circle" style="color:#1d7a52;font-size:18px;"></i>Pick two different airports to see seats.</p>
+      </sc-if>
+    </form>
+
+    <section aria-label="Results" style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:28px;align-items:start;">
+      <div style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:18px 16px 22px;display:flex;flex-direction:column;gap:14px;">
+        <sc-if value="{{ isReturn }}">
+          <div role="tablist" aria-label="Trip leg" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:999px;background:#ebecea;">
+            <sc-for list="{{ legTabs }}" as="lt" hint-placeholder-count="2">
+              <button type="button" role="tab" aria-selected="{{ lt.active }}" onClick="{{ lt.onClick }}" style="min-height:48px;border:0;border-radius:999px;background:{{ lt.bg }};box-shadow:{{ lt.shadow }};color:#14201b;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 10px;">
+                <span style="font-size:14px;font-weight:600;display:flex;gap:6px;align-items:baseline;">{{ lt.label }}<span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:400;">{{ lt.route }}</span></span>
+                <span style="font-size:12px;color:#4d5a54;">{{ lt.date }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:4px;padding:0 4px;">
+          <h2 style="margin:0;font-size:20px;font-weight:600;letter-spacing:-0.01em;">{{ calTitle }}</h2>
+          <p style="margin:0;font-size:14px;line-height:1.5;color:#4d5a54;">{{ calSub }}</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:#4d5a54;padding:0 4px;">
+          <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="4">
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:6px;background:{{ lg.bg }};border:1px solid {{ lg.bd }};color:{{ lg.fg }};font-family:'DM Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;">{{ lg.n }}</span>{{ lg.label }}</span>
+          </sc-for>
+          <sc-if value="{{ isRetLeg }}">
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:6px;border:1px solid #dcdfdb;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;box-sizing:border-box;"><span style="width:12px;height:3px;border-radius:999px;background:#14201b;"></span></span>{{ fitLegend }}</span>
+          </sc-if>
+        </div>
+        <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;padding-top:28px;">
+            <sc-for list="{{ skel }}" as="sk" hint-placeholder-count="35">
+              <span style="height:56px;border-radius:12px;background:#ebecea;animation:pulse 1.3s ease-in-out infinite;animation-delay:{{ sk.d }};"></span>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ ready }}">
+          <div ref="{{ calRef }}" role="group" aria-label="{{ calAria }}" onKeyDown="{{ onCalKey }}" style="display:flex;flex-direction:column;gap:22px;animation:rise .45s cubic-bezier(.16,1,.3,1) both;">
+            <sc-for list="{{ months }}" as="m" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <h3 style="margin:0;font-size:16px;font-weight:600;padding:0 4px 2px;">{{ m.title }}</h3>
+                <div aria-hidden="true" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;font-size:12px;color:#4d5a54;text-align:center;">
+                  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;">
+                  <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35">
+                    <sc-if value="{{ c.blank }}"><span aria-hidden="true"></span></sc-if>
+                    <sc-if value="{{ c.isStatic }}">
+                      <span aria-hidden="true" style="position:relative;height:56px;border-radius:12px;color:#b9bfbb;"><span style="position:absolute;top:6px;left:8px;font-size:12px;">{{ c.day }}</span></span>
+                    </sc-if>
+                    <sc-if value="{{ c.isBtn }}" hint-placeholder-val="{{ true }}">
+                      <button type="button" data-key="{{ c.key }}" tabIndex="{{ c.tab }}" onClick="{{ c.onClick }}" aria-label="{{ c.aria }}" aria-pressed="{{ c.selected }}" style="position:relative;height:56px;padding:0;border-radius:12px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.shadow }};cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;" style-active="transform:scale(0.94);" style-focus="outline:2px solid #1d7a52;outline-offset:3px;">
+                        <span style="position:absolute;top:6px;left:8px;font-size:12px;font-weight:500;line-height:1;">{{ c.day }}</span>
+                        <span style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;padding-top:9px;">{{ c.count }}</span>
+                        <span style="position:absolute;bottom:5px;left:50%;width:16px;margin-left:-8px;height:3px;border-radius:999px;background:{{ c.fit }};"></span>
+                      </button>
+                    </sc-if>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:0;font-size:13px;color:#4d5a54;padding:0 4px;">Use the arrow keys to move between days.</p>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ backdrop }}">
+        <div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(20,32,27,0.32);z-index:39;"></div>
+      </sc-if>
+      <div aria-live="polite" style="position:{{ p.pos }};top:{{ p.top }};left:{{ p.left }};right:{{ p.right }};bottom:{{ p.bottom }};z-index:{{ p.z }};max-height:{{ p.maxH }};overflow:{{ p.ov }};border-radius:{{ p.radius }};transform:{{ p.tf }};box-shadow:{{ p.shadow }};padding:{{ p.pad }};background:{{ p.bg }};display:flex;flex-direction:column;gap:14px;transition:transform .35s cubic-bezier(.16,1,.3,1);">
+        <sc-if value="{{ isMobile }}">
+          <div style="position:relative;height:28px;display:flex;justify-content:center;align-items:center;">
+            <span style="width:40px;height:4px;border-radius:999px;background:#c5cac6;"></span>
+            <button type="button" onClick="{{ closeSheet }}" aria-label="Close" style="position:absolute;right:-4px;top:-6px;width:44px;height:44px;border-radius:999px;border:0;background:transparent;color:#14201b;cursor:pointer;"><i class="ph ph-x" style="font-size:20px;"></i></button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ ready }}">
+          <div style="display:flex;flex-direction:column;gap:12px;padding:0 4px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <h3 style="margin:0;flex:1;min-width:0;font-size:26px;font-weight:600;letter-spacing:-0.02em;line-height:1.15;">{{ dayTitle }}</h3>
+              <button type="button" onClick="{{ prevDay }}" disabled="{{ prevDisabled }}" aria-label="Previous day" style="width:44px;height:44px;flex:0 0 44px;border-radius:999px;border:1px solid #dcdfdb;background:#fbfbfa;color:#14201b;cursor:pointer;opacity:{{ prevOp }};" style-hover="border-color:#14201b;"><i class="ph ph-caret-left" style="font-size:16px;"></i></button>
+              <button type="button" onClick="{{ nextDay }}" disabled="{{ nextDisabled }}" aria-label="Next day" style="width:44px;height:44px;flex:0 0 44px;border-radius:999px;border:1px solid #dcdfdb;background:#fbfbfa;color:#14201b;cursor:pointer;opacity:{{ nextOp }};" style-hover="border-color:#14201b;"><i class="ph ph-caret-right" style="font-size:16px;"></i></button>
+            </div>
+            <p style="margin:0;font-size:15px;line-height:1.5;color:#4d5a54;">{{ daySub }}</p>
+            <sc-if value="{{ isReturn }}">
+              <p style="margin:0;font-size:14px;line-height:1.5;color:#14201b;display:flex;gap:8px;align-items:center;"><i class="ph ph-arrows-left-right" style="color:#1d7a52;font-size:16px;"></i>{{ tripLine }}</p>
+            </sc-if>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <button type="button" onClick="{{ toggleWatch }}" aria-pressed="{{ watching }}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid {{ watchBd }};background:{{ watchBg }};color:#14201b;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="border-color:#1d7a52;"><i class="{{ watchIcon }}" style="font-size:16px;color:#1d7a52;"></i>{{ watchLabel }}</button>
+              <button type="button" onClick="{{ copyLink }}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid #dcdfdb;background:#fbfbfa;color:#14201b;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="border-color:#14201b;"><i class="{{ copyIcon }}" style="font-size:16px;"></i>{{ copyLabel }}</button>
+              <span style="font-size:13px;color:#4d5a54;padding:0 4px;">{{ updated }}</span>
+            </div>
+          </div>
+          <sc-for list="{{ flights }}" as="f" hint-placeholder-count="2">
+            <div style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;animation:rise .4s cubic-bezier(.16,1,.3,1) both;">
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <span style="font-family:'DM Mono',monospace;font-size:21px;display:flex;align-items:center;gap:10px;">{{ f.dep }}<i class="ph ph-arrow-right" style="font-size:15px;color:#4d5a54;"></i>{{ f.arr }}<sup style="font-size:11px;color:#1d7a52;margin-left:-6px;">{{ f.plus }}</sup></span>
+                <span style="font-size:14px;color:#4d5a54;">{{ f.meta }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-start;">
+                <sc-if value="{{ f.avail }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:22px;font-weight:700;letter-spacing:-0.01em;">{{ f.miles }} <span style="font-size:14px;font-weight:500;color:#4d5a54;">{{ f.unit }}</span></span>
+                  <span style="font-size:13px;color:#4d5a54;">{{ f.sub }}</span>
+                </sc-if>
+                <sc-if value="{{ f.unavail }}">
+                  <span style="font-size:15px;font-weight:600;color:#4d5a54;">{{ f.status }}</span>
+                </sc-if>
+              </div>
+              <sc-if value="{{ f.hasOthers }}">
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+                  <span style="font-size:13px;color:#4d5a54;">Also open</span>
+                  <sc-for list="{{ f.others }}" as="o" hint-placeholder-count="2">
+                    <button type="button" onClick="{{ o.onClick }}" style="height:32px;padding:0 12px;border-radius:999px;border:1px solid #8cc9a5;background:#e6f3eb;color:#14201b;font-size:13px;cursor:pointer;display:flex;gap:6px;align-items:center;" style-hover="border-color:#1d7a52;">{{ o.label }}<span style="font-family:'DM Mono',monospace;font-size:12px;">{{ o.price }}</span></button>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.expanded }}" style="align-self:flex-start;height:40px;padding:0 4px;border:0;background:transparent;color:#14201b;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="color:#1d7a52;">How to book<i class="ph ph-caret-down" style="font-size:15px;transform:{{ f.chev }};transition:transform .25s cubic-bezier(.16,1,.3,1);"></i></button>
+              <sc-if value="{{ f.expanded }}">
+                <div style="display:flex;flex-direction:column;gap:14px;margin-top:-6px;animation:rise .3s cubic-bezier(.16,1,.3,1) both;">
+                  <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ f.steps }}" as="st" hint-placeholder-count="3">
+                      <li style="display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.5;"><span style="width:22px;height:22px;border-radius:999px;background:#e6f3eb;color:#1d7a52;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;">{{ st.n }}</span><span>{{ st.text }}</span></li>
+                    </sc-for>
+                  </ol>
+                  <a href="{{ f.url }}" target="_blank" rel="noopener" style="align-self:flex-start;height:48px;padding:0 22px;border-radius:999px;background:#1d7a52;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#16633f;color:#fbfbfa;">Open {{ f.site }}<i class="ph ph-arrow-up-right"></i></a>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </sc-if>
+      </div>
+    </section>
+
+    <section id="how" style="margin-top:112px;padding-top:48px;border-top:1px solid #dcdfdb;display:flex;flex-direction:column;gap:40px;">
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:640px;">
+        <h2 style="margin:0;font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-0.025em;line-height:1.1;">How it works</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#4d5a54;">Openseat shows which days have reward seats. You still book directly with the airline, using your own miles. <a href="Openseat%20How%20to%20use.dc.html">See worked examples</a>.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px 56px;align-items:start;">
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;">
+          <sc-for list="{{ howSteps }}" as="h" hint-placeholder-count="4">
+            <li style="display:grid;grid-template-columns:44px 1fr;gap:0 16px;padding-bottom:28px;">
+              <span style="width:44px;height:44px;border-radius:999px;background:{{ h.dotBg }};color:{{ h.dotFg }};display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="{{ h.icon }}"></i></span>
+              <div style="display:flex;flex-direction:column;gap:6px;padding-top:9px;">
+                <span style="font-size:18px;font-weight:600;letter-spacing:-0.01em;">{{ h.title }}</span>
+                <span style="font-size:15px;line-height:1.6;color:#33413b;max-width:54ch;">{{ h.text }}</span>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;">
+            <span style="font-size:17px;font-weight:600;">Reading the calendar</span>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ readKey }}" as="k" hint-placeholder-count="5">
+                <div style="display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;">
+                  <span aria-hidden="true" style="position:relative;height:56px;border-radius:12px;border:1px solid {{ k.bd }};background:{{ k.bg }};color:{{ k.fg }};box-shadow:{{ k.shadow }};display:flex;align-items:center;justify-content:center;box-sizing:border-box;">
+                    <span style="position:absolute;top:6px;left:8px;font-size:12px;font-weight:500;">{{ k.day }}</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:17px;padding-top:9px;">{{ k.count }}</span>
+                    <span style="position:absolute;bottom:5px;left:50%;width:16px;margin-left:-8px;height:3px;border-radius:999px;background:{{ k.fit }};"></span>
+                  </span>
+                  <span style="font-size:14px;line-height:1.5;color:#33413b;">{{ k.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <span style="font-size:17px;font-weight:600;padding:0 4px 4px;">Booking notes by program</span>
+            <sc-for list="{{ progNotes }}" as="pn" hint-placeholder-count="3">
+              <div style="background:#fbfbfa;border:1px solid #dcdfdb;border-radius:16px;overflow:hidden;">
+                <button type="button" onClick="{{ pn.toggle }}" aria-expanded="{{ pn.open }}" style="width:100%;min-height:56px;padding:12px 18px;border:0;background:transparent;color:#14201b;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;" style-hover="background:#f3f3f1;">
+                  <span style="font-family:'DM Mono',monospace;font-size:12px;padding:3px 8px;border-radius:999px;background:#e6f3eb;">{{ pn.code }}</span>
+                  <span style="flex:1;font-size:16px;font-weight:600;">{{ pn.name }}</span>
+                  <i class="ph ph-caret-down" style="font-size:15px;transform:{{ pn.chev }};transition:transform .25s cubic-bezier(.16,1,.3,1);"></i>
+                </button>
+                <sc-if value="{{ pn.open }}">
+                  <ul style="margin:0;padding:0 18px 18px;list-style:none;display:flex;flex-direction:column;gap:8px;animation:rise .3s cubic-bezier(.16,1,.3,1) both;">
+                    <sc-for list="{{ pn.items }}" as="it" hint-placeholder-count="3">
+                      <li style="display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:14px;line-height:1.55;color:#33413b;"><i class="ph ph-check" style="color:#1d7a52;font-size:15px;margin-top:3px;"></i><span>{{ it.t }}</span></li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <span style="font-size:17px;font-weight:600;">Good to know</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px 40px;">
+          <sc-for list="{{ goodToKnow }}" as="g" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:15px;line-height:1.55;color:#33413b;padding:6px 0;"><i class="{{ g.icon }}" style="font-size:19px;color:#1d7a52;margin-top:1px;"></i><span>{{ g.t }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+      <a href="#" style="align-self:flex-start;height:48px;padding:0 22px;border-radius:999px;background:#14201b;color:#fbfbfa;font-size:15px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:8px;" style-hover="background:#1d7a52;color:#fbfbfa;"><i class="ph ph-arrow-up"></i>Back to search</a>
+    </section>
+
+    <footer style="margin-top:64px;padding:28px 0 56px;border-top:1px solid #dcdfdb;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;">
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#4d5a54;max-width:72ch;">Openseat is independent and not affiliated with or endorsed by Emirates, Etihad Airways or Qatar Airways. Program names are trademarks of their owners. Prices and seat counts shown are sample data.</p>
+      <p style="margin:0;font-size:13px;color:#4d5a54;width:100%;order:3;">© 2026 Openseat · v1.0.0</p>
+      <nav style="display:flex;gap:20px;font-size:14px;"><a href="Openseat%20How%20to%20use.dc.html" style="color:#14201b;">How to use</a><a href="Openseat%20Terms.dc.html" style="color:#14201b;">Terms</a></nav>
+    </footer>
+  </main>
+
+  <sc-if value="{{ pickerOpen }}">
+    <div onClick="{{ closePicker }}" style="position:fixed;inset:0;z-index:49;background:{{ scrim }};"></div>
+    <div ref="{{ dlgRef }}" role="dialog" aria-modal="true" aria-label="{{ pickerTitle }}" style="position:{{ d.pos }};top:{{ d.top }};left:{{ d.left }};bottom:{{ d.bottom }};width:{{ d.width }};max-height:{{ d.maxH }};border-radius:{{ d.radius }};z-index:50;background:#fbfbfa;border:1px solid #dcdfdb;padding:14px 10px 10px;box-sizing:border-box;box-shadow:0 24px 60px rgba(20,32,27,0.2);display:flex;flex-direction:column;gap:10px;animation:rise .25s cubic-bezier(.16,1,.3,1) both;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:0 6px;">
+        <span style="font-size:17px;font-weight:600;">{{ pickerTitle }}</span>
+        <button type="button" onClick="{{ closePicker }}" aria-label="Close" style="width:44px;height:44px;border-radius:999px;border:0;background:transparent;cursor:pointer;color:#14201b;" style-hover="background:#ebecea;"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div>
+      <sc-if value="{{ pickerSearch }}">
+        <label style="display:flex;flex-direction:column;gap:6px;padding:0 6px;font-size:13px;color:#4d5a54;">City, airport code or Arabic name
+          <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. London, LHR or لندن" style="height:46px;padding:0 16px;border-radius:999px;border:1.5px solid #c5cac6;background:#f3f3f1;color:#14201b;font-size:16px;" style-focus="border-color:#1d7a52;outline:none;">
+        </label>
+      </sc-if>
+      <div style="overflow:auto;display:flex;flex-direction:column;gap:2px;">
+        <sc-if value="{{ showPopular }}">
+          <div style="display:flex;flex-direction:column;gap:8px;padding:4px 6px 8px;">
+            <span style="font-size:13px;color:#4d5a54;">Popular routes</span>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <sc-for list="{{ popular }}" as="pr" hint-placeholder-count="6">
+                <button type="button" onClick="{{ pr.onPick }}" aria-label="{{ pr.aria }}" style="height:36px;padding:0 12px;border-radius:999px;border:1px solid #dcdfdb;background:#f3f3f1;color:#14201b;font-family:'DM Mono',monospace;font-size:13px;cursor:pointer;" style-hover="border-color:#14201b;">{{ pr.label }}</button>
+              </sc-for>
+            </div>
+            <span style="font-size:13px;color:#4d5a54;padding-top:8px;">All airports</span>
+          </div>
+        </sc-if>
+        <sc-for list="{{ pickerOptions }}" as="o" hint-placeholder-count="5">
+          <button type="button" onClick="{{ o.onPick }}" data-selected="{{ o.sel }}" aria-current="{{ o.sel }}" style="min-height:52px;padding:8px 12px;border:0;border-radius:14px;background:{{ o.bg }};color:#14201b;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;" style-hover="background:#ebecea;" style-focus="outline:2px solid #1d7a52;outline-offset:-2px;">
+            <span style="display:flex;flex-direction:column;gap:1px;flex:1;min-width:0;">
+              <span style="font-size:16px;font-weight:600;">{{ o.label }}</span>
+              <span style="font-size:13px;color:#4d5a54;">{{ o.sub }}</span>
+            </span>
+            <span lang="ar" dir="rtl" style="font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;color:#4d5a54;">{{ o.ar }}</span>
+            <i class="{{ o.icon }}" style="font-size:18px;color:#1d7a52;width:18px;"></i>
+          </button>
+        </sc-for>
+        <sc-if value="{{ pickerEmpty }}"><span style="padding:12px;font-size:14px;color:#4d5a54;">No airports match. Try a city, a 3-letter code or the Arabic name.</span></sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}">
+    <div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;max-width:calc(100% - 32px);background:#14201b;color:#fbfbfa;font-size:14px;line-height:1.5;padding:12px 18px;border-radius:999px;box-shadow:0 12px 32px rgba(20,32,27,0.25);display:flex;gap:10px;align-items:center;"><i class="ph ph-bell-ringing" style="font-size:16px;color:#9fd3b6;"></i>{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const HEAT=[{bg:'#fbfbfa',fg:'#5f6b65',bd:'#e1e4e0'},{bg:'#d4ecdd',fg:'#14201b',bd:'#8cc9a5'},{bg:'#5fb184',fg:'#0f1a15',bd:'#5fb184'},{bg:'#1b6a47',fg:'#fbfbfa',bd:'#1b6a47'}];
+const lvl=n=>n===0?0:n===1?1:n<=3?2:3;
+const POP=[['DXB','LHR'],['DOH','NRT'],['AUH','BKK'],['DXB','MLE'],['RUH','LHR'],['KWI','JFK']];
+const seatWord=n=>n>=4?'4 or more seats':n===1?'1 seat':n+' seats';
+class Component extends DCLogic {
+  state={carrier:'EK',from:'DXB',to:'LHR',cabin:'business',pax:1,ret:0,leg:'out',sel:{},expanded:null,loading:true,open:null,anchor:{top:0,left:0},query:'',isMobile:false,sheet:false,note:0,copied:false,watch:{},toast:''};
+  dlgRef=el=>{this.dlg=el;};
+  calRef=el=>{this.cal=el;};
+  componentDidMount(){
+    document.documentElement.lang='en';
+    this.onMq=()=>{const m=this.mobileNow();if(m!==this.state.isMobile)this.setState({isMobile:m});};this.onMq();
+    window.addEventListener('resize',this.onMq);
+    this.onKey=e=>{
+      if(this.state.open){
+        if(e.key==='Escape'){e.preventDefault();this.closePicker();return;}
+        if(e.key==='Tab'&&this.dlg){const f=[...this.dlg.querySelectorAll('button,input')].filter(x=>!x.disabled);if(!f.length)return;const a=f[0],z=f[f.length-1];
+          if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}else if(!this.dlg.contains(document.activeElement)){e.preventDefault();a.focus();}}
+      }else if(e.key==='Escape'&&this.state.sheet){this.setState({sheet:false});}
+    };
+    document.addEventListener('keydown',this.onKey);
+    import('./award-data.js').then(L=>{this.L=L;
+      const q=new URLSearchParams(location.search),pt={};
+      if(L.CARRIERS.some(c=>c.id===q.get('p')))pt.carrier=q.get('p');
+      if(L.AP[q.get('o')])pt.from=q.get('o');
+      if(L.AP[q.get('d')])pt.to=q.get('d');
+      if(L.CABINS.some(c=>c.id===q.get('c')))pt.cabin=q.get('c');
+      const n=+q.get('n');if(n>=1&&n<=6)pt.pax=n;
+      const r=+q.get('r');if([0,7,14,21,28].includes(r))pt.ret=r;
+      this.refresh(pt);}).catch(e=>console.error('award-data failed to load',e));
+  }
+
+  componentWillUnmount(){clearTimeout(this.t);clearTimeout(this.ct);clearTimeout(this.tt);window.removeEventListener('resize',this.onMq);document.removeEventListener('keydown',this.onKey);}
+  closePicker(){const t=this.trigger;this.setState({open:null,query:''});setTimeout(()=>{t&&t.isConnected&&t.focus();},0);}
+  focusDialog(){let n=0;const go=()=>{const d=this.dlg;if(!d){if(n++<10)setTimeout(go,30);return;}const el=d.querySelector('input')||d.querySelector('[data-selected="true"]')||d.querySelector('button');el&&el.focus();};setTimeout(go,0);}
+  mobileNow(){return typeof window!=='undefined'&&window.innerWidth>0?window.innerWidth<=760:false;}
+  refresh(patch){
+    clearTimeout(this.t);
+    const wasOpen=!!this.state.open,t=this.trigger;
+    this.setState({...(patch||{}),loading:true,sel:{},expanded:null,open:null,query:''});
+    if(wasOpen&&t)setTimeout(()=>{t.isConnected&&t.focus();},0);
+    this.t=setTimeout(()=>this.setState({loading:false}),450);
+  }
+  showToast(msg){clearTimeout(this.tt);this.setState({toast:msg});this.tt=setTimeout(()=>this.setState({toast:''}),3200);}
+  renderVals(){
+    const L=this.L,mob=this.mobileNow(),s={...this.state,isMobile:mob};
+    const open=k=>e=>{const r=e.currentTarget.getBoundingClientRect();this.trigger=e.currentTarget;
+      if(s.open===k){this.closePicker();return;}
+      const w=document.documentElement.clientWidth;
+      this.setState({open:k,query:'',isMobile:this.mobileNow(),anchor:{top:r.bottom+window.scrollY+8,left:Math.max(12,Math.min(r.left+window.scrollX,w-392))}});
+      this.focusDialog();};
+    const trav=s.pax===1?'1 traveller':s.pax+' travellers';
+    const base={noSubmit:e=>e.preventDefault(),
+      openCabin:open('cabin'),openPax:open('pax'),openFrom:open('from'),openTo:open('to'),openProgram:open('program'),openRet:open('ret'),
+      cabinOpen:s.open==='cabin',paxOpen:s.open==='pax',fromOpen:s.open==='from',toOpen:s.open==='to',programOpen:s.open==='program',retOpen:s.open==='ret',
+      closePicker:()=>this.closePicker(),pickerOpen:!!s.open,query:s.query,onQuery:e=>this.setState({query:e.target.value}),
+      dlgRef:this.dlgRef,calRef:this.calRef,
+      scrim:s.isMobile?'rgba(20,32,27,0.32)':'transparent',
+      d:s.isMobile?{pos:'fixed',top:'auto',left:'12px',bottom:'12px',width:'calc(100% - 24px)',maxH:'78dvh',radius:'24px'}
+        :{pos:'absolute',top:s.anchor.top+'px',left:s.anchor.left+'px',bottom:'auto',width:'380px',maxH:'460px',radius:'18px'},
+      from:s.from,to:s.to,paxLabel:trav,retLabel:s.ret===0?'one way':'and back '+(s.ret/7)+' week'+(s.ret>7?'s':'')+' later',
+      isMobile:s.isMobile,error:s.from===s.to,isReturn:s.ret>0,isRetLeg:s.ret>0&&s.leg==='ret',
+      skel:Array.from({length:35},(_,i)=>({d:((i%7)*0.05)+'s'})),loading:s.loading||!L,ready:!s.loading&&!!L&&s.from!==s.to,
+      closeSheet:()=>this.setState({sheet:false}),backdrop:s.isMobile&&s.sheet,
+      hasToast:!!s.toast,toast:s.toast,fitLegend:'Fits a '+(s.ret/7)+'-week trip'};
+    const notes=[
+      {code:'EK',name:'Emirates Skywards',items:['Search with Classic Rewards selected, otherwise you see cash fares only.','Premium Economy is only sold on some A380 and A350 routes.','Taxes include carrier surcharges, so they are usually higher than on Etihad or Qatar.']},
+      {code:'EY',name:'Etihad Guest',items:['Choose Book with miles on etihad.com before you search.','First is only on the A380. Most routes offer Economy and Business.','Miles bookings are one way, so you can mix cabins or dates on a return trip.']},
+      {code:'QR',name:'Qatar Airways Privilege Club',items:['Prices are in Avios. You can move Avios to and from British Airways Executive Club.','First is only on the A380. Qsuites Business is on most long-haul routes.','Search with Book with Avios turned on to see reward seats.']}];
+    base.progNotes=notes.map((n,i)=>{const o=s.note===i;return{...n,open:o,chev:o?'rotate(180deg)':'none',items:n.items.map(t=>({t})),toggle:()=>this.setState({note:o?null:i})};});
+    base.howSteps=[
+      {icon:'ph ph-text-aa',title:'Build your search',text:'Each green part of the sentence is a picker. Start with your miles program, then set the cabin, travellers, airports and whether you need a return.'},
+      {icon:'ph ph-calendar-check',title:'Scan the next 90 days',text:'The number in each day is how many seats are open on the best flight that day. Darker green means more seats.'},
+      {icon:'ph ph-airplane-tilt',title:'Open a day',text:'See every direct and one-stop flight, the price per traveller with taxes, and other cabins open on the same flight. For a return, switch to the Return tab.'},
+      {icon:'ph ph-arrow-square-out',title:'Book with the airline',text:'Follow the steps under How to book and finish on the airline site. If nothing is open yet, turn on an alert and we will email you.'}
+    ].map((h,i)=>({...h,dotBg:i===3?'#1d7a52':'#e6f3eb',dotFg:i===3?'#fbfbfa':'#1d7a52'}));
+    base.readKey=[
+      {day:'14',count:'',...HEAT[0],shadow:'none',fit:'transparent',text:'No reward seats in your cabin for everyone in your search.'},
+      {day:'15',count:'1',...HEAT[1],shadow:'none',fit:'transparent',text:'One seat open on at least one flight.'},
+      {day:'16',count:'2',...HEAT[2],shadow:'none',fit:'transparent',text:'Two or three seats open on one flight.'},
+      {day:'17',count:'4+',...HEAT[3],shadow:'0 0 0 2px #fbfbfa, 0 0 0 4px #14201b',fit:'transparent',text:'Four or more seats. The outlined day is the one in the flight list.'},
+      {day:'29',count:'2',...HEAT[2],shadow:'none',fit:'#14201b',text:'On the Return tab, a short bar marks days that fit your trip length.'}];
+    base.goodToKnow=[
+      {icon:'ph ph-arrows-clockwise',t:'Availability refreshes twice a day, at midnight and noon Gulf time.'},
+      {icon:'ph ph-user',t:'Prices are one way and per traveller. The booking steps show the total for your group.'},
+      {icon:'ph ph-users-three',t:'A day only shows seats when one flight has enough for everyone in your search.'},
+      {icon:'ph ph-path',t:'One-stop flights connect at the airline hub: Dubai, Abu Dhabi or Doha.'},
+      {icon:'ph ph-receipt',t:'Taxes and fees are estimates in US dollars. The airline shows the final amount at checkout.'},
+      {icon:'ph ph-handshake',t:'Partner airline awards are not included yet. You only see flights run by the three airlines.'}];
+    base.p=s.isMobile
+      ?{pos:'fixed',top:'auto',left:'0',right:'0',bottom:'0',z:'40',maxH:'86dvh',ov:'auto',radius:'24px 24px 0 0',tf:s.sheet?'none':'translateY(105%)',shadow:'0 -20px 50px rgba(20,32,27,0.18)',pad:'10px 16px 28px',bg:'#f3f3f1'}
+      :{pos:'sticky',top:'24px',left:'auto',right:'auto',bottom:'auto',z:'auto',maxH:'none',ov:'visible',radius:'0',tf:'none',shadow:'none',pad:'0',bg:'transparent'};
+    if(!L)return{...base,legend:[],months:[],flights:[],pickerOptions:[],popular:[],legTabs:[],programLabel:'',cabinLabel:'',fromCity:'',toCity:'',calTitle:'',calSub:'',
+      pickerTitle:'',pickerSearch:false,showPopular:false,pickerEmpty:false,dayTitle:'',daySub:'',tripLine:'',calAria:'',onCalKey:null,
+      prevDay:null,nextDay:null,prevDisabled:true,nextDisabled:true,prevOp:0.4,nextOp:0.4,watching:false,watchLabel:'',watchIcon:'',watchBg:'#fbfbfa',watchBd:'#dcdfdb',
+      toggleWatch:null,copyLabel:'',copyIcon:'',copyLink:null,updated:''};
+    const rc=L.car(s.carrier),cb=L.cabin(s.cabin);
+    // pickers
+    let pickerTitle='',pickerOptions=[],pickerSearch=false,showPopular=false,popular=[];
+    const chk=on=>({icon:on?'ph ph-check':'',bg:on?'#e6f3eb':'transparent',sel:on,ar:''});
+    if(s.open==='program'){pickerTitle='Miles program';pickerOptions=L.CARRIERS.map(c=>({label:c.airline+' '+c.program,sub:'Priced in '+c.unit+'. Hub: '+L.AP[c.hub].city,...chk(c.id===s.carrier),onPick:()=>this.refresh({carrier:c.id})}));}
+    if(s.open==='cabin'){pickerTitle='Cabin';pickerOptions=L.CABINS.map(c=>({label:c.en,sub:c.id==='premium'?'Emirates only, on some A380 and A350 routes':'',...chk(c.id===s.cabin),onPick:()=>this.refresh({cabin:c.id})}));}
+    if(s.open==='pax'){pickerTitle='Travellers';pickerOptions=[1,2,3,4,5,6].map(n=>({label:n===1?'1 traveller':n+' travellers',sub:n>1?'Days show seats only when one flight has '+n+' open':'',...chk(n===s.pax),onPick:()=>this.refresh({pax:n})}));}
+    if(s.open==='ret'){pickerTitle='Return';pickerOptions=[0,7,14,21,28].map(r=>({label:r===0?'One way':'Back '+(r/7)+' week'+(r>7?'s':'')+' later',sub:r===0?'Outbound only':'Return days '+(r-3)+' to '+(r+3)+' nights after you leave are marked',...chk(r===s.ret),onPick:()=>this.refresh({ret:r,leg:'out'})}));}
+    if(s.open==='from'||s.open==='to'){
+      const k=s.open;pickerTitle=k==='from'?'Flying from':'Flying to';pickerSearch=true;
+      const raw=s.query.trim(),qq=raw.toLowerCase(),cur=s[k];
+      showPopular=!raw;
+      popular=POP.map(([o,d])=>({label:o+' → '+d,aria:L.AP[o].city+' to '+L.AP[d].city,onPick:()=>this.refresh({from:o,to:d})}));
+      pickerOptions=L.AIRPORTS.filter(a=>!raw||a.c.toLowerCase().includes(qq)||a.city.toLowerCase().includes(qq)||a.country.toLowerCase().includes(qq)||a.ar.includes(raw)||a.arC.includes(raw))
+        .map(a=>({label:a.city+' ('+a.c+')',sub:a.country,...chk(a.c===cur),ar:a.ar,onPick:()=>this.refresh({[k]:a.c})}));
+    }
+    const out={...base,cabinLabel:cb.en,fromCity:L.AP[s.from].city,toCity:L.AP[s.to].city,programLabel:rc.airline+' '+rc.program,
+      pickerTitle,pickerOptions,pickerSearch,showPopular,popular,pickerEmpty:pickerSearch&&pickerOptions.length===0,
+      legend:[{label:'No seats',...HEAT[0],n:''},{label:'1 seat',...HEAT[1],n:'1'},{label:'2 to 3',...HEAT[2],n:'2'},{label:'4 or more',...HEAT[3],n:'4+'}]};
+    if(s.from===s.to)return{...out,months:[],flights:[],legTabs:[],calTitle:'Seats in '+cb.en,calSub:'',dayTitle:'',daySub:''};
+
+    const outRes=L.scan({carrier:s.carrier,from:s.from,to:s.to,pax:s.pax});
+    const firstAvail=(res,lo,hi)=>{for(let i=lo;i<=hi&&i<res.days.length;i++)if(res.days[i].by[s.cabin].count>0)return i;return -1;};
+    let outIdx=s.sel.out!=null?s.sel.out:firstAvail(outRes,0,89);if(outIdx<0)outIdx=0;
+    let retRes=null,retIdx=0,fitLo=0,fitHi=-1;
+    if(s.ret>0){
+      retRes=L.scan({carrier:s.carrier,from:s.to,to:s.from,pax:s.pax});
+      const tgt=outIdx+s.ret;fitLo=Math.min(89,tgt-3);fitHi=Math.min(89,tgt+3);
+      if(s.sel.ret!=null&&s.sel.ret>=outIdx)retIdx=s.sel.ret;
+      else{let i=firstAvail(retRes,fitLo,fitHi);if(i<0)i=firstAvail(retRes,outIdx,89);retIdx=i<0?Math.min(89,tgt):i;}
+    }
+    const isRet=s.ret>0&&s.leg==='ret',res=isRet?retRes:outRes,selIdx=isRet?retIdx:outIdx,minIdx=isRet?outIdx:0;
+    const O=isRet?s.to:s.from,D=isRet?s.from:s.to;
+    const day=res.days[selIdx];
+    this.nav={minIdx,leg:isRet?'ret':'out'};
+    const setSel=(i,sheet)=>this.setState(p=>({sel:{...p.sel,[isRet?'ret':'out']:i},expanded:null,sheet:sheet?true:p.sheet}));
+    const idxOf={};res.days.forEach((d,i)=>{idxOf[d.key]=i;});
+    const t0=res.days[0].date,end=res.days[89].date;
+    const months=[];
+    for(let m=new Date(t0.getFullYear(),t0.getMonth(),1);m<=end;m=new Date(m.getFullYear(),m.getMonth()+1,1)){
+      const cells=[],off=(m.getDay()+6)%7;
+      for(let i=0;i<off;i++)cells.push({blank:true,isStatic:false,isBtn:false});
+      const last=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+      for(let dd=1;dd<=last;dd++){
+        const d=new Date(m.getFullYear(),m.getMonth(),dd),i=idxOf[L.keyOf(d)];
+        if(i===undefined||i<minIdx){cells.push({blank:false,isStatic:true,isBtn:false,day:dd});continue;}
+        const b=res.days[i].by[s.cabin],h=HEAT[lvl(b.count)],on=i===selIdx,fits=isRet&&i>=fitLo&&i<=fitHi;
+        cells.push({blank:false,isStatic:false,isBtn:true,day:dd,key:i,tab:on?0:-1,selected:on,
+          count:b.count?(b.count>=4?'4+':String(b.count)):'',...h,
+          shadow:on?'0 0 0 2px #fbfbfa, 0 0 0 4px #14201b':'none',fit:fits?(lvl(b.count)===3?'#fbfbfa':'#14201b'):'transparent',
+          aria:d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+', '+(b.count?seatWord(b.count)+' from '+L.num(b.minMiles)+' '+rc.unit:'no '+cb.en+' seats')+(fits?', fits your trip':''),
+          onClick:()=>setSel(i,true)});
+      }
+      months.push({title:m.toLocaleDateString('en-GB',{month:'long',year:'numeric'}),cells});
+    }
+    const avDays=res.days.filter((d,i)=>i>=minIdx&&d.by[s.cabin].count>0);
+    const offered=res.days.some(d=>d.by[s.cabin].offered);
+    const minM=avDays.length?Math.min(...avDays.map(d=>d.by[s.cabin].minMiles)):Math.min(...res.sched.map(f=>L.milesFor(rc,s.cabin,f.dist)));
+    const calSub=!offered?rc.program+' does not offer '+cb.en+' on this route. Try another cabin.'
+      :avDays.length?cb.en+' from '+L.num(minM)+' '+rc.unit+', one way. Seats on '+avDays.length+' of the next '+(90-minIdx)+' days.'
+      :'No '+cb.en+' seats in the next 90 days. Turn on an alert to hear when they open.';
+    const shortD=d=>d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    const legTabs=s.ret>0?[{id:'out',label:'Outbound',route:s.from+' → '+s.to,date:shortD(outRes.days[outIdx].date)},{id:'ret',label:'Return',route:s.to+' → '+s.from,date:shortD(retRes.days[retIdx].date)}]
+      .map(t=>{const a=(t.id==='ret')===isRet;return{...t,active:a,bg:a?'#fbfbfa':'transparent',shadow:a?'0 1px 3px rgba(20,32,27,0.12)':'none',onClick:()=>this.setState({leg:t.id,expanded:null})};}):[];
+    const dateLong=day.date.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+    const flights=day.fl.map(({f,seats})=>{
+      const fk=f.key+selIdx,exp=s.expanded===fk,n=seats[s.cabin],ok=n!==null&&n>=s.pax;
+      const others=L.CABINS.filter(c=>c.id!==s.cabin&&seats[c.id]!==null&&seats[c.id]>=s.pax)
+        .map(c=>({label:c.short,price:Math.round(L.milesFor(rc,c.id,f.dist)/1000)+'k',onClick:()=>this.setState({cabin:c.id,expanded:null})}));
+      const m=L.milesFor(rc,s.cabin,f.dist)*s.pax,tx=L.taxFor(rc,s.cabin,f.dist)*s.pax;
+      return{dep:L.fmtT(f.dep),arr:L.fmtT(f.arr),plus:f.dayOff>0?'+'+f.dayOff:'',
+        meta:f.nums.join(' + ')+', '+f.ac+', '+(f.direct?'nonstop':'1 stop in '+L.AP[f.hub].city)+', '+L.fmtD(f.total),
+        avail:ok,unavail:!ok,miles:L.num(L.milesFor(rc,s.cabin,f.dist)),unit:rc.unit,
+        sub:'+ $'+L.taxFor(rc,s.cabin,f.dist)+' taxes, '+(n>=9?'9+':n)+' seat'+(n>1?'s':'')+' open',
+        status:n===null?cb.en+' not offered':'No '+cb.en+' seats',
+        others,hasOthers:others.length>0,expanded:exp,chev:exp?'rotate(180deg)':'none',
+        toggle:()=>this.setState({expanded:exp?null:fk}),
+        steps:[{n:'1',text:'Sign in to '+rc.program+' on '+rc.site+'.'},
+          {n:'2',text:'Search '+f.O+' to '+f.D+' on '+dateLong+' with '+rc.term+' turned on.'},
+          {n:'3',text:ok?'Choose '+f.nums.join(' and ')+' in '+cb.en+'. For '+trav+' it comes to '+L.num(m)+' '+rc.unit+' plus $'+L.num(tx)+'.':'This flight has no '+cb.en+' reward seats for '+trav+' today. Pick a green day in the calendar.'}],
+        url:rc.url,site:rc.site};
+    });
+    const nq=day.by[s.cabin].nq;
+    const wk=s.carrier+'-'+O+'-'+D+'-'+s.cabin,watching=!!s.watch[wk];
+    const nights=s.ret>0?retIdx-outIdx:0;
+    return{...out,months,flights,legTabs,
+      calTitle:(isRet?'Return seats in ':s.ret>0?'Outbound seats in ':'Seats in ')+cb.en,calSub,
+      calAria:'Calendar, '+O+' to '+D+', '+cb.en,
+      onCalKey:e=>{const k=e.target.getAttribute&&e.target.getAttribute('data-key');if(k==null)return;const dl={ArrowLeft:-1,ArrowRight:1,ArrowUp:-7,ArrowDown:7}[e.key];if(dl==null)return;
+        e.preventDefault();const ni=Math.max(minIdx,Math.min(89,+k+dl));setSel(ni,false);requestAnimationFrame(()=>{const el=this.cal&&this.cal.querySelector('[data-key="'+ni+'"]');el&&el.focus();});},
+      dayTitle:dateLong,
+      daySub:nq+' of '+day.fl.length+' flight'+(day.fl.length>1?'s':'')+' from '+O+' to '+D+' with '+cb.en+' seats. Prices per traveller, one way.',
+      tripLine:s.ret>0?'Outbound '+shortD(outRes.days[outIdx].date)+', return '+shortD(retRes.days[retIdx].date)+', '+nights+' night'+(nights===1?'':'s')+'.':'',
+      prevDay:()=>setSel(Math.max(minIdx,selIdx-1),false),nextDay:()=>setSel(Math.min(89,selIdx+1),false),
+      prevDisabled:selIdx<=minIdx,nextDisabled:selIdx>=89,prevOp:selIdx<=minIdx?0.4:1,nextOp:selIdx>=89?0.4:1,
+      watching,watchLabel:watching?'Alert on':'Alert me when seats open',watchIcon:watching?'ph-fill ph-bell-ringing':'ph ph-bell',
+      watchBg:watching?'#e6f3eb':'#fbfbfa',watchBd:watching?'#8cc9a5':'#dcdfdb',
+      toggleWatch:()=>{const on=!watching;this.setState(p=>({watch:{...p.watch,[wk]:on}}));this.showToast(on?'We will email you when '+cb.en+' seats open on '+O+' to '+D+'.':'Alert turned off.');},
+      copyLabel:s.copied?'Copied':'Copy link',copyIcon:s.copied?'ph ph-check':'ph ph-link',
+      copyLink:()=>{try{navigator.clipboard&&navigator.clipboard.writeText(location.href.split('?')[0]+'?p='+s.carrier+'&o='+s.from+'&d='+s.to+'&c='+s.cabin+'&n='+s.pax+'&r='+s.ret);}catch(e){}this.setState({copied:true});clearTimeout(this.ct);this.ct=setTimeout(()=>this.setState({copied:false}),1600);},
+      updated:'Updated '+(new Date().getHours()>=12?'12:00':'00:00')+' GST'};
+  }
+}
+</script>
+</body>
+</html>
