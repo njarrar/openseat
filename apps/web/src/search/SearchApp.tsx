@@ -1,11 +1,13 @@
 import { BellRinging, X } from '@phosphor-icons/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { summarise, type CabinId, type CabinSummary, type DayResult, type SearchParams } from '@openseat/shared';
+import { summarise, type AlertChannel, type CabinId, type CabinSummary, type DayResult, type SearchParams } from '@openseat/shared';
 import { Footer, Header } from '../components/Shell';
 import { useLang } from '../i18n';
 import type { ChipId } from '../i18n/types';
 import { alertKey, turnOff, turnOn, watchedKeys } from '../lib/alerts';
 import { requestRefresh } from '../lib/api';
+import { features, type Features } from '../lib/features';
+import { botToken } from '../lib/turnstile';
 import { backdropClose, useMedia, useModal } from '../lib/hooks';
 import { readQuery, shareUrl, writeQuery, type Query } from '../lib/url';
 import { useSearch, type SearchState } from '../lib/useSearch';
@@ -32,7 +34,14 @@ function firstOpen(s: SearchState, sums: Map<string, Record<CabinId, CabinSummar
 }
 
 export function SearchApp() {
-  const { t, f } = useLang();
+  const { t, f, lang } = useLang();
+  const [feat, setFeat] = useState<Features | null>(null);
+  useEffect(() => {
+    features().then(setFeat);
+  }, []);
+  const [telegramLink, setTelegramLink] = useState<string | null>(null);
+  /** A bot check token when the API asks for one, else nothing. */
+  const human = async () => (feat?.turnstileSiteKey ? botToken(feat.turnstileSiteKey, lang) : undefined);
   const [q, setQ] = useState<Query>(() => readQuery(location.search));
   const [leg, setLeg] = useState<'out' | 'ret'>('out');
   const [sel, setSel] = useState<{ out?: number; ret?: number }>({});
@@ -143,15 +152,21 @@ export function SearchApp() {
       showToast(t.alert.off);
     } else showToast(t.alert.failed);
   };
-  const submitAlert = async (address: string) => {
+  const submitAlert = async (channel: AlertChannel, address: string) => {
     setAlertBusy(true);
-    const ok = await turnOn({ carrier: q.carrier, origin: O, destination: D, cabin: q.cabin, pax: q.pax, channel: 'email', address });
+    const token = await human();
+    if (feat?.turnstileSiteKey && !token) {
+      setAlertBusy(false);
+      return showToast(t.alert.robot);
+    }
+    const r = await turnOn({ carrier: q.carrier, origin: O, destination: D, cabin: q.cabin, pax: q.pax, channel, address }, token);
     setAlertBusy(false);
+    if (r.ok) setWatched(watchedKeys());
+    // Telegram needs one more tap in the bot, so keep the dialog open with the link.
+    if (r.ok && r.link) return setTelegramLink(r.link);
     setAlertOpen(false);
-    if (ok) {
-      setWatched(watchedKeys());
-      showToast(t.alert.on(cabinName, O, D));
-    } else showToast(t.alert.failed);
+    if (r.ok) showToast(channel === 'email' ? t.alert.on(cabinName, O, D) : t.alert.onMessage(cabinName, O, D));
+    else showToast(r.robot ? t.alert.robot : t.alert.failed);
   };
 
   const onCopy = async () => {
@@ -168,7 +183,8 @@ export function SearchApp() {
   const onRefresh = async () => {
     if (!curParams) return;
     setRefreshing(true);
-    const r = await requestRefresh(curParams);
+    const token = await human();
+    const r = await requestRefresh(curParams, token);
     setRefreshing(false);
     if (r === 'ok') cur.restart();
     else showToast(r === 'wait' ? t.day.refreshWait : t.day.refreshFailed);
@@ -304,8 +320,13 @@ export function SearchApp() {
         open={alertOpen}
         busy={alertBusy}
         summary={t.alert.body(cabinName, O, D, f.program(q.carrier), t.search.pax(q.pax))}
+        channels={feat?.channels ?? ['email']}
+        telegramLink={telegramLink}
         onSubmit={submitAlert}
-        onClose={() => setAlertOpen(false)}
+        onClose={() => {
+          setAlertOpen(false);
+          setTelegramLink(null);
+        }}
       />
       <div role="status" aria-live="polite">
         {toast && <div class="toast"><BellRinging size={16} aria-hidden="true" />{toast}</div>}

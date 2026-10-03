@@ -69,6 +69,19 @@ export class MemoryStore implements InventoryStore {
     if (a) Object.assign(a, patch);
   }
 
+  async linkAlert(id: string, channel: AlertRow['channel'], address: string) {
+    const a = this.alerts.get(id);
+    if (!a || a.channel !== channel || a.address) return null;
+    a.address = address;
+    return { ...a };
+  }
+
+  async removeByAddress(channel: AlertRow['channel'], address: string) {
+    let n = 0;
+    for (const [id, a] of this.alerts) if (a.channel === channel && a.address === address && this.alerts.delete(id)) n++;
+    return n;
+  }
+
   async ping() {
     return true;
   }

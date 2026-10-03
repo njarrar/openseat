@@ -3,7 +3,7 @@ import type { CarrierId } from '@openseat/shared';
 const list = (v: string | undefined) => (v ? v.split(',').map((s) => s.trim()).filter(Boolean) : []);
 const num = (v: string | undefined, d: number) => (v && !Number.isNaN(Number(v)) ? Number(v) : d);
 
-export type AdapterKind = 'mock' | 'none';
+export type AdapterKind = 'mock' | 'none' | 'seatsaero';
 
 export interface Config {
   port: number;
@@ -16,6 +16,8 @@ export interface Config {
   allowedOrigins: string[];
   trustProxy: boolean;
   adapters: Record<CarrierId, AdapterKind>;
+  /** seats.aero partner API key and, optionally, its source name per program. */
+  seatsAero?: { apiKey: string; sources: Partial<Record<CarrierId, string>> };
   /** Dates are fetched in blocks this size, one airline calendar request per block. */
   chunkDays: number;
   /** A day read longer ago than this is refreshed when someone searches. */
@@ -30,6 +32,12 @@ export interface Config {
     routesPerTick: number;
   };
   smtp?: { url: string; from: string };
+  /** Telegram bot for alerts. The webhook secret is checked on every update. */
+  telegram?: { token: string; bot: string; webhookSecret: string };
+  /** WhatsApp Cloud API for alerts, with an approved message template. */
+  whatsapp?: { token: string; phoneId: string; template: string; language: string };
+  /** Cloudflare Turnstile bot check on alerts and refresh. */
+  turnstile?: { secret: string; siteKey: string };
   publicUrl: string;
   /** Where this API is reached from outside, for links in emails. */
   apiPublicUrl: string;
@@ -38,7 +46,7 @@ export interface Config {
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const adapter = (id: CarrierId): AdapterKind => {
     const v = env[`ADAPTER_${id}`] ?? env.ADAPTER ?? 'mock';
-    return v === 'none' ? 'none' : 'mock';
+    return v === 'none' || v === 'seatsaero' ? v : 'mock';
   };
   return {
     port: num(env.PORT, 8787),
@@ -48,6 +56,17 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     allowedOrigins: list(env.ALLOWED_ORIGINS ?? 'http://localhost:5173'),
     trustProxy: env.TRUST_PROXY === 'true',
     adapters: { EK: adapter('EK'), EY: adapter('EY'), QR: adapter('QR') },
+    seatsAero: env.SEATS_AERO_API_KEY
+      ? {
+          apiKey: env.SEATS_AERO_API_KEY,
+          sources: Object.fromEntries(
+            (['EK', 'EY', 'QR'] as CarrierId[]).flatMap((id) => {
+              const v = env[`SEATS_AERO_SOURCE_${id}`] ?? { EK: 'emirates', EY: 'etihad', QR: '' }[id];
+              return v ? [[id, v]] : [];
+            }),
+          ),
+        }
+      : undefined,
     chunkDays: num(env.CHUNK_DAYS, 15),
     staleAfterMin: num(env.STALE_AFTER_MIN, 360),
     scheduler: {
@@ -59,6 +78,18 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       routesPerTick: num(env.SCHEDULER_ROUTES_PER_TICK, 2),
     },
     smtp: env.SMTP_URL ? { url: env.SMTP_URL, from: env.MAIL_FROM ?? 'openseat <alerts@openseat.app>' } : undefined,
+    telegram: env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_BOT_NAME && env.TELEGRAM_WEBHOOK_SECRET
+      ? { token: env.TELEGRAM_BOT_TOKEN, bot: env.TELEGRAM_BOT_NAME.replace(/^@/, ''), webhookSecret: env.TELEGRAM_WEBHOOK_SECRET }
+      : undefined,
+    whatsapp: env.WHATSAPP_TOKEN && env.WHATSAPP_PHONE_ID
+      ? {
+          token: env.WHATSAPP_TOKEN,
+          phoneId: env.WHATSAPP_PHONE_ID,
+          template: env.WHATSAPP_TEMPLATE ?? 'seat_alert',
+          language: env.WHATSAPP_TEMPLATE_LANG ?? 'en',
+        }
+      : undefined,
+    turnstile: env.TURNSTILE_SECRET && env.TURNSTILE_SITE_KEY ? { secret: env.TURNSTILE_SECRET, siteKey: env.TURNSTILE_SITE_KEY } : undefined,
     publicUrl: env.PUBLIC_URL ?? 'http://localhost:5173',
     apiPublicUrl: env.API_PUBLIC_URL ?? 'http://localhost:8787',
   };

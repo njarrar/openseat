@@ -148,6 +148,16 @@ button:disabled { cursor: default; }
   transition: border-color 0.2s;
 }
 .lang:hover { border-color: var(--ink); }
+.currency { position: relative; display: inline-flex; align-items: center; }
+.currency select {
+  height: 38px; padding-block: 0; padding-inline: 12px 30px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; appearance: none; transition: border-color 0.2s;
+}
+.currency select:hover { border-color: var(--ink); }
+.currency svg { position: absolute; inset-inline-end: 12px; color: var(--muted); pointer-events: none; }
+/* Shown only if Turnstile needs a click. */
+.turnstile-slot { position: fixed; inset-inline: 0; bottom: 24px; display: flex; justify-content: center; z-index: 1000; pointer-events: none; }
+.turnstile-slot > * { pointer-events: auto; }
 /* On small phones Terms lives in the footer, so the header stays on one line. */
 @media (max-width: 480px) { .nav a.secondary { display: none; } .header { gap: 8px; } .nav a { padding: 8px 10px; } }
 .lang svg { color: var(--accent); }

@@ -57,3 +57,13 @@ test('a day has seats only when one flight fits every traveller', () => {
   assert.equal(s2.first.offered, false);
   assert.equal(summarise(day, 4).economy.count, 0);
 });
+
+test('pegged currencies convert exactly and others are left alone', async () => {
+  const { convert, currencyForLocale } = await import('./currency.js');
+  assert.equal(convert(100, 'USD', 'SAR'), 375);
+  assert.equal(Math.round(convert(367.25, 'AED', 'USD')!), 100);
+  assert.equal(convert(10, 'EUR', 'USD'), null);
+  assert.equal(currencyForLocale('ar-SA'), 'SAR');
+  assert.equal(currencyForLocale('en-AE'), 'AED');
+  assert.equal(currencyForLocale('en'), 'USD');
+});

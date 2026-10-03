@@ -1,4 +1,4 @@
-import type { AlertRequest } from '@openseat/shared';
+import type { AlertChannel, AlertRequest } from '@openseat/shared';
 import { API_URL, offline } from './api';
 
 // Alerts you turned on in this browser, keyed by program, route and cabin.
@@ -39,24 +39,38 @@ export function savedEmail(): string {
   }
 }
 
-export async function turnOn(req: AlertRequest): Promise<boolean> {
+export function savedAddress(channel: AlertChannel): string {
   try {
-    localStorage.setItem(EMAIL, req.address);
+    return localStorage.getItem(channel === 'email' ? EMAIL : `openseat-${channel}`) ?? '';
+  } catch {
+    return '';
+  }
+}
+
+export type TurnOnResult = { ok: true; link?: string } | { ok: false; robot?: boolean };
+
+export async function turnOn(req: AlertRequest, turnstileToken?: string): Promise<TurnOnResult> {
+  try {
+    if (req.address) localStorage.setItem(req.channel === 'email' ? EMAIL : `openseat-${req.channel}`, req.address);
   } catch {
     /* storage blocked */
   }
-  let saved: Saved = { id: 'local', token: 'local' };
+  let saved: Saved & { link?: string } = { id: 'local', token: 'local' };
   if (!offline) {
     try {
-      const r = await fetch(`${API_URL}/api/v1/alerts`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(req) });
-      if (!r.ok) return false;
+      const r = await fetch(`${API_URL}/api/v1/alerts`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...req, ...(turnstileToken ? { turnstileToken } : {}) }),
+      });
+      if (!r.ok) return { ok: false, robot: r.status === 403 };
       saved = await r.json();
     } catch {
-      return false;
+      return { ok: false };
     }
   }
-  write({ ...read(), [alertKey(req)]: saved });
-  return true;
+  write({ ...read(), [alertKey(req)]: { id: saved.id, token: saved.token } });
+  return { ok: true, link: saved.link };
 }
 
 export async function turnOff(key: string): Promise<boolean> {

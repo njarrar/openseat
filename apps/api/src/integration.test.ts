@@ -34,6 +34,14 @@ test('postgres store keeps days, empty days and alerts', { skip: !db && 'DATABAS
     assert.equal(updated.open, true);
     assert.equal(updated.sentDay, dates[0]);
     assert.equal(await store.unsubscribe(a.token), true);
+
+    // Telegram: linked once, then removed by chat.
+    const chat = `chat-${Date.now()}`;
+    const tg = await store.createAlert({ ...route, cabin: 'first', pax: 1, channel: 'telegram', address: '', open: false });
+    assert.equal(await store.linkAlert(tg.id, 'email', chat), null);
+    assert.equal((await store.linkAlert(tg.id, 'telegram', chat))?.address, chat);
+    assert.equal(await store.linkAlert(tg.id, 'telegram', 'someone-else'), null);
+    assert.equal(await store.removeByAddress('telegram', chat), 1);
   } finally {
     await store.close();
   }

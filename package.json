@@ -4,14 +4,21 @@
   "version": "1.0.0",
   "description": "Find reward seats on Emirates, Etihad and Qatar Airways for the next 90 days.",
   "type": "module",
-  "workspaces": ["packages/shared", "apps/api", "apps/web"],
+  "workspaces": ["packages/shared", "apps/api", "apps/web", "apps/mobile"],
   "engines": { "node": ">=22" },
   "scripts": {
     "dev": "npm run dev -w @openseat/web",
     "dev:api": "npm run dev -w @openseat/api",
+    "dev:mobile": "npm start -w @openseat/mobile",
     "build": "npm run build -w @openseat/shared && npm run build -w @openseat/api && npm run build -w @openseat/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "migrate": "npm run migrate -w @openseat/api"
+  },
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native-reanimated": "4.5.1",
+    "react-native-worklets": "0.10.1"
   }
 }

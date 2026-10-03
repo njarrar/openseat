@@ -153,6 +153,19 @@ export class PostgresStore implements InventoryStore {
     await this.pool.query('UPDATE alert_subscriptions SET is_open=$2, sent_today=$3, sent_day=$4 WHERE id=$1', [id, p.open, p.sentToday, p.sentDay]);
   }
 
+  async linkAlert(id: string, channel: AlertRow['channel'], address: string) {
+    const r = await this.pool.query(
+      `UPDATE alert_subscriptions SET address=$3 WHERE id=$1 AND channel=$2 AND address='' RETURNING *`,
+      [id, channel, address],
+    );
+    return r.rows[0] ? rowToAlert(r.rows[0]) : null;
+  }
+
+  async removeByAddress(channel: AlertRow['channel'], address: string) {
+    const r = await this.pool.query('DELETE FROM alert_subscriptions WHERE channel=$1 AND address=$2', [channel, address]);
+    return r.rowCount ?? 0;
+  }
+
   async ping() {
     try {
       await this.pool.query('SELECT 1');

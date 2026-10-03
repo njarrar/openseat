@@ -6,6 +6,14 @@ Base path `/api/v1`. All responses are JSON unless noted. Browser calls are only
 
 `{ "ok": true, "store": true, "coord": true }`
 
+## `GET /features`
+
+What this server offers, so clients show only what works:
+
+```json
+{ "channels": ["email", "telegram", "whatsapp"], "telegramBot": "openseat_bot", "turnstileSiteKey": null, "currencies": ["USD", "AED", "SAR", "QAR"] }
+```
+
 ## `GET /reference`
 
 Programs, cabins, airports and the window length. Cached for an hour and revalidated by `ETag`.
@@ -48,11 +56,17 @@ Limited to 30 searches per client, refilling one every 4 seconds. Over the limit
 
 ## `POST /search/refresh`
 
-Body `{ p, o, d, n }`. Marks the route so the next search re-reads every day. `200 { ok: true }`, or `429` with `Retry-After` if this visitor asked too often or the route was refreshed in the last 5 minutes.
+Body `{ p, o, d, n, turnstileToken? }`. Marks the route so the next search re-reads every day. `200 { ok: true }`, or `429` with `Retry-After` if this visitor asked too often or the route was refreshed in the last 5 minutes.
 
 ## `POST /alerts`
 
-Body `{ carrier, origin, destination, cabin, pax, channel: "email", address }`. Returns `201 { id, token }`. Keep the token: it is the only way to remove the alert. `400 { error }` for bad input.
+Body `{ carrier, origin, destination, cabin, pax, channel, address, turnstileToken? }`.
+
+- `channel: "email"`: `address` is the email address.
+- `channel: "whatsapp"`: `address` is the number with the country code, for example `+971501234567`.
+- `channel: "telegram"`: no address. The reply has a `link` to the bot; the alert starts once the person opens it and taps Start.
+
+Returns `201 { id, token, link? }`. Keep the token: it is the only way to remove the alert. `400 { error }` for bad input or a channel this server does not offer. When Turnstile is on, a missing or failed token gives `403 { error, botCheck: true }`.
 
 ## `DELETE /alerts/:id`
 
@@ -60,4 +74,8 @@ Header `x-alert-token: <token>`. `204` when removed, `404` when not found or the
 
 ## `GET /alerts/unsubscribe?token=`
 
-The link in every alert email. Returns a short HTML page.
+The link in every alert email and WhatsApp message. Returns a short HTML page.
+
+## `POST /telegram/webhook`
+
+Called by Telegram only, checked with the `X-Telegram-Bot-Api-Secret-Token` header. Handles `/start <alert id>` and `/stop`. See [alerts.md](alerts.md).

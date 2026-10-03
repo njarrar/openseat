@@ -95,7 +95,7 @@ function mockStream(p: SearchParams, requestId: string, h: StreamHandlers) {
 
 export type RefreshResult = 'ok' | 'wait' | 'failed';
 
-export async function requestRefresh(p: SearchParams): Promise<RefreshResult> {
+export async function requestRefresh(p: SearchParams, turnstileToken?: string): Promise<RefreshResult> {
   if (offline) {
     const key = `openseat-refresh:${p.carrier}:${p.origin}:${p.destination}`;
     const last = Number(sessionStorage.getItem(key) ?? 0);
@@ -108,7 +108,7 @@ export async function requestRefresh(p: SearchParams): Promise<RefreshResult> {
     const r = await fetch(`${API_URL}/api/v1/search/refresh`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ p: p.carrier, o: p.origin, d: p.destination, n: p.pax }),
+      body: JSON.stringify({ p: p.carrier, o: p.origin, d: p.destination, n: p.pax, ...(turnstileToken ? { turnstileToken } : {}) }),
     });
     return r.ok ? 'ok' : r.status === 429 ? 'wait' : 'failed';
   } catch {
