@@ -12,7 +12,7 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 | --- | --- |
 | ![Day sheet on a phone](docs/screenshots/mobile-en.png) | ![Search page in dark mode](docs/screenshots/dark-en.png) |
 
-> Prices and seat counts are **sample data** until a real data source is plugged in. See [docs/data-sources.md](docs/data-sources.md).
+> Prices and seat counts are **sample data** unless the API runs with a real source. Real data comes from the seats.aero partner API for Emirates and Etihad. See [docs/data-sources.md](docs/data-sources.md).
 
 ## What is in this repo
 
@@ -73,7 +73,9 @@ Site on http://localhost:8080, API on http://localhost:8787, with Postgres and R
 1. **Search.** The search is a sentence: "Using Emirates Skywards, show me Business seats for 1 traveller from Dubai to London, one way." Each green part is a picker. The search lives in the URL (`?p=EK&o=DXB&d=LHR&c=business&n=1&r=0`), so links can be shared.
 2. **Calendar.** Each day shows how many seats are open on its best flight (1, 2, 3 or 4+). A day counts only when one flight has enough seats for every traveller.
 3. **Day.** Every flight that day, miles and taxes per traveller, other cabins open on the same flight, and the steps to book.
-4. **Alert.** Turn on an email alert for a route and cabin. It fires when seats open, at most twice a day.
+4. **Alert.** Turn on an alert for a route and cabin, by email, Telegram or WhatsApp. It fires when seats open, at most twice a day.
+
+Taxes can be shown in US dollars, UAE dirhams, Saudi riyals or Qatari riyals, from a switch in the header.
 
 Results stream in. Days the API already has show at once, and the rest arrive in 15-day blocks as they are read. Each search has its own request id, so tabs never interfere, and leaving a search stops work nobody else needs. Identical searches from many people share one fetch per block. See [docs/architecture.md](docs/architecture.md).
 
@@ -91,6 +93,9 @@ Every setting is in [.env.example](.env.example) with a short note. The ones tha
 - `ALLOWED_ORIGINS`: exact origins allowed to call the API from a browser. There is no wildcard.
 - `TRUST_PROXY=true` behind a load balancer, so rate limits see real client addresses.
 - `SMTP_URL`, `MAIL_FROM`: alert email. Without them alerts go to the log.
+- `TELEGRAM_*`, `WHATSAPP_*`: Telegram and WhatsApp alerts. See [docs/alerts.md](docs/alerts.md).
+- `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET`: Cloudflare Turnstile bot check on alerts and refresh.
+- `ADAPTER_EK` etc. and `SEATS_AERO_API_KEY`: real data. See [docs/data-sources.md](docs/data-sources.md).
 - `VITE_API_URL` (web, build time): where the site finds the API. Leave empty for sample-data mode.
 
 ## Deploying
@@ -106,16 +111,18 @@ Done:
 - English and Arabic with right-to-left layout, and dark mode.
 - API with streaming search, request merging, per-search ids, refresh with cooldowns, alerts with email, a tiered refresh scheduler, Postgres storage and Redis coordination.
 - Tests for shared logic, the API (including real Postgres and Redis) and the web app's URL and copy.
+- Real data for Emirates and Etihad through the seats.aero partner API. Needs a key and, for a public site, their written approval.
+- Alerts by Telegram and WhatsApp as well as email.
+- Taxes in USD, AED, SAR or QAR.
+- Cloudflare Turnstile bot check on alerts and refresh.
 
 Not done yet:
 
-- **Real airline data.** Only the sample adapter exists. [docs/data-sources.md](docs/data-sources.md) explains the adapter contract.
+- **Real data for Qatar.** seats.aero does not list Qatar Privilege Club yet. [docs/data-sources.md](docs/data-sources.md) explains how to add another source.
 - **Native apps.** The iOS and Android designs are in `design/prototypes/Openseat Native Apps.dc.html`, with the spec in [design/HANDOFF.md](design/HANDOFF.md).
-- Telegram and WhatsApp alerts. The database accepts these channels; only email is wired up.
 - Booking links that open the airline site with the search filled in. The airlines do not publish reward search URLs, so the button opens the home page.
 - Bank points and partner program prices.
-- Currency choice (AED, SAR, QAR). Taxes are estimates in US dollars.
-- Bot checks (for example Turnstile) on the API. Rate limits and the origin allowlist are in place.
+- Turnstile in the native apps. See [docs/alerts.md](docs/alerts.md).
 
 ## Licence
 

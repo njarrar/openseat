@@ -1,6 +1,6 @@
 import {
   CABIN_BY_ID, CARRIER_BY_ID, MAX_PAX, gulfToday, isAirport, isCabin, isCarrier, programName, summarise, windowDates,
-  type AlertRequest, type DayResult,
+  type AlertChannel, type AlertRequest, type DayResult,
 } from '@openseat/shared';
 import type { AlertRow, InventoryStore, Route } from '../store/types.js';
 import type { Notifier } from './notifier.js';
@@ -9,20 +9,33 @@ import type { Notifier } from './notifier.js';
 export const MAX_PER_DAY = 2;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+/** International format: a plus, then 8 to 15 digits. */
+const PHONE = /^\+[1-9]\d{7,14}$/;
 
 export class ValidationError extends Error {}
 
-export function validateAlert(body: unknown): AlertRequest {
+export function validateAlert(body: unknown, channels: AlertChannel[] = ['email']): AlertRequest {
   const b = (body ?? {}) as Record<string, unknown>;
   if (!isCarrier(b.carrier)) throw new ValidationError('Unknown program');
   if (!isAirport(b.origin) || !isAirport(b.destination) || b.origin === b.destination) throw new ValidationError('Pick two different airports');
   if (!isCabin(b.cabin)) throw new ValidationError('Unknown cabin');
   const pax = Number(b.pax);
   if (!Number.isInteger(pax) || pax < 1 || pax > MAX_PAX) throw new ValidationError('Travellers must be 1 to 6');
-  if (b.channel !== 'email') throw new ValidationError('Only email alerts are available for now');
+  const channel = (b.channel ?? 'email') as AlertChannel;
+  if (!channels.includes(channel)) throw new ValidationError('That alert channel is not available');
+  const base = { carrier: b.carrier, origin: b.origin, destination: b.destination, cabin: b.cabin, pax, channel };
+  if (channel === 'telegram') {
+    // The chat is linked when the person opens the bot, so there is no address yet.
+    return { ...base, address: '' };
+  }
+  if (channel === 'whatsapp') {
+    const address = String(b.address ?? '').replace(/[\s().-]/g, '').replace(/^00/, '+');
+    if (!PHONE.test(address)) throw new ValidationError('Enter your WhatsApp number with the country code, for example +971 50 123 4567');
+    return { ...base, address };
+  }
   const address = String(b.address ?? '').trim().toLowerCase();
   if (address.length > 254 || !EMAIL.test(address)) throw new ValidationError('Enter a valid email address');
-  return { carrier: b.carrier, origin: b.origin, destination: b.destination, cabin: b.cabin, pax, channel: 'email', address };
+  return { ...base, address };
 }
 
 export class AlertService {
@@ -44,6 +57,8 @@ export class AlertService {
     const days = [...stored.values()].sort((a, b) => a.date.localeCompare(b.date));
     const today = gulfToday();
     for (const a of alerts) {
+      // A Telegram alert waits here until someone opens the bot.
+      if (!a.address) continue;
       const openDays = days.filter((d) => summarise(d, a.pax)[a.cabin].count > 0);
       const open = openDays.length > 0;
       let { sentToday, sentDay } = a;
@@ -64,15 +79,18 @@ export class AlertService {
     const carrier = CARRIER_BY_ID[a.carrier];
     const first = openDays.slice(0, 5).map((d) => d.date).join(', ');
     const link = `${this.publicUrl}/?p=${a.carrier}&o=${a.origin}&d=${a.destination}&c=${a.cabin}&n=${a.pax}`;
+    const unsubscribe = `${this.apiUrl.replace(/\/$/, '')}/api/v1/alerts/unsubscribe?token=${encodeURIComponent(a.token)}`;
+    const days = `${first}${openDays.length > 5 ? ` and ${openDays.length - 5} more` : ''}`;
     return {
+      fields: { cabin, origin: a.origin, destination: a.destination, days, link, unsubscribe },
       subject: `${cabin} seats open: ${a.origin} to ${a.destination}`,
       text: [
         `${cabin} reward seats are open on ${programName(carrier)} from ${a.origin} to ${a.destination} for ${a.pax} traveller${a.pax > 1 ? 's' : ''}.`,
-        `First days: ${first}${openDays.length > 5 ? ` and ${openDays.length - 5} more` : ''}.`,
+        `First days: ${days}.`,
         `See them: ${link}`,
         '',
         `Seats can go quickly. Confirm on ${carrier.site} before you move miles.`,
-        `Turn this alert off: ${this.apiUrl.replace(/\/$/, '')}/api/v1/alerts/unsubscribe?token=${encodeURIComponent(a.token)}`,
+        `Turn this alert off: ${unsubscribe}`,
       ].join('\n'),
     };
   }

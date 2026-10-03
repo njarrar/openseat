@@ -2,12 +2,15 @@ import { createHash, randomUUID } from 'node:crypto';
 import cors from '@fastify/cors';
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
 import {
-  AIRPORTS, CABINS, CARRIERS, MAX_PAX, WINDOW_DAYS, isAirport, isCarrier, type SearchEvent, type SearchParams,
+  AIRPORTS, CABINS, CARRIERS, CURRENCIES, MAX_PAX, WINDOW_DAYS, isAirport, isCarrier,
+  type AlertChannel, type SearchEvent, type SearchParams,
 } from '@openseat/shared';
 import { AlertService, ValidationError, validateAlert } from '../alerts/service.js';
+import type { TelegramNotifier } from '../alerts/notifier.js';
 import type { Coordinator } from '../coord/types.js';
 import type { SearchService } from '../search/service.js';
 import { routeId, type InventoryStore } from '../store/types.js';
+import type { BotCheck } from './turnstile.js';
 
 export interface ServerDeps {
   store: InventoryStore;
@@ -17,6 +20,11 @@ export interface ServerDeps {
   allowedOrigins: string[];
   trustProxy: boolean;
   logger?: boolean;
+  /** Alert channels people can pick. Email only when not given. */
+  channels?: AlertChannel[];
+  telegram?: { bot: string; webhookSecret: string; notifier: Pick<TelegramNotifier, 'say'> };
+  /** Bot check for alerts and refresh. The site key is public and goes to clients. */
+  botCheck?: { check: BotCheck; siteKey: string };
 }
 
 const REFERENCE = { windowDays: WINDOW_DAYS, carriers: CARRIERS, cabins: CABINS, airports: AIRPORTS };
@@ -61,6 +69,29 @@ export async function buildServer(deps: ServerDeps) {
     }
     return true;
   };
+
+  /** True when the bot check passed, or is off. Sends the 403 itself otherwise. */
+  const human = async (req: FastifyRequest, reply: FastifyReply) => {
+    if (!deps.botCheck) return true;
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const token = String(body.turnstileToken ?? req.headers['cf-turnstile-response'] ?? '');
+    if (await deps.botCheck.check.verify(token, req.ip)) return true;
+    reply.code(403).send({ error: 'Please confirm you are not a robot and try again.', botCheck: true });
+    return false;
+  };
+
+  const channels = deps.channels ?? ['email'];
+
+  // What this server offers, so the website and apps can show only what works.
+  app.get('/api/v1/features', async (_req, reply) => {
+    reply.header('cache-control', 'public, max-age=300');
+    return {
+      channels,
+      telegramBot: deps.telegram?.bot ?? null,
+      turnstileSiteKey: deps.botCheck?.siteKey ?? null,
+      currencies: CURRENCIES,
+    };
+  });
 
   app.get('/api/v1/health', async () => ({ ok: true, store: await deps.store.ping(), coord: await deps.coord.ping() }));
 
@@ -115,6 +146,7 @@ export async function buildServer(deps: ServerDeps) {
     const params = parseSearch((req.body ?? {}) as Record<string, unknown>);
     if (!params) return reply.code(400).send({ error: 'Invalid route' });
     if (!(await limit(req, reply, 'refresh', 3, 1 / 200))) return;
+    if (!(await human(req, reply))) return;
     const id = routeId({ carrier: params.carrier, origin: params.origin, destination: params.destination });
     if (!(await deps.coord.tryLock(`cooldown:${id}`, '1', 5 * 60000))) {
       return reply.header('retry-after', '300').code(429).send({ error: 'This route was refreshed a few minutes ago.' });
@@ -126,9 +158,12 @@ export async function buildServer(deps: ServerDeps) {
   app.post('/api/v1/alerts', async (req, reply) => {
     if (!originOk(req)) return reply.code(403).send({ error: 'Origin not allowed' });
     if (!(await limit(req, reply, 'alerts', 10, 1 / 60))) return;
+    if (!(await human(req, reply))) return;
     try {
-      const a = await deps.alerts.create(validateAlert(req.body));
-      return reply.code(201).send({ id: a.id, token: a.token });
+      const a = await deps.alerts.create(validateAlert(req.body, channels));
+      // Telegram alerts start once the person opens the bot with this link.
+      const link = a.channel === 'telegram' && deps.telegram ? `https://t.me/${deps.telegram.bot}?start=${a.id}` : undefined;
+      return reply.code(201).send({ id: a.id, token: a.token, ...(link ? { link } : {}) });
     } catch (e) {
       if (e instanceof ValidationError) return reply.code(400).send({ error: e.message });
       throw e;
@@ -154,6 +189,37 @@ export async function buildServer(deps: ServerDeps) {
         `<p>${ok ? 'Your alert is off. You will not get more emails about it.' : 'This alert was already turned off.'}</p></body>`,
     );
   });
+
+  // Telegram calls this for every message to the bot. The secret header proves it is Telegram.
+  if (deps.telegram) {
+    const tg = deps.telegram;
+    app.post('/api/v1/telegram/webhook', async (req, reply) => {
+      if (req.headers['x-telegram-bot-api-secret-token'] !== tg.webhookSecret) return reply.code(401).send();
+      const msg = (req.body as { message?: { chat?: { id?: number }; text?: string } })?.message;
+      const chat = msg?.chat?.id;
+      const text = (msg?.text ?? '').trim();
+      if (!chat) return reply.send({ ok: true });
+      const chatId = String(chat);
+      try {
+        const start = /^\/start\s+([0-9a-f-]{36})$/i.exec(text);
+        if (start && UUID.test(start[1])) {
+          const a = await deps.store.linkAlert(start[1], 'telegram', chatId);
+          await tg.notifier.say(chatId, a
+            ? `Alert on. We will message you here when ${a.cabin} seats open from ${a.origin} to ${a.destination}, at most twice a day. Send /stop to turn off all your alerts.`
+            : 'This alert link has already been used or has expired. Turn the alert on again from the site.');
+        } else if (/^\/stop\b/i.test(text)) {
+          const n = await deps.store.removeByAddress('telegram', chatId);
+          await tg.notifier.say(chatId, n ? 'All your alerts are off.' : 'You have no alerts on.');
+        } else {
+          await tg.notifier.say(chatId, 'Turn on an alert from the openseat site, then tap the Telegram link it shows. Send /stop to turn off all your alerts.');
+        }
+      } catch (e) {
+        req.log.error(e);
+      }
+      // Always 200, or Telegram keeps retrying the same message.
+      return reply.send({ ok: true });
+    });
+  }
 
   return app;
 }

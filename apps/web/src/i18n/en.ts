@@ -21,6 +21,8 @@ export const en = {
     switchTo: 'العربية',
     switchLang: 'ar' as 'ar' | 'en',
     switchLabel: 'اقرأ هذه الصفحة بالعربية',
+    currency: 'Currency for taxes',
+    currencies: { USD: 'USD', AED: 'AED', SAR: 'SAR', QAR: 'QAR' },
   },
 
   footer: {
@@ -126,7 +128,7 @@ export const en = {
   },
 
   alert: {
-    title: 'Get an email when seats open',
+    title: 'Get an alert when seats open',
     body: (cabin: string, o: string, d: string, program: string, pax: string) => `We will watch ${cabin} seats from ${o} to ${d} on ${program}, for ${pax}.`,
     email: 'Email address',
     help: 'At most two emails a day. Every email has a link to turn the alert off.',
@@ -136,6 +138,16 @@ export const en = {
     on: (cabin: string, o: string, d: string) => `We will email you when ${cabin} seats open on ${o} to ${d}.`,
     off: 'Alert turned off.',
     failed: 'Could not save the alert. Try again.',
+    channel: 'Send alerts by',
+    channels: { email: 'Email', telegram: 'Telegram', whatsapp: 'WhatsApp' },
+    phone: 'WhatsApp number',
+    phoneHelp: 'With the country code, for example +971 50 123 4567. At most two messages a day. Each one has a link to turn the alert off.',
+    phoneInvalid: 'Enter your number with the country code, starting with +.',
+    telegramHelp: 'Next, open our Telegram bot and tap Start. At most two messages a day. Send /stop to the bot to turn alerts off.',
+    telegramNext: 'One more step: open Telegram and tap Start to turn this alert on.',
+    telegramOpen: 'Open Telegram',
+    onMessage: (cabin: string, o: string, d: string) => `We will message you when ${cabin} seats open on ${o} to ${d}.`,
+    robot: 'Please confirm you are not a robot and try again.',
   },
 
   how: {
@@ -146,7 +158,7 @@ export const en = {
       { title: 'Build your search', text: 'Each green part of the sentence is a picker. Start with your miles program, then set the cabin, travellers, airports and whether you need a return.' },
       { title: 'Scan the next 90 days', text: 'The number in each day is how many seats are open on the best flight that day. Darker green means more seats.' },
       { title: 'Open a day', text: 'See every direct and one-stop flight, the price per traveller with taxes, and other cabins open on the same flight. For a return, switch to the Return tab.' },
-      { title: 'Book with the airline', text: 'Follow the steps under How to book and finish on the airline site. If nothing is open yet, turn on an alert and we will email you.' },
+      { title: 'Book with the airline', text: 'Follow the steps under How to book and finish on the airline site. If nothing is open yet, turn on an alert and we will message you by email, WhatsApp or Telegram.' },
     ],
     reading: 'Reading the calendar',
     key: [

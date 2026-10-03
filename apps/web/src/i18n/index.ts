@@ -1,6 +1,9 @@
 import { createContext } from 'preact';
 import { useContext, useMemo, useState } from 'preact/hooks';
-import { AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, programName, programNameAr, toUtc, type CabinId, type CarrierId } from '@openseat/shared';
+import {
+  AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, convert, currencyForLocale, isCurrency, programName, programNameAr, toUtc,
+  type CabinId, type CarrierId, type CurrencyId,
+} from '@openseat/shared';
 import { ar } from './ar';
 import { en, type Dict } from './en';
 import type { Lang } from './types';
@@ -8,6 +11,23 @@ import type { Lang } from './types';
 export type { Lang } from './types';
 const DICTS: Record<Lang, Dict> = { en, ar };
 const KEY = 'openseat-lang';
+const CURRENCY_KEY = 'openseat-currency';
+
+/** The saved currency, else one that fits the browser's region (ar-SA gives SAR). */
+export function initialCurrency(): CurrencyId {
+  try {
+    const saved = localStorage.getItem(CURRENCY_KEY);
+    if (isCurrency(saved)) return saved;
+  } catch {
+    /* storage blocked */
+  }
+  const locales = typeof navigator === 'undefined' ? [] : [...(navigator.languages ?? []), navigator.language];
+  for (const l of locales) {
+    const c = currencyForLocale(l);
+    if (c !== 'USD') return c;
+  }
+  return 'USD';
+}
 
 /** The head script has already picked a language; read it back. */
 export function initialLang(): Lang {
@@ -32,7 +52,7 @@ export function applyLang(lang: Lang, title?: (t: Dict) => string) {
   }
 }
 
-export function makeFormat(lang: Lang) {
+export function makeFormat(lang: Lang, currency: CurrencyId = 'USD') {
   const t = DICTS[lang];
   const nf = new Intl.NumberFormat(t.numberLocale);
   const date = (opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(t.locale, { timeZone: 'UTC', ...opts });
@@ -42,8 +62,10 @@ export function makeFormat(lang: Lang) {
   const rtf = new Intl.RelativeTimeFormat(t.locale, { numeric: 'auto' });
   return {
     num: (n: number) => nf.format(n),
-    money: (n: number, currency: string) => {
-      const s = new Intl.NumberFormat(t.numberLocale, { style: 'currency', currency, maximumFractionDigits: 0 }).format(n);
+    /** Shown in the chosen currency when we can convert exactly, else in the currency it came in. */
+    money: (n: number, from: string) => {
+      const v = convert(n, from, currency);
+      const s = new Intl.NumberFormat(t.numberLocale, { style: 'currency', currency: v === null ? from : currency, maximumFractionDigits: 0 }).format(v ?? n);
       // In Arabic text, isolate the amount so "US$ 412" is not reordered.
       return lang === 'ar' ? '\u2066' + s + '\u2069' : s;
     },
@@ -79,6 +101,8 @@ interface LangValue {
   t: Dict;
   f: Format;
   setLang: (l: Lang) => void;
+  currency: CurrencyId;
+  setCurrency: (c: CurrencyId) => void;
 }
 
 const Ctx = createContext<LangValue | null>(null);
@@ -86,15 +110,25 @@ export const LangContext = Ctx;
 
 export function useLangState(title?: (t: Dict) => string): LangValue {
   const [lang, set] = useState<Lang>(initialLang);
+  const [currency, setCur] = useState<CurrencyId>(initialCurrency);
   return useMemo(() => ({
     lang,
     t: DICTS[lang],
-    f: makeFormat(lang),
+    f: makeFormat(lang, currency),
     setLang: (l: Lang) => {
       applyLang(l, title);
       set(l);
     },
-  }), [lang]);
+    currency,
+    setCurrency: (c: CurrencyId) => {
+      try {
+        localStorage.setItem(CURRENCY_KEY, c);
+      } catch {
+        /* storage blocked */
+      }
+      setCur(c);
+    },
+  }), [lang, currency]);
 }
 
 export function useLang() {

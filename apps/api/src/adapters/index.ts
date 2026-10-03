@@ -1,6 +1,7 @@
 import { gulfToday, mockDays, type CarrierId } from '@openseat/shared';
-import type { AdapterKind } from '../config.js';
+import type { AdapterKind, Config } from '../config.js';
 import type { Route } from '../store/types.js';
+import { SeatsAeroAdapter } from './seatsaero.js';
 import { AdapterUnavailableError, type CarrierAdapter } from './types.js';
 
 const sleep = (ms: number, signal: AbortSignal) =>
@@ -34,7 +35,20 @@ export class UnconfiguredAdapter implements CarrierAdapter {
   }
 }
 
-export function buildAdapters(kinds: Record<CarrierId, AdapterKind>, mockDelayMs?: number): Record<CarrierId, CarrierAdapter> {
-  const make = (id: CarrierId): CarrierAdapter => (kinds[id] === 'mock' ? new MockAdapter(mockDelayMs) : new UnconfiguredAdapter(id));
+export function buildAdapters(
+  kinds: Record<CarrierId, AdapterKind>,
+  mockDelayMs?: number,
+  seatsAero?: Config['seatsAero'],
+): Record<CarrierId, CarrierAdapter> {
+  const aero = seatsAero ? new SeatsAeroAdapter(seatsAero) : null;
+  const make = (id: CarrierId): CarrierAdapter => {
+    if (kinds[id] === 'mock') return new MockAdapter(mockDelayMs);
+    if (kinds[id] === 'seatsaero') {
+      if (!aero) throw new Error(`ADAPTER_${id}=seatsaero needs SEATS_AERO_API_KEY`);
+      if (!aero.supports(id)) throw new Error(`Set SEATS_AERO_SOURCE_${id} to use seats.aero for ${id}`);
+      return aero;
+    }
+    return new UnconfiguredAdapter(id);
+  };
   return { EK: make('EK'), EY: make('EY'), QR: make('QR') };
 }

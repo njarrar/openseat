@@ -43,6 +43,10 @@ export interface InventoryStore {
   alertsForRoute(route: Route): Promise<AlertRow[]>;
   alertRoutes(): Promise<Route[]>;
   updateAlertState(id: string, patch: Pick<AlertRow, 'open' | 'sentToday' | 'sentDay'>): Promise<void>;
+  /** Fill in the address of an alert waiting for one (a Telegram chat). False if there is no such alert. */
+  linkAlert(id: string, channel: AlertChannel, address: string): Promise<AlertRow | null>;
+  /** Remove every alert sent to this address, for "stop" commands. Returns how many went. */
+  removeByAddress(channel: AlertChannel, address: string): Promise<number>;
 
   ping(): Promise<boolean>;
   close(): Promise<void>;

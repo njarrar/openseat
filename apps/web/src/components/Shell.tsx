@@ -1,5 +1,6 @@
 import type { ComponentChildren } from 'preact';
-import { Translate } from '@phosphor-icons/react';
+import { CURRENCIES, isCurrency } from '@openseat/shared';
+import { CaretDown, Translate } from '@phosphor-icons/react';
 import { LangContext, useLang, useLangState } from '../i18n';
 import type { Dict } from '../i18n/en';
 
@@ -14,6 +15,19 @@ function LangSwitch() {
       <Translate size={17} aria-hidden="true" />
       <span lang={t.nav.switchLang}>{t.nav.switchTo}</span>
     </button>
+  );
+}
+
+/** Taxes are shown in this currency. Gulf currencies are pegged to the dollar, so the figures are exact. */
+function CurrencySwitch() {
+  const { t, currency, setCurrency } = useLang();
+  return (
+    <span class="currency">
+      <select value={currency} aria-label={t.nav.currency} title={t.nav.currency} onChange={(e) => isCurrency(e.currentTarget.value) && setCurrency(e.currentTarget.value)}>
+        {CURRENCIES.map((c) => <option key={c} value={c}>{t.nav.currencies[c]}</option>)}
+      </select>
+      <CaretDown size={13} aria-hidden="true" />
+    </span>
   );
 }
 
@@ -34,6 +48,7 @@ export function Header({ page }: { page: PageId }) {
             {label}
           </a>
         ))}
+        <CurrencySwitch />
         <LangSwitch />
       </nav>
     </header>

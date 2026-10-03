@@ -34,6 +34,8 @@ export const ar: Dict = {
     switchTo: 'English',
     switchLang: 'en',
     switchLabel: 'Read this page in English',
+    currency: 'عملة الضرائب',
+    currencies: { USD: 'دولار', AED: 'درهم', SAR: 'ريال سعودي', QAR: 'ريال قطري' },
   },
 
   footer: {
@@ -139,7 +141,7 @@ export const ar: Dict = {
   },
 
   alert: {
-    title: 'استلم بريدًا عند توفر المقاعد',
+    title: 'استلم تنبيهًا عند توفر المقاعد',
     body: (cabin: string, o: string, d: string, program: string, pax: string) => `سنراقب مقاعد ${cabin} من ${o} إلى ${d} على ${program}، لـ${pax}.`,
     email: 'البريد الإلكتروني',
     help: 'رسالتان كحد أقصى في اليوم. في كل رسالة رابط لإيقاف التنبيه.',
@@ -149,6 +151,16 @@ export const ar: Dict = {
     on: (cabin: string, o: string, d: string) => `سنراسلك عند توفر مقاعد ${cabin} من ${o} إلى ${d}.`,
     off: 'أُوقف التنبيه.',
     failed: 'تعذر حفظ التنبيه. حاول مجددًا.',
+    channel: 'أرسل التنبيه عبر',
+    channels: { email: 'البريد', telegram: 'تيليجرام', whatsapp: 'واتساب' },
+    phone: 'رقم واتساب',
+    phoneHelp: 'مع رمز الدولة، مثل ‎+971 50 123 4567. رسالتان كحد أقصى في اليوم، وفي كل رسالة رابط لإيقاف التنبيه.',
+    phoneInvalid: 'أدخل رقمك مع رمز الدولة، يبدأ بعلامة +.',
+    telegramHelp: 'بعد ذلك افتح بوت تيليجرام واضغط ابدأ. رسالتان كحد أقصى في اليوم. أرسل ‎/stop للبوت لإيقاف التنبيهات.',
+    telegramNext: 'خطوة أخيرة: افتح تيليجرام واضغط ابدأ لتفعيل التنبيه.',
+    telegramOpen: 'افتح تيليجرام',
+    onMessage: (cabin: string, o: string, d: string) => `سنراسلك عند توفر مقاعد ${cabin} من ${o} إلى ${d}.`,
+    robot: 'أكّد أنك لست روبوتًا ثم حاول مجددًا.',
   },
 
   how: {

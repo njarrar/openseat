@@ -24,8 +24,9 @@ const TERMS = {
       ['Fair use', [
         'Openseat is for personal use. Do not scrape it, query it automatically, resell its data or try to get around usage limits. We limit the number of searches per hour and may block access that harms the service for others.',
       ]],
-      ['Alerts and email', [
-        'If you turn on an alert, we use your email address only to tell you about seats on the routes you chose. We send at most two emails a day, and every email has a link to turn the alert off. We do not sell or share your address.',
+      ['Alerts', [
+        'If you turn on an alert, we use your email address, WhatsApp number or Telegram chat only to tell you about seats on the routes you chose. We send at most two messages a day per alert. Every email and WhatsApp message has a link to turn the alert off, and on Telegram you can send /stop. We do not sell or share your details.',
+        'Taxes are estimates. When you pick a Gulf currency, we convert from US dollars at the fixed official rate.',
         'An alert is a best effort. It may arrive after the seats have gone, and we are not responsible for a missed alert.',
       ]],
       ['Trademarks', [
@@ -57,8 +58,9 @@ const TERMS = {
       ['الاستخدام العادل', [
         'Openseat للاستخدام الشخصي. لا تستخرج بياناته آليًا ولا تستعلم عنه بشكل آلي ولا تُعِد بيع بياناته ولا تحاول تجاوز حدود الاستخدام. نحدد عدد عمليات البحث في الساعة، وقد نمنع أي استخدام يضر بالخدمة للآخرين.',
       ]],
-      ['التنبيهات والبريد الإلكتروني', [
-        'إذا فعّلت تنبيهًا، نستخدم بريدك الإلكتروني فقط لإخبارك بالمقاعد على المسارات التي اخترتها. نرسل رسالتين كحد أقصى في اليوم، وفي كل رسالة رابط لإيقاف التنبيه. لا نبيع عنوانك ولا نشاركه.',
+      ['التنبيهات', [
+        'إذا فعّلت تنبيهًا، نستخدم بريدك الإلكتروني أو رقم واتساب أو محادثة تيليجرام فقط لإخبارك بالمقاعد على المسارات التي اخترتها. نرسل رسالتين كحد أقصى في اليوم لكل تنبيه. في كل رسالة بريد أو واتساب رابط لإيقاف التنبيه، وفي تيليجرام يمكنك إرسال ‎/stop. لا نبيع بياناتك ولا نشاركها.',
+        'الضرائب تقديرية. عند اختيار عملة خليجية نحوّل من الدولار الأمريكي بسعر الصرف الرسمي الثابت.',
         'التنبيه جهد نبذله دون ضمان. قد يصل بعد نفاد المقاعد، ولسنا مسؤولين عن تنبيه فائت.',
       ]],
       ['العلامات التجارية', [
