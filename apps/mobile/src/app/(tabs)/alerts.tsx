@@ -13,8 +13,8 @@ import { useTheme } from '../../theme';
 /** Every alert turned on from this device. Tap one to open its calendar. */
 export default function AlertsScreen() {
   const th = useTheme();
-  const { t, a, f } = useLang();
-  const { alerts, on, off } = useAlerts();
+  const { t, a, f, lang } = useLang();
+  const { alerts, off, restore } = useAlerts();
   const { update } = useTrip();
   const toast = useToast();
   const router = useRouter();
@@ -23,8 +23,11 @@ export default function AlertsScreen() {
 
   const remove = async (key: string) => {
     const { id: _id, token: _token, ...req } = alerts[key];
-    if (await off(key)) toast(t.alert.off, () => void on(req));
-    else toast(t.alert.failed);
+    if (!(await off(key))) return toast(t.alert.failed);
+    if (req.channel === 'telegram') return toast(t.alert.off);
+    toast(t.alert.off, () => {
+      restore(req, lang).then((ok) => !ok && toast(t.alert.failed));
+    });
   };
 
   return (
@@ -52,7 +55,7 @@ export default function AlertsScreen() {
                 >
                   <Txt style={{ fontWeight: '600' }}>{t.picker.routeAria(f.city(al.origin), f.city(al.destination))}</Txt>
                   <Txt style={{ fontSize: 13, color: th.text2 }}>{`${f.programOnly(al.carrier)} · ${f.cabin(al.cabin)} · ${t.search.pax(al.pax)}`}</Txt>
-                  <Txt style={{ fontSize: 13, color: th.text2 }}>{a.alerts.to(al.address)}</Txt>
+                  <Txt style={{ fontSize: 13, color: th.text2 }}>{al.channel === 'telegram' ? a.alerts.telegram : a.alerts.to(al.address)}</Txt>
                 </Press>
                 <Switch value label={a.alerts.turnOff(`${al.origin} → ${al.destination}`)} onChange={() => remove(key)} />
               </View>

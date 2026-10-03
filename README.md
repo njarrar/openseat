@@ -122,21 +122,20 @@ Every setting is in [.env.example](.env.example) with a short note. The ones tha
 Done:
 
 - Web app from the design: search sentence, pickers, 90-day calendar, return trips, day panel and bottom sheet on phones, booking steps, alerts, copy link, How to use and Terms pages.
-- Native apps for iOS and Android with the same features: the search sentence, 90-day calendar, day and flights, booking steps, email alerts, How to use and Terms. iOS and Android each get their own look. English and Arabic, following the phone language with a setting to change it, and light and dark mode. See [apps/mobile/README.md](apps/mobile/README.md).
+- Native apps for iOS and Android with the same features: the search sentence, 90-day calendar, day and flights, booking steps, alerts by email, Telegram or WhatsApp, a currency setting, How to use and Terms. iOS and Android each get their own look. English and Arabic, following the phone language with a setting to change it, and light and dark mode. See [apps/mobile/README.md](apps/mobile/README.md).
 - English and Arabic with right-to-left layout, and dark mode.
 - API with streaming search, request merging, per-search ids, refresh with cooldowns, alerts with email, a tiered refresh scheduler, Postgres storage and Redis coordination.
 - Tests for shared logic, the API (including real Postgres and Redis), the web app's URL and copy, and the mobile app's stream reader, links and copy.
 - Real data for Emirates and Etihad through the seats.aero partner API. Needs a key and, for a public site, their written approval.
-- Alerts by Telegram and WhatsApp as well as email on the website.
-- Taxes in USD, AED, SAR or QAR on the website.
-- Cloudflare Turnstile bot check on alerts and refresh.
+- Alerts by Telegram and WhatsApp as well as email, on the website and in the apps.
+- Taxes in USD, AED, SAR or QAR, on the website and in the apps.
+- Cloudflare Turnstile bot check on alerts and refresh. The apps run it through a small page on the website.
 
 Not done yet:
 
 - **Real data for Qatar.** seats.aero does not list Qatar Privilege Club yet. [docs/data-sources.md](docs/data-sources.md) explains how to add another source.
 - Tablet layouts for the native apps (two and three columns, in [design/HANDOFF.md](design/HANDOFF.md)). Tablets get the phone layout for now.
 - Store release of the native apps. They build with EAS but are not yet in the App Store or Google Play.
-- Telegram and WhatsApp alerts, currency choice and Turnstile in the native apps. The apps offer email alerts and show taxes in US dollars.
 - Booking links that open the airline site with the search filled in. The airlines do not publish reward search URLs, so the button opens the home page.
 - Bank points and partner program prices.
 

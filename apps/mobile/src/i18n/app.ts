@@ -49,11 +49,12 @@ export const appEn = {
 
   alerts: {
     title: 'Alerts',
-    sub: 'Routes you are watching on this device. We email you when seats open.',
-    empty: 'No alerts yet. Open a route and tap the bell to get an email when seats open.',
+    sub: 'Routes you are watching on this device. We message you when seats open.',
+    empty: 'No alerts yet. Open a route and tap the bell to get a message when seats open.',
     turnOff: (route: string) => `Turn off the alert for ${route}`,
     undo: 'Undo',
     to: (address: string) => `To ${address}`,
+    telegram: 'By Telegram',
   },
 
   settings: {
@@ -62,6 +63,7 @@ export const appEn = {
     system: 'Match device',
     systemSub: (name: string) => `Now ${name}`,
     languageNote: 'The app follows your device language unless you pick one here.',
+    currencyNote: 'Taxes in dollars, dirhams and riyals convert at the fixed official rate. Other currencies show as the airline charges them.',
     appearance: 'Appearance',
     appearanceNote: 'Light and dark mode follow your device.',
     help: 'Help',
@@ -133,6 +135,7 @@ export const appAr: AppDict = {
     turnOff: (route: string) => `أوقف التنبيه لمسار ${route}`,
     undo: 'تراجع',
     to: (address: string) => `إلى ${address}`,
+    telegram: 'عبر تيليجرام',
   },
 
   settings: {
@@ -141,6 +144,7 @@ export const appAr: AppDict = {
     system: 'لغة الجهاز',
     systemSub: (name: string) => `حاليًا ${name}`,
     languageNote: 'يتبع التطبيق لغة جهازك ما لم تختر لغة هنا.',
+    currencyNote: 'تُحوَّل الضرائب بالدولار والدرهم والريال بالسعر الرسمي الثابت. تظهر العملات الأخرى كما تفرضها شركة الطيران.',
     appearance: 'المظهر',
     appearanceNote: 'الوضع الفاتح والداكن يتبعان إعداد جهازك.',
     help: 'المساعدة',

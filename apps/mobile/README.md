@@ -1,6 +1,6 @@
 # openseat for iOS and Android
 
-The native app, built with Expo (React Native, TypeScript, Expo Router). It does what the website does: the search sentence and its pickers, the 90-day calendar, the day with its flights, the steps to book, email alerts, and the How to use and Terms pages.
+The native app, built with Expo (React Native, TypeScript, Expo Router). It does what the website does: the search sentence and its pickers, the 90-day calendar, the day with its flights, the steps to book, alerts by email, Telegram or WhatsApp, the currency for taxes, and the How to use and Terms pages.
 
 It follows the design in `design/prototypes/Openseat Native Apps.dc.html` and section 2 of [design/HANDOFF.md](../../design/HANDOFF.md). iOS gets the iOS look and Android gets Material 3, from the same screens.
 
@@ -34,7 +34,7 @@ All are read at build time. Expo inlines `EXPO_PUBLIC_*` values into the app, so
 | Variable | What it does |
 | --- | --- |
 | `EXPO_PUBLIC_API_URL` | Where the app finds the API. Empty means sample data. |
-| `EXPO_PUBLIC_WEB_URL` | The website, for shared links such as `https://openseat.app`. Empty hides the Share button. |
+| `EXPO_PUBLIC_WEB_URL` | The website, for shared links such as `https://openseat.app`. Empty hides the Share button. Also needed when the API has the Turnstile bot check on. |
 | `EAS_PROJECT_ID` | Your EAS project id, from `eas init`. Only needed for EAS builds. |
 
 Native apps do not send an `Origin` header, so the API's `ALLOWED_ORIGINS` list does not affect them. It does matter for the browser preview: add its address (for example `http://localhost:8081`) to `ALLOWED_ORIGINS`.
@@ -95,9 +95,11 @@ test/            Unit tests
 
 Search results stream from `GET /api/v1/search/stream` with a new request id for each search, read with a small XMLHttpRequest reader in `src/lib/stream.ts`. Leaving a search closes the stream.
 
-Alerts are email only for now and live in `src/lib/alerts.ts` and `src/app/alert.tsx`, so other channels can be added there later.
+Alerts live in `src/lib/alerts.ts` and `src/app/alert.tsx`. The form offers the channels `GET /api/v1/features` lists. For Telegram the app opens the bot after saving, and the alert starts when the person taps Start.
+
+When the API asks for a Turnstile token, `src/lib/botcheck.ts` opens `/app-check/` on the website in the system browser sheet. The page runs the check and returns to `openseat://check?token=...`, which the sheet reads. `src/app/+native-intent.tsx` keeps the router from opening a screen for that link. See [docs/alerts.md](../../docs/alerts.md).
 
 ## Not done yet
 
 - The two and three column tablet layouts from the handoff. Tablets get the phone layout, centred.
-- Push notifications. Alerts arrive by email.
+- Push notifications. Alerts arrive by email, Telegram or WhatsApp.

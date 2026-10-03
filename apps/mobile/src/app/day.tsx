@@ -6,6 +6,7 @@ import { Icon } from '../components/Icon';
 import { useToast } from '../components/Toast';
 import { IconButton, Press, Screen, TopBar, Txt, WIDE } from '../components/ui';
 import { useLang } from '../i18n';
+import { human } from '../lib/botcheck';
 import { WEB_URL } from '../lib/config';
 import { queryString } from '../lib/query';
 import { useTrip } from '../lib/search';
@@ -15,7 +16,7 @@ import { useTheme } from '../theme';
 
 export default function DayScreen() {
   const th = useTheme();
-  const { t, a, f } = useLang();
+  const { t, a, f, lang } = useLang();
   const trip = useTrip();
   const { q, day, summary, selIdx, minIdx, cur, O, D } = trip;
   const { watching, toggle } = useWatch();
@@ -62,7 +63,12 @@ export default function DayScreen() {
   const onRefresh = async () => {
     if (!trip.params) return;
     setRefreshing(true);
-    const r = await requestRefresh(trip.params);
+    const check = await human(lang);
+    if (!check.ok) {
+      setRefreshing(false);
+      return toast(t.alert.robot);
+    }
+    const r = await requestRefresh(trip.params, check.token);
     setRefreshing(false);
     if (r === 'ok') cur.restart();
     else toast(r === 'wait' ? t.day.refreshWait : t.day.refreshFailed);

@@ -2,7 +2,7 @@
 // Hermes does not ship every Intl API on every platform, so each formatter
 // falls back to plain English formatting instead of throwing.
 
-import { AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, programName, programNameAr, toUtc, type CabinId, type CarrierId } from '@openseat/shared';
+import { AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, convert, programName, programNameAr, toUtc, type CabinId, type CarrierId, type CurrencyId } from '@openseat/shared';
 import type { Lang } from './dicts';
 import { DICTS } from './dicts';
 
@@ -46,7 +46,7 @@ function relative(locale: string, lang: Lang): (n: number, unit: 'minute' | 'hou
   }
 }
 
-export function makeFormat(lang: Lang) {
+export function makeFormat(lang: Lang, currency: CurrencyId = 'USD') {
   const t = DICTS[lang];
   const num = numberFormat(t.numberLocale);
   const long = dateFormat(t.locale, { weekday: 'long', day: 'numeric', month: 'long' });
@@ -56,11 +56,14 @@ export function makeFormat(lang: Lang) {
   const money: Record<string, (n: number) => string> = {};
   return {
     num,
-    money: (n: number, currency: string) => {
-      money[currency] ??= numberFormat(t.numberLocale, { style: 'currency', currency, maximumFractionDigits: 0 });
-      const s = money[currency](n);
+    /** Shown in the chosen currency when we can convert exactly, else in the currency it came in. */
+    money: (n: number, from: string) => {
+      const v = convert(n, from, currency);
+      const code = v === null ? from : currency;
+      money[code] ??= numberFormat(t.numberLocale, { style: 'currency', currency: code, maximumFractionDigits: 0 });
+      const s = money[code](v ?? n);
       // A bare number means the currency format is missing; add the code.
-      const out = /^[\d.,\s]+$/.test(s) ? `${currency} ${s}` : s;
+      const out = /^[\d.,\s]+$/.test(s) ? `${code} ${s}` : s;
       // In Arabic text, isolate the amount so "US$ 412" is not reordered.
       return lang === 'ar' ? '⁦' + out + '⁩' : out;
     },
