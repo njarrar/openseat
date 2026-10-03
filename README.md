@@ -18,6 +18,18 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 
 > Prices and seat counts are **sample data** unless the API runs with a real source. Real data comes from the seats.aero partner API for Emirates and Etihad. See [docs/data-sources.md](docs/data-sources.md).
 
+## What's new in this version
+
+Changes since the first release, 3 October 2026:
+
+- **Real seat data.** The API can read reward seats for Emirates and Etihad from the seats.aero partner API. Qatar stays on sample data until seats.aero lists it. See [docs/data-sources.md](docs/data-sources.md).
+- **Telegram and WhatsApp alerts.** Alerts can go by Telegram or WhatsApp as well as email, on the website and in the apps. See [docs/alerts.md](docs/alerts.md).
+- **Currency choice.** Taxes show in US dollars, UAE dirhams, Saudi riyals or Qatari riyals. The first choice comes from your region.
+- **Bot check.** Turning on an alert or asking for a fresh check can require a Cloudflare Turnstile check. The apps run it through a small page on the website.
+- **iPhone and Android apps.** Native apps with the same search, calendar, flights, booking steps and alerts, in English and Arabic, light and dark. See [apps/mobile/README.md](apps/mobile/README.md).
+
+Each new service stays off until its keys are set, so with no new settings the site works as before.
+
 ## What is in this repo
 
 ```
