@@ -36,3 +36,20 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  # The steps above already type check and test the mobile app with the rest.
+  # This job runs them on their own and checks that the app still bundles.
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck -w @openseat/mobile
+      - run: npm test -w @openseat/mobile
+      - run: npm run export:web -w @openseat/mobile
+        env:
+          CI: "1"
