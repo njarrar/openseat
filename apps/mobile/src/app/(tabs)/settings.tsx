@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
+import { CURRENCIES } from '@openseat/shared';
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Icon } from '../../components/Icon';
 import { TAB_SPACE } from '../../components/TabBar';
-import { Group, Note, Press, Row, Screen, SectionLabel, Sep, Txt, WIDE } from '../../components/ui';
+import { Choice, Group, Note, Press, Row, Screen, SectionLabel, Sep, Txt, WIDE } from '../../components/ui';
 import { useLang, type LangSetting } from '../../i18n';
 import { offline } from '../../lib/config';
 import { useTheme } from '../../theme';
@@ -13,7 +14,7 @@ const NAMES = { en: 'English', ar: 'العربية' } as const;
 
 export default function SettingsScreen() {
   const th = useTheme();
-  const { t, a, setting, setSetting, deviceLang } = useLang();
+  const { t, a, setting, setSetting, deviceLang, currency, setCurrency } = useLang();
   const router = useRouter();
   const ios = th.look === 'ios';
   const options: { value: LangSetting; label: string; sub?: string }[] = [
@@ -46,6 +47,10 @@ export default function SettingsScreen() {
         })}
       </Group>
       <Note style={{ marginBottom: 16 }}>{a.settings.languageNote}</Note>
+
+      <SectionLabel>{t.nav.currency}</SectionLabel>
+      <Choice label={t.nav.currency} options={CURRENCIES.map((c) => ({ value: c, label: t.nav.currencies[c] }))} value={currency} onChange={setCurrency} />
+      <Note style={{ marginTop: 8, marginBottom: 16 }}>{a.settings.currencyNote}</Note>
 
       <SectionLabel>{a.settings.appearance}</SectionLabel>
       <Note style={{ marginBottom: 16 }}>{a.settings.appearanceNote}</Note>

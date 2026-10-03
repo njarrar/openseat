@@ -1,16 +1,14 @@
-// Email alerts turned on from this device, keyed by program, route and cabin.
+// Alerts turned on from this device, keyed by program, route and cabin.
 // The id and token returned by the API are the only way to turn an alert off
 // again, so they are kept here with the route for the Alerts tab.
-//
-// Only email exists today. Other channels can be added to AlertRequest and the
-// form in app/alert.tsx without touching the rest of the app.
 
-import type { AlertRequest } from '@openseat/shared';
+import type { AlertChannel, AlertRequest } from '@openseat/shared';
 import { API_URL, offline } from './config';
 import { load, save } from './storage';
 
 const KEY = 'openseat-alerts';
-const EMAIL = 'openseat-email';
+// The last address used for each channel, to fill the form next time.
+const addressKey = (c: AlertChannel) => (c === 'email' ? 'openseat-email' : `openseat-${c}`);
 
 export interface SavedAlert extends AlertRequest {
   id: string;
@@ -19,29 +17,37 @@ export interface SavedAlert extends AlertRequest {
 
 export type AlertMap = Record<string, SavedAlert>;
 
-export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
 export const alertKey = (a: Pick<AlertRequest, 'carrier' | 'origin' | 'destination' | 'cabin'>) => `${a.carrier}-${a.origin}-${a.destination}-${a.cabin}`;
 
 export const loadAlerts = async () => (await load<AlertMap>(KEY)) ?? {};
-export const savedEmail = async () => (await load<string>(EMAIL)) ?? '';
+export const savedAddress = async (c: AlertChannel) => (await load<string>(addressKey(c))) ?? '';
 
-/** Creates the alert on the server and remembers it. Returns the new list, or null on failure. */
-export async function turnOn(req: AlertRequest): Promise<AlertMap | null> {
-  await save(EMAIL, req.address);
-  let ids = { id: 'local', token: 'local' };
+/**
+ * The new list on success, plus the bot link for Telegram, which still needs a
+ * tap on Start. robot is set when the API turned down the bot check.
+ */
+export type TurnOnResult = { ok: true; all: AlertMap; link?: string } | { ok: false; robot?: boolean };
+
+/** Creates the alert on the server and remembers it. */
+export async function turnOn(req: AlertRequest, turnstileToken?: string): Promise<TurnOnResult> {
+  if (req.address) await save(addressKey(req.channel), req.address);
+  let saved: { id: string; token: string; link?: string } = { id: 'local', token: 'local' };
   if (!offline) {
     try {
-      const r = await fetch(`${API_URL}/api/v1/alerts`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(req) });
-      if (!r.ok) return null;
-      ids = await r.json();
+      const r = await fetch(`${API_URL}/api/v1/alerts`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...req, ...(turnstileToken ? { turnstileToken } : {}) }),
+      });
+      if (!r.ok) return { ok: false, robot: r.status === 403 };
+      saved = await r.json();
     } catch {
-      return null;
+      return { ok: false };
     }
   }
-  const all = { ...(await loadAlerts()), [alertKey(req)]: { ...req, ...ids } };
+  const all = { ...(await loadAlerts()), [alertKey(req)]: { ...req, id: saved.id, token: saved.token } };
   await save(KEY, all);
-  return all;
+  return { ok: true, all, link: saved.link };
 }
 
 /** Removes the alert on the server and here. Returns the new list, or null on failure. */

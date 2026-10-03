@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     target: 'es2022',
     rollupOptions: {
-      input: { search: r('index.html'), how: r('how-to-use/index.html'), terms: r('terms/index.html') },
+      input: { search: r('index.html'), how: r('how-to-use/index.html'), terms: r('terms/index.html'), appCheck: r('app-check/index.html') },
     },
   },
   server: { port: 5173 },

@@ -1,50 +1,80 @@
+import type { AlertChannel } from '@openseat/shared';
 import { useRouter } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Linking, Platform, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Icon } from '../components/Icon';
 import { useToast } from '../components/Toast';
-import { Button, Press, Txt } from '../components/ui';
+import { Button, Choice, Press, Txt } from '../components/ui';
 import { useLang } from '../i18n';
-import { EMAIL_RE, savedEmail } from '../lib/alerts';
+import { checkAddress } from '../lib/address';
+import { savedAddress } from '../lib/alerts';
+import { human } from '../lib/botcheck';
+import { BASIC, features } from '../lib/features';
 import { useTrip } from '../lib/search';
 import { useAlerts } from '../lib/useAlerts';
 import { useTheme } from '../theme';
 
 /**
- * Asks for an email address and turns on an alert for the route and cabin on
- * screen. Email is the only channel for now; this form is the one place to
- * add others.
+ * Asks how to send alerts (email, WhatsApp or Telegram, as the API offers) and
+ * turns one on for the route and cabin on screen. Telegram has no address: the
+ * app opens the bot and the person taps Start there.
  */
 export default function AlertScreen() {
   const th = useTheme();
-  const { t, f, rtl } = useLang();
+  const { t, f, rtl, lang } = useLang();
   const { q, O, D } = useTrip();
   const { on } = useAlerts();
   const toast = useToast();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [email, setEmail] = useState('');
+  const [channels, setChannels] = useState(BASIC.channels);
+  const [channel, setChannel] = useState<AlertChannel>('email');
+  const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const [busy, setBusy] = useState(false);
   const ios = th.look === 'ios';
 
   useEffect(() => {
-    savedEmail().then((e) => setEmail((cur) => cur || e));
+    features().then((x) => setChannels(x.channels));
+    savedAddress('email').then((e) => setValue((cur) => cur || e));
   }, []);
+
+  const pick = (c: AlertChannel) => {
+    setChannel(c);
+    setError(false);
+    setValue('');
+    if (c !== 'telegram') savedAddress(c).then(setValue);
+  };
 
   const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
   const cabinName = f.cabin(q.cabin);
   const submit = async () => {
-    const address = email.trim();
-    if (!EMAIL_RE.test(address)) return setError(true);
+    const address = checkAddress(channel, value);
+    if (address === null) return setError(true);
     setBusy(true);
-    const ok = await on({ carrier: q.carrier, origin: O, destination: D, cabin: q.cabin, pax: q.pax, channel: 'email', address });
+    const check = await human(lang);
+    if (!check.ok) {
+      setBusy(false);
+      return toast(t.alert.robot);
+    }
+    const r = await on({ carrier: q.carrier, origin: O, destination: D, cabin: q.cabin, pax: q.pax, channel, address }, check.token);
     setBusy(false);
-    if (!ok) return toast(t.alert.failed);
+    if (!r.ok) return toast(r.robot ? t.alert.robot : t.alert.failed);
     close();
-    toast(t.alert.on(cabinName, O, D));
+    if (r.link) {
+      // Telegram: the alert starts once the person taps Start in the bot.
+      toast(t.alert.telegramNext);
+      Linking.openURL(r.link).catch(() => WebBrowser.openBrowserAsync(r.link!).catch(() => {}));
+      return;
+    }
+    toast(channel === 'email' ? t.alert.on(cabinName, O, D) : t.alert.onMessage(cabinName, O, D));
   };
+
+  const field = channel === 'whatsapp'
+    ? { label: t.alert.phone, help: t.alert.phoneHelp, invalid: t.alert.phoneInvalid }
+    : { label: t.alert.email, help: t.alert.help, invalid: t.alert.invalid };
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, backgroundColor: ios ? th.bg : th.sheet, direction: rtl ? 'rtl' : 'ltr' }}>
@@ -56,29 +86,40 @@ export default function AlertScreen() {
           </Press>
         </View>
         <Txt style={{ fontSize: 15, lineHeight: 21, color: th.text2 }}>{t.alert.body(cabinName, O, D, f.program(q.carrier), t.search.pax(q.pax))}</Txt>
-        <View style={{ gap: 6 }}>
-          <Txt nativeID="alert-email" style={{ fontSize: 14, fontWeight: '500' }}>{t.alert.email}</Txt>
-          <TextInput
-            value={email}
-            onChangeText={(v) => {
-              setEmail(v);
-              setError(false);
-            }}
-            accessibilityLabel={t.alert.email}
-            accessibilityLabelledBy="alert-email"
-            autoComplete="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoFocus
-            returnKeyType="send"
-            onSubmitEditing={submit}
-            style={{ height: ios ? 46 : 56, paddingHorizontal: 14, borderRadius: ios ? 12 : 4, borderWidth: 1, borderColor: error ? th.warn : ios ? th.sep : th.outline, backgroundColor: ios ? th.card : 'transparent', fontSize: 17, color: th.text, textAlign: 'left', writingDirection: 'ltr' }}
-          />
-          <Txt style={{ fontSize: 13, lineHeight: 18, color: th.text2 }}>{t.alert.help}</Txt>
-          {error && <Txt accessibilityRole="alert" style={{ fontSize: 13, color: th.warn }}>{t.alert.invalid}</Txt>}
-        </View>
+        {channels.length > 1 && (
+          <View style={{ gap: 8, marginHorizontal: ios ? -20 : -16 }}>
+            <Txt style={{ fontSize: 14, fontWeight: '500', paddingHorizontal: ios ? 20 : 16 }}>{t.alert.channel}</Txt>
+            <Choice label={t.alert.channel} options={channels.map((c) => ({ value: c, label: t.alert.channels[c] }))} value={channel} onChange={pick} />
+          </View>
+        )}
+        {channel === 'telegram' ? (
+          <Txt style={{ fontSize: 13, lineHeight: 18, color: th.text2 }}>{t.alert.telegramHelp}</Txt>
+        ) : (
+          <View style={{ gap: 6 }}>
+            <Txt nativeID="alert-address" style={{ fontSize: 14, fontWeight: '500' }}>{field.label}</Txt>
+            <TextInput
+              key={channel}
+              value={value}
+              onChangeText={(v) => {
+                setValue(v);
+                setError(false);
+              }}
+              accessibilityLabel={field.label}
+              accessibilityLabelledBy="alert-address"
+              {...(channel === 'whatsapp'
+                ? { autoComplete: 'tel' as const, textContentType: 'telephoneNumber' as const, keyboardType: 'phone-pad' as const }
+                : { autoComplete: 'email' as const, textContentType: 'emailAddress' as const, keyboardType: 'email-address' as const })}
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoFocus={channels.length === 1}
+              returnKeyType="send"
+              onSubmitEditing={submit}
+              style={{ height: ios ? 46 : 56, paddingHorizontal: 14, borderRadius: ios ? 12 : 4, borderWidth: 1, borderColor: error ? th.warn : ios ? th.sep : th.outline, backgroundColor: ios ? th.card : 'transparent', fontSize: 17, color: th.text, textAlign: 'left', writingDirection: 'ltr' }}
+            />
+            <Txt style={{ fontSize: 13, lineHeight: 18, color: th.text2 }}>{field.help}</Txt>
+            {error && <Txt accessibilityRole="alert" style={{ fontSize: 13, color: th.warn }}>{field.invalid}</Txt>}
+          </View>
+        )}
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 8, marginTop: 6 }}>
           <Button kind="plain" label={t.alert.cancel} onPress={close} />
           <Button kind="filled" label={t.alert.submit} onPress={submit} disabled={busy} style={{ height: 44 }} />

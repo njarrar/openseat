@@ -68,4 +68,12 @@ describe('formatting', () => {
     assert.equal(f.city('LHR'), 'لندن');
     assert.equal(f.duration(545), '9 س 05 د');
   });
+
+  it('shows taxes in the chosen currency when the rate is fixed', () => {
+    const f = makeFormat('en', 'AED');
+    assert.match(f.money(358, 'USD'), /1,315/);
+    assert.match(f.money(358, 'USD'), /AED/);
+    // No fixed rate for pounds, so they stay as charged.
+    assert.equal(f.money(100, 'GBP'), '£100');
+  });
 });

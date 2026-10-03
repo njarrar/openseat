@@ -49,8 +49,8 @@ Set `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` from the Cloudflare dashboard. T
 
 Searches are not behind Turnstile. They are guarded by rate limits, the origin allowlist and request merging, so a search never costs more than one read per block however many people ask.
 
-The native apps cannot show Turnstile without a web view yet, so leave Turnstile off for the API the apps use, or give the apps their own API instance, until that is added.
+The native apps have no web view, so they run the check on the website instead. They open `/app-check/` from the website in the system browser sheet, with the site key and the app's own link (`openseat://check`). The page shows the Turnstile box and sends the token back through that link. It only sends tokens to app links, never to another website. So with Turnstile on, the apps need `EXPO_PUBLIC_WEB_URL` set, and the site key must allow the website's domain.
 
 ## Currency
 
-Taxes come from the source in US dollars. People can show them in USD, AED, SAR or QAR. These Gulf currencies are pegged to the dollar (3.6725, 3.75 and 3.64), so the conversion is exact and needs no rate feed. The choice is saved in the browser. The first visit picks one from the browser's region, for example SAR for `ar-SA`. Amounts in any other currency are shown as they came.
+Taxes come from the source in US dollars. People can show them in USD, AED, SAR or QAR. These Gulf currencies are pegged to the dollar (3.6725, 3.75 and 3.64), so the conversion is exact and needs no rate feed. The choice is saved in the browser, or in the app's Settings. The first visit picks one from the browser's or phone's region, for example SAR for `ar-SA`. Amounts in any other currency are shown as they came.
