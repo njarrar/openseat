@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { View } from 'react-native';
 import { CABINS, type CabinId, type Itinerary } from '@openseat/shared';
 import { productBadges } from '../../../web/src/lib/product';
@@ -12,6 +13,10 @@ interface Props {
   pax: number;
   onBook: () => void;
   onCabin: (c: CabinId) => void;
+  /** On tablets the booking steps open inside the card. Set when that is possible. */
+  expanded?: boolean;
+  /** The booking steps, shown when expanded. */
+  children?: ReactNode;
 }
 
 function Badge({ label, warn }: { label: string; warn?: boolean }) {
@@ -24,7 +29,7 @@ function Badge({ label, warn }: { label: string; warn?: boolean }) {
   );
 }
 
-export function FlightCard({ it, cabin, pax, onBook, onCabin }: Props) {
+export function FlightCard({ it, cabin, pax, onBook, onCabin, expanded, children }: Props) {
   const th = useTheme();
   const { t, a, f } = useLang();
   const ios = th.look === 'ios';
@@ -71,16 +76,18 @@ export function FlightCard({ it, cabin, pax, onBook, onCabin }: Props) {
             </Txt>
           </View>
           {ios ? (
-            <Press onPress={onBook} accessibilityRole="button" accessibilityLabel={`${t.flight.howToBook}, ${nums.join(' + ')}`} style={{ height: 36, paddingHorizontal: 18, borderRadius: 999, backgroundColor: th.tintFill, justifyContent: 'center' }}>
-              <Txt style={{ fontSize: 15, fontWeight: '600', color: th.tint }}>{a.day.book}</Txt>
+            <Press onPress={onBook} accessibilityRole="button" accessibilityState={expanded === undefined ? undefined : { expanded }} accessibilityLabel={expanded ? a.day.hide : `${t.flight.howToBook}, ${nums.join(' + ')}`} style={{ height: 36, paddingHorizontal: 18, borderRadius: 999, backgroundColor: th.tintFill, justifyContent: 'center' }}>
+              <Txt style={{ fontSize: 15, fontWeight: '600', color: th.tint }}>{expanded ? a.day.hide : a.day.book}</Txt>
             </Press>
           ) : (
-            <Button kind="tonal" label={t.flight.howToBook} onPress={onBook} style={{ alignSelf: 'flex-start', paddingHorizontal: 24 }} />
+            <Button kind="tonal" label={expanded ? a.day.hide : t.flight.howToBook} onPress={onBook} style={{ alignSelf: 'flex-start', paddingHorizontal: 24 }} />
           )}
         </View>
       ) : (
         <Txt style={{ fontSize: ios ? 15 : 14, color: th.text2 }}>{fare.seats === null ? t.flight.notOffered(f.cabin(cabin)) : t.flight.noSeats(f.cabin(cabin))}</Txt>
       )}
+
+      {expanded && children}
 
       {it.separateTickets && <Txt style={{ fontSize: 13, lineHeight: 18, color: th.warn }}>{t.flight.separateNote}</Txt>}
 

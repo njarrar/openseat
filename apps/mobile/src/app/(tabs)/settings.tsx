@@ -3,7 +3,6 @@ import { CURRENCIES } from '@openseat/shared';
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Icon } from '../../components/Icon';
-import { TAB_SPACE } from '../../components/TabBar';
 import { Choice, Group, Note, Press, Row, Screen, SectionLabel, Sep, Txt, WIDE } from '../../components/ui';
 import { useLang, type LangSetting } from '../../i18n';
 import { offline } from '../../lib/config';
@@ -25,7 +24,7 @@ export default function SettingsScreen() {
   const card = ios ? undefined : { marginHorizontal: 16, borderRadius: 12 };
 
   return (
-    <Screen bottom={TAB_SPACE} style={WIDE}>
+    <Screen tabs style={WIDE}>
       <Txt accessibilityRole="header" style={ios ? { marginTop: 40, marginBottom: 8, paddingHorizontal: 20, fontSize: 34, lineHeight: 41, fontWeight: '700' } : { marginTop: 16, marginBottom: 8, paddingHorizontal: 16, fontSize: 28, lineHeight: 36 }}>{a.settings.title}</Txt>
 
       <SectionLabel>{a.settings.language}</SectionLabel>
