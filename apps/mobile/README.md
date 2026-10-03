@@ -93,6 +93,14 @@ src/theme.ts     Colours for iOS and Android, light and dark
 test/            Unit tests
 ```
 
+On tablets the Search tab shows panes side by side (`src/components/Panes.tsx`), sized by window width (`src/lib/size.ts`):
+
+- Under 600 points: the phone flow, one screen at a time.
+- 600 to 839: search and calendar side by side. A tapped day opens on its own screen.
+- 840 and up: search, calendar and day. Book opens the steps inside the flight card.
+
+iPad puts the tabs along the top. Android tablets get a navigation rail with a button to turn on an alert. The search, calendar and day screens are the same components in both layouts, so a change to one shows on phones and tablets.
+
 Search results stream from `GET /api/v1/search/stream` with a new request id for each search, read with a small XMLHttpRequest reader in `src/lib/stream.ts`. Leaving a search closes the stream.
 
 Alerts live in `src/lib/alerts.ts` and `src/app/alert.tsx`. The form offers the channels `GET /api/v1/features` lists. For Telegram the app opens the bot after saving, and the alert starts when the person taps Start.
@@ -101,5 +109,4 @@ When the API asks for a Turnstile token, `src/lib/botcheck.ts` opens `/app-check
 
 ## Not done yet
 
-- The two and three column tablet layouts from the handoff. Tablets get the phone layout, centred.
 - Push notifications. Alerts arrive by email, Telegram or WhatsApp.

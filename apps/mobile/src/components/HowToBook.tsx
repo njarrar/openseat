@@ -7,7 +7,7 @@ import { Sheet } from './Sheet';
 import { Button, Txt } from './ui';
 
 /** The booking steps for one flight, with the total for the group and a link to the airline. */
-export function HowToBook({ it, cabin, pax, onClose }: { it: Itinerary | null; cabin: CabinId; pax: number; onClose: () => void }) {
+export function HowToBook({ it, cabin, pax, onClose, inline }: { it: Itinerary | null; cabin: CabinId; pax: number; onClose: () => void; inline?: boolean }) {
   const th = useTheme();
   const { t, a, f } = useLang();
   const ios = th.look === 'ios';
@@ -29,8 +29,8 @@ export function HowToBook({ it, cabin, pax, onClose }: { it: Itinerary | null; c
     else WebBrowser.openBrowserAsync(carrier.url).catch(() => Linking.openURL(carrier.url));
   };
 
-  return (
-    <Sheet open onClose={onClose} title={t.flight.howToBook} sub={`${nums.join(' + ')} · ${it.origin} → ${it.destination} · ${f.dateShort(it.date)}`}>
+  const body = (
+    <>
       <View style={{ gap: ios ? 12 : 14 }}>
         {steps.map((s, i) => (
           <View key={i} style={{ flexDirection: 'row', gap: ios ? 8 : 12 }}>
@@ -52,7 +52,22 @@ export function HowToBook({ it, cabin, pax, onClose }: { it: Itinerary | null; c
           </Txt>
         </View>
       )}
-      <Button label={t.flight.open(carrier.site)} trailingIcon="external" onPress={open} style={ios ? undefined : { height: 48 }} />
+      <Button label={t.flight.open(carrier.site)} trailingIcon="external" onPress={open} style={ios ? { height: 44 } : { height: 48 }} />
+    </>
+  );
+
+  // Tablets show the steps inside the flight card, under a heading.
+  if (inline) {
+    return (
+      <View style={{ gap: 12, paddingTop: 4 }}>
+        <Txt accessibilityRole="header" style={{ fontSize: ios ? 15 : 16, fontWeight: '600' }}>{t.flight.howToBook}</Txt>
+        {body}
+      </View>
+    );
+  }
+  return (
+    <Sheet open onClose={onClose} title={t.flight.howToBook} sub={`${nums.join(' + ')} · ${it.origin} → ${it.destination} · ${f.dateShort(it.date)}`}>
+      {body}
     </Sheet>
   );
 }

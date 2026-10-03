@@ -2,7 +2,6 @@ import { useRouter } from 'expo-router';
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Icon } from '../../components/Icon';
-import { TAB_SPACE } from '../../components/TabBar';
 import { useToast } from '../../components/Toast';
 import { Group, Press, Screen, Sep, Switch, Txt, WIDE } from '../../components/ui';
 import { useLang } from '../../i18n';
@@ -31,7 +30,7 @@ export default function AlertsScreen() {
   };
 
   return (
-    <Screen bottom={TAB_SPACE} style={WIDE}>
+    <Screen tabs style={WIDE}>
       <Txt accessibilityRole="header" style={ios ? { marginTop: 40, paddingHorizontal: 20, fontSize: 34, lineHeight: 41, fontWeight: '700' } : { marginTop: 16, paddingHorizontal: 16, fontSize: 28, lineHeight: 36 }}>{a.alerts.title}</Txt>
       <Txt style={{ paddingHorizontal: ios ? 20 : 16, marginBottom: 12, fontSize: ios ? 15 : 14, lineHeight: 20, color: th.text2 }}>{a.alerts.sub}</Txt>
       {list.length === 0 ? (

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import { CABINS, type CabinId } from '@openseat/shared';
 import { Calendar, CalendarSkeleton } from '../../../components/Calendar';
-import { TAB_SPACE } from '../../../components/TabBar';
 import { Choice, IconButton, Press, Screen, TopBar, Txt, WIDE } from '../../../components/ui';
 import { useLang } from '../../../i18n';
 import { hasQuery, readParams } from '../../../lib/query';
@@ -12,6 +11,11 @@ import { useWatch } from '../../../lib/useWatch';
 import { useTheme } from '../../../theme';
 
 export default function CalendarScreen() {
+  return <CalendarView />;
+}
+
+/** The 90-day calendar. As a tablet pane it has no back button, and onSelect decides where the day shows. */
+export function CalendarView({ pane, onSelect }: { pane?: boolean; onSelect?: (i: number) => void }) {
   const th = useTheme();
   const { t, a, f } = useLang();
   const trip = useTrip();
@@ -54,7 +58,7 @@ export default function CalendarScreen() {
   const legend = t.cal.legend.map((label, h) => ({ label, ...th.heat[h] }));
 
   return (
-    <Screen bottom={TAB_SPACE} header={<TopBar title={title} ltrTitle={ios} sub={sub} trailing={bell} />} style={WIDE}>
+    <Screen tabs pane={pane} header={<TopBar noBack={pane} title={title} ltrTitle={ios} sub={sub} trailing={bell} />} style={pane ? undefined : WIDE}>
       <Choice<CabinId>
         label={t.picker.cabin}
         options={CABINS.map((c) => ({ value: c.id, label: f.cabinShort(c.id) }))}
@@ -136,6 +140,7 @@ export default function CalendarScreen() {
           fitRange={isRet ? trip.fitRange : null}
           unit={unit}
           onSelect={(i) => {
+            if (onSelect) return onSelect(i);
             trip.select(i);
             router.push('/day');
           }}

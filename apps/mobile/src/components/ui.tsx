@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import { Platform, Pressable, ScrollView, Switch as RNSwitch, Text, View, type PressableProps, type StyleProp, type TextProps, type TextStyle, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLang } from '../i18n';
+import { useTabSpace, useTopCleared } from '../lib/useSize';
 import { useTheme } from '../theme';
 import { Icon, type IconName } from './Icon';
 
@@ -19,23 +20,28 @@ export function Txt({ style, center, ltr, ...rest }: TextProps & { center?: bool
 }
 
 /** Root of every screen: background, safe area and the layout direction. */
-export function Screen({ children, scroll = true, top, bottom = 0, header, style }: {
+export function Screen({ children, scroll = true, top, tabs, pane, header, style }: {
   children: ReactNode;
   scroll?: boolean;
   /** Extra space above the content, below the status bar. */
   top?: number;
-  /** Space kept free at the bottom, for the tab bar. */
-  bottom?: number;
+  /** Inside the tabs: keep room for the floating tab bar. */
+  tabs?: boolean;
+  /** One pane of a tablet layout: no safe area, the layout around it handles that. */
+  pane?: boolean;
   /** Pinned above the scrolling content. */
   header?: ReactNode;
   style?: StyleProp<ViewStyle>;
 }) {
   const th = useTheme();
   const { rtl } = useLang();
-  const insets = useSafeAreaInsets();
-  const content = [{ paddingTop: header ? 4 : insets.top + (top ?? 8), paddingBottom: insets.bottom + bottom + 24, gap: 8 }, style];
+  const safe = useSafeAreaInsets();
+  const tabSpace = useTabSpace();
+  const cleared = useTopCleared();
+  const insets = pane ? { top: 0, bottom: 0 } : { top: cleared ? 0 : safe.top, bottom: safe.bottom };
+  const content = [{ paddingTop: header ? 4 : insets.top + (top ?? 8), paddingBottom: insets.bottom + (tabs ? tabSpace : 0) + 24, gap: 8 }, style];
   return (
-    <View style={{ flex: 1, backgroundColor: th.bg, direction: rtl ? 'rtl' : 'ltr' }}>
+    <View style={{ flex: 1, backgroundColor: pane ? 'transparent' : th.bg, direction: rtl ? 'rtl' : 'ltr' }}>
       {header && <View style={{ paddingTop: insets.top }}>{header}</View>}
       {scroll ? (
         <ScrollView contentContainerStyle={content} keyboardShouldPersistTaps="handled">{children}</ScrollView>
@@ -227,11 +233,11 @@ export function IconButton({ name, onPress, label, active, disabled, color }: { 
 }
 
 /** Screen top bar: a floating back button and centred title on iOS, a Material top app bar on Android. */
-export function TopBar({ title, sub, trailing, ltrTitle }: { title: string; sub?: string; trailing?: ReactNode; ltrTitle?: boolean }) {
+export function TopBar({ title, sub, trailing, ltrTitle, noBack }: { title: string; sub?: string; trailing?: ReactNode; ltrTitle?: boolean; noBack?: boolean }) {
   const th = useTheme();
   const { a } = useLang();
   const router = useRouter();
-  const back = <IconButton name="back" label={a.cal.back} onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))} />;
+  const back = noBack ? null : <IconButton name="back" label={a.cal.back} onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))} />;
   if (th.look === 'ios') {
     return (
       <View style={{ height: 52, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -245,7 +251,7 @@ export function TopBar({ title, sub, trailing, ltrTitle }: { title: string; sub?
     );
   }
   return (
-    <View style={{ minHeight: 64, paddingHorizontal: 4, paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+    <View style={{ minHeight: 64, paddingStart: noBack ? 16 : 4, paddingEnd: 4, paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
       {back}
       <View style={{ flex: 1 }}>
         <Txt numberOfLines={1} accessibilityRole="header" style={{ fontSize: 22, lineHeight: 28 }}>{title}</Txt>

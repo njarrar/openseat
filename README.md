@@ -16,6 +16,10 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 | --- | --- |
 | ![Calendar in the iPhone app](docs/screenshots/mobile-ios-en-calendar.png) | ![Search in the Android app in Arabic](docs/screenshots/mobile-android-ar-search.png) |
 
+| iPad | Android tablet |
+| --- | --- |
+| ![Search, calendar and booking steps on iPad](docs/screenshots/mobile-ipad-en.png) | ![Search, calendar and day on an Android tablet](docs/screenshots/mobile-android-tablet-en.png) |
+
 > Prices and seat counts are **sample data** unless the API runs with a real source. Real data comes from the seats.aero partner API for Emirates and Etihad. See [docs/data-sources.md](docs/data-sources.md).
 
 ## What's new in this version
@@ -27,6 +31,7 @@ Changes since the first release, 3 October 2026:
 - **Currency choice.** Taxes show in US dollars, UAE dirhams, Saudi riyals or Qatari riyals. The first choice comes from your region.
 - **Bot check.** Turning on an alert or asking for a fresh check can require a Cloudflare Turnstile check. The apps run it through a small page on the website.
 - **iPhone and Android apps.** Native apps with the same search, calendar, flights, booking steps and alerts, in English and Arabic, light and dark. See [apps/mobile/README.md](apps/mobile/README.md).
+- **Tablet layouts.** On iPad and Android tablets, search, calendar and the day's flights sit side by side, and the booking steps open inside the flight card. iPad has its tabs along the top; Android tablets get a navigation rail.
 
 Each new service stays off until its keys are set, so with no new settings the site works as before.
 
@@ -142,11 +147,11 @@ Done:
 - Alerts by Telegram and WhatsApp as well as email, on the website and in the apps.
 - Taxes in USD, AED, SAR or QAR, on the website and in the apps.
 - Cloudflare Turnstile bot check on alerts and refresh. The apps run it through a small page on the website.
+- Tablet layouts in the apps: three panes from 840 points wide, two from 600.
 
 Not done yet:
 
 - **Real data for Qatar.** seats.aero does not list Qatar Privilege Club yet. [docs/data-sources.md](docs/data-sources.md) explains how to add another source.
-- Tablet layouts for the native apps (two and three columns, in [design/HANDOFF.md](design/HANDOFF.md)). Tablets get the phone layout for now.
 - Store release of the native apps. They build with EAS but are not yet in the App Store or Google Play.
 - Booking links that open the airline site with the search filled in. The airlines do not publish reward search URLs, so the button opens the home page.
 - Bank points and partner program prices.

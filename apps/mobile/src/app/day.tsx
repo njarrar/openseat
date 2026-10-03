@@ -15,6 +15,11 @@ import { useWatch } from '../lib/useWatch';
 import { useTheme } from '../theme';
 
 export default function DayScreen() {
+  return <DayView />;
+}
+
+/** One day's flights. As a tablet pane it has no back button and the booking steps open inside the card. */
+export function DayView({ pane }: { pane?: boolean }) {
   const th = useTheme();
   const { t, a, f, lang } = useLang();
   const trip = useTrip();
@@ -40,11 +45,11 @@ export default function DayScreen() {
       <NavButton icon="nextDay" label={t.day.next} disabled={!canNext} onPress={() => trip.step(1)} />
     </View>
   );
-  const header = <TopBar title={ios ? f.cabin(q.cabin) : day ? f.dateShort(day.date) : ''} trailing={nav} />;
+  const header = <TopBar noBack={pane} title={pane && day ? f.dateShort(day.date) : ios ? f.cabin(q.cabin) : day ? f.dateShort(day.date) : ''} trailing={nav} />;
 
   if (!day || !summary) {
     return (
-      <Screen header={header}>
+      <Screen pane={pane} header={header}>
         <View style={{ marginHorizontal: 20, gap: 12 }}>
           <View style={{ height: 30, width: '60%', borderRadius: 8, backgroundColor: th.skeleton }} />
           <View style={{ height: 18, width: '85%', borderRadius: 8, backgroundColor: th.skeleton }} />
@@ -91,8 +96,8 @@ export default function DayScreen() {
   );
 
   return (
-    <Screen header={header} style={WIDE}>
-      {ios && <Txt accessibilityRole="header" style={{ paddingHorizontal: 20, fontSize: 28, lineHeight: 32, fontWeight: '700' }}>{f.dateLong(day.date)}</Txt>}
+    <Screen pane={pane} header={header} style={pane ? undefined : WIDE}>
+      {ios && !pane && <Txt accessibilityRole="header" style={{ paddingHorizontal: 20, fontSize: 28, lineHeight: 32, fontWeight: '700' }}>{f.dateLong(day.date)}</Txt>}
       <Txt style={{ paddingHorizontal: ios ? 20 : 16, fontSize: ios ? 15 : 14, lineHeight: 20, color: th.text2 }}>
         {total ? t.day.sub(s.qualifying, total, O, D, f.cabin(q.cabin)) : t.day.noFlights(O, D)}
       </Txt>
@@ -114,11 +119,25 @@ export default function DayScreen() {
         </Press>
       </View>
       <View style={{ gap: 12 }}>
-        {day.itineraries.map((it) => (
-          <FlightCard key={it.key + it.date} it={it} cabin={q.cabin} pax={q.pax} onBook={() => setBook(it.key)} onCabin={(cabin) => trip.update({ cabin }, true)} />
-        ))}
+        {day.itineraries.map((it) => {
+          const open = book === it.key;
+          return (
+            <FlightCard
+              key={it.key + it.date}
+              it={it}
+              cabin={q.cabin}
+              pax={q.pax}
+              // In a pane, Book opens the steps inside the card, one card at a time.
+              expanded={pane ? open : undefined}
+              onBook={() => setBook(pane && open ? null : it.key)}
+              onCabin={(cabin) => trip.update({ cabin }, true)}
+            >
+              {pane && open ? <HowToBook inline it={it} cabin={q.cabin} pax={q.pax} onClose={() => setBook(null)} /> : null}
+            </FlightCard>
+          );
+        })}
       </View>
-      <HowToBook it={booking} cabin={q.cabin} pax={q.pax} onClose={() => setBook(null)} />
+      {!pane && <HowToBook it={booking} cabin={q.cabin} pax={q.pax} onClose={() => setBook(null)} />}
     </Screen>
   );
 }

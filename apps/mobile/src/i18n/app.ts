@@ -27,6 +27,7 @@ export const appEn = {
     note: 'A day shows seats only when one flight has enough for every traveller.',
     find: 'Find seats',
     findAndroid: 'Search',
+    live: 'Changes update the calendar straight away.',
     sentence: 'Your search',
   },
 
@@ -40,6 +41,7 @@ export const appEn = {
 
   day: {
     book: 'Book',
+    hide: 'Hide steps',
     share: 'Share link',
     choose: (nums: string, cabin: string) => `Choose ${nums} in ${cabin}.`,
     total: (pax: string) => `Total for ${pax}`,
@@ -107,6 +109,7 @@ export const appAr: AppDict = {
     note: 'لا يظهر اليوم متاحًا إلا إذا كانت على رحلة واحدة مقاعد تكفي كل المسافرين.',
     find: 'اعرض المقاعد',
     findAndroid: 'ابحث',
+    live: 'تظهر التغييرات في التقويم فورًا.',
     sentence: 'بحثك',
   },
 
@@ -121,6 +124,7 @@ export const appAr: AppDict = {
 
   day: {
     book: 'احجز',
+    hide: 'إخفاء الخطوات',
     share: 'شارك الرابط',
     choose: (nums: string, cabin: string) => `اختر ${nums} في ${cabin}.`,
     total: (pax: string) => `المجموع لـ${pax}`,

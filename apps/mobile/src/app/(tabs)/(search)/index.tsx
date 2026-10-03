@@ -5,17 +5,21 @@ import { CABINS, CARRIERS, MAX_PAX, RETURN_OPTIONS, type CabinId, type CarrierId
 import { Icon } from '../../../components/Icon';
 import { Sentence } from '../../../components/Sentence';
 import { ChoiceSheet } from '../../../components/Sheet';
-import { TAB_SPACE } from '../../../components/TabBar';
 import { Button, Choice, Field, Group, Note, Press, Row, Screen, SectionLabel, Sep, Switch, Txt, WIDE } from '../../../components/ui';
 import { useLang } from '../../../i18n';
 import type { ChipId } from '../../../i18n/dicts';
 import { hasQuery, readParams } from '../../../lib/query';
 import { useTrip } from '../../../lib/search';
 import { useTheme } from '../../../theme';
+import { useSize } from '../../../lib/useSize';
+import { Panes } from '../../../components/Panes';
+import { DayView } from '../../day';
+import { CalendarView } from './calendar';
 
 type Picker = 'program' | 'cabin' | 'pax' | 'ret' | null;
 
-export default function SearchScreen() {
+/** The search form. As a tablet pane it has no Find button: the calendar beside it updates at once. */
+export function SearchForm({ pane }: { pane?: boolean }) {
   const th = useTheme();
   const { t, a, f, setSetting } = useLang();
   const { q, update, invalid } = useTrip();
@@ -104,9 +108,9 @@ export default function SearchScreen() {
 
   if (ios) {
     return (
-      <Screen bottom={TAB_SPACE} style={WIDE}>
-        <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Txt style={{ fontSize: 15, fontWeight: '700', letterSpacing: -0.3, color: th.tint }}>openseat</Txt>
+      <Screen tabs pane={pane} style={pane ? undefined : WIDE}>
+        <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: pane ? 'flex-end' : 'space-between', alignItems: 'center' }}>
+          {!pane && <Txt style={{ fontSize: 15, fontWeight: '700', letterSpacing: -0.3, color: th.tint }}>openseat</Txt>}
           {langSwitch}
         </View>
         <Txt accessibilityRole="header" style={{ marginTop: 4, paddingHorizontal: 20, fontSize: 34, lineHeight: 41, fontWeight: '700' }}>{a.search.title}</Txt>
@@ -141,7 +145,7 @@ export default function SearchScreen() {
         </Group>
         <Note style={{ marginTop: 6, marginBottom: 12 }}>{a.search.note}</Note>
         {error}
-        <Button label={a.search.find} onPress={find} disabled={invalid} style={{ marginHorizontal: 20, marginTop: 8 }} />
+        {pane ? <Note>{a.search.live}</Note> : <Button label={a.search.find} onPress={find} disabled={invalid} style={{ marginHorizontal: 20, marginTop: 8 }} />}
         {pickers}
       </Screen>
     );
@@ -149,7 +153,7 @@ export default function SearchScreen() {
 
   // Android, Material 3.
   return (
-    <Screen bottom={TAB_SPACE} top={0} style={WIDE}>
+    <Screen tabs pane={pane} top={0} style={pane ? undefined : WIDE}>
       <View style={{ height: 56, paddingStart: 16, paddingEnd: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Txt style={{ fontSize: 22, fontWeight: '500', color: th.tint }}>openseat</Txt>
         {langSwitch}
@@ -211,8 +215,25 @@ export default function SearchScreen() {
       )}
       <Note>{a.search.note}</Note>
       {error}
-      <Button label={a.search.findAndroid} icon="search" onPress={find} disabled={invalid} style={{ marginHorizontal: 16, marginTop: 12 }} />
+      {pane ? <Note>{a.search.live}</Note> : <Button label={a.search.findAndroid} icon="search" onPress={find} disabled={invalid} style={{ marginHorizontal: 16, marginTop: 12 }} />}
       {pickers}
     </Screen>
+  );
+}
+
+/** Phones get the form; tablets get the form, calendar and day side by side. */
+export default function SearchScreen() {
+  const size = useSize();
+  const router = useRouter();
+  const { select } = useTrip();
+  if (size === 'compact') return <SearchForm />;
+  // With three panes a tapped day shows beside the calendar; with two it opens on its own.
+  const three = size === 'expanded';
+  return (
+    <Panes
+      search={<SearchForm pane />}
+      calendar={<CalendarView pane onSelect={(i) => (three ? select(i) : (select(i), router.push('/day')))} />}
+      day={three ? <DayView pane /> : null}
+    />
   );
 }
