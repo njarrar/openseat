@@ -9,7 +9,9 @@
     "prebuild": "node scripts/copy-fonts.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
+    "pretypecheck": "node ../../scripts/lang.mjs",
     "typecheck": "tsc --noEmit",
+    "pretest": "node ../../scripts/lang.mjs",
     "test": "vitest run"
   },
   "dependencies": {

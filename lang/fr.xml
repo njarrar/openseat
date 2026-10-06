@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- French. To add or fix a translation, see lang/README.md. -->
+<language code="fr" name="Français" english="French" dir="ltr" locale="fr-FR" numbers="fr-FR">
+  <section name="meta">
+    <text key="searchTitle">openseat : places primes sur Emirates, Etihad et Qatar Airways</text>
+    <text key="howTitle">Comment utiliser openseat</text>
+    <text key="termsTitle">Conditions d'utilisation, openseat</text>
+  </section>
+  <section name="nav">
+    <text key="home">Accueil openseat</text>
+    <text key="search">Recherche</text>
+    <text key="howToUse">Mode d'emploi</text>
+    <text key="terms">Conditions</text>
+    <text key="language">Langue</text>
+    <text key="currency">Devise des taxes</text>
+    <section name="currencies">
+      <text key="USD">USD</text>
+      <text key="AED">AED</text>
+      <text key="SAR">SAR</text>
+      <text key="QAR">QAR</text>
+    </section>
+  </section>
+  <section name="footer">
+    <text key="disclaimer">Openseat est un service indépendant, sans lien avec Emirates, Etihad Airways ou Qatar Airways et sans leur soutien. Les noms des programmes sont des marques de leurs propriétaires.</text>
+    <text key="sample">Les prix et le nombre de places affichés sont des données d'exemple.</text>
+    <text key="copyright">© 2026 Openseat · v1.0.0</text>
+  </section>
+  <section name="search">
+    <text key="eyebrow">Trouvez des places primes sur Emirates, Etihad et Qatar Airways</text>
+    <text key="sentence">Avec {program}, montrez-moi des places en {cabin} pour {pax} de {from} à {to}, {ret}.</text>
+    <plural key="pax">
+      <one>{n} voyageur</one>
+      <other>{n} voyageurs</other>
+    </plural>
+    <text key="oneWay">aller simple</text>
+    <plural key="ret">
+      <one>retour {n} semaine plus tard</one>
+      <other>retour {n} semaines plus tard</other>
+    </plural>
+    <text key="sameAirport">Choisissez deux aéroports différents pour voir les places.</text>
+    <text key="chipLabel">{what} : {value}</text>
+  </section>
+  <section name="picker">
+    <text key="program">Programme de miles</text>
+    <text key="programSub">Prix en {unit}. Hub : {hub}</text>
+    <text key="cabin">Classe</text>
+    <text key="premiumSub">Emirates seulement, sur certaines lignes en A380 et A350</text>
+    <text key="pax">Voyageurs</text>
+    <plural key="paxSub">
+      <one>Un jour n'affiche des places que si un même vol en a {n} de libre</one>
+      <other>Un jour n'affiche des places que si un même vol en a {n} de libres</other>
+    </plural>
+    <text key="ret">Retour</text>
+    <text key="oneWay">Aller simple</text>
+    <plural key="retOption">
+      <one>Retour {n} semaine plus tard</one>
+      <other>Retour {n} semaines plus tard</other>
+    </plural>
+    <text key="retSubOneWay">Aller seulement</text>
+    <text key="retSub">Les jours de retour {from} à {to} nuits après le départ sont marqués</text>
+    <text key="from">Départ de</text>
+    <text key="to">Arrivée à</text>
+    <text key="airportLabel">Ville, code d'aéroport ou nom arabe</text>
+    <text key="airportPlaceholder">par ex. Londres, LHR ou لندن</text>
+    <text key="popular">Trajets populaires</text>
+    <text key="all">Tous les aéroports</text>
+    <text key="routeAria">{from} à {to}</text>
+    <text key="empty">Aucun aéroport trouvé. Essayez une ville, un code à 3 lettres ou le nom arabe.</text>
+    <text key="close">Fermer</text>
+  </section>
+  <section name="cal">
+    <text key="outbound">Aller</text>
+    <text key="return">Retour</text>
+    <text key="tablist">Partie du voyage</text>
+    <text key="titleOne">Places en {cabin}</text>
+    <text key="titleOut">Places aller en {cabin}</text>
+    <text key="titleRet">Places retour en {cabin}</text>
+    <text key="subFrom">{cabin} à partir de {miles} {unit}, aller simple. Des places sur {open} des {total} prochains jours.</text>
+    <text key="subNone">Aucune place en {cabin} dans les 90 prochains jours. Activez une alerte pour savoir quand il y en aura.</text>
+    <text key="subNotOffered">{program} ne propose pas la classe {cabin} sur ce trajet. Essayez une autre classe.</text>
+    <text key="subLoading">Vérification des 90 prochains jours.</text>
+    <list key="legend">
+      <item>Aucune place</item>
+      <item>1 place</item>
+      <item>2 à 3</item>
+      <item>4 ou plus</item>
+    </list>
+    <plural key="fits">
+      <one>Pour un voyage de {n} semaine</one>
+      <other>Pour un voyage de {n} semaines</other>
+    </plural>
+    <list key="weekdays">
+      <item>lun.</item>
+      <item>mar.</item>
+      <item>mer.</item>
+      <item>jeu.</item>
+      <item>ven.</item>
+      <item>sam.</item>
+      <item>dim.</item>
+    </list>
+    <text key="keys">Utilisez les flèches du clavier pour passer d'un jour à l'autre.</text>
+    <text key="aria">Calendrier, {from} à {to}, {cabin}</text>
+    <plural key="seats">
+      <one>{n} place</one>
+      <other>{n} places</other>
+    </plural>
+    <text key="seatsMany">4 places ou plus</text>
+    <text key="dayAria">{date}, {seats} à partir de {miles} {unit}</text>
+    <text key="dayAriaFits">{date}, {seats} à partir de {miles} {unit}, convient à votre voyage</text>
+    <text key="dayNone">{date}, aucune place en {cabin}</text>
+    <text key="dayPending">{date}, vérification en cours</text>
+    <text key="dayFailed">{date}, vérification impossible</text>
+    <plural key="checking">
+      <one>Vérification de {n} jour de plus auprès de la compagnie</one>
+      <other>Vérification de {n} jours de plus auprès de la compagnie</other>
+    </plural>
+    <text key="stop">Arrêter</text>
+    <text key="stopped">Arrêté. Les jours pas encore vérifiés restent vides.</text>
+    <text key="failed">Certains jours n'ont pas pu être vérifiés. Nous affichons les derniers résultats enregistrés quand nous les avons.</text>
+    <text key="retry">Réessayer</text>
+  </section>
+  <section name="day">
+    <text key="prev">Jour précédent</text>
+    <text key="next">Jour suivant</text>
+    <text key="close">Fermer</text>
+    <plural key="sub">
+      <one>{open} vol sur {n} de {from} à {to} avec des places en {cabin}. Prix par voyageur, aller simple.</one>
+      <other>{open} vols sur {n} de {from} à {to} avec des places en {cabin}. Prix par voyageur, aller simple.</other>
+    </plural>
+    <text key="noFlights">Aucun vol de {from} à {to} ce jour-là.</text>
+    <plural key="trip">
+      <one>Aller le {out}, retour le {ret}, {n} nuit.</one>
+      <other>Aller le {out}, retour le {ret}, {n} nuits.</other>
+    </plural>
+    <text key="alertOff">M'alerter quand des places s'ouvrent</text>
+    <text key="alertOn">Alerte activée</text>
+    <text key="copy">Copier le lien</text>
+    <text key="copied">Copié</text>
+    <text key="updated">Mis à jour {time}</text>
+    <text key="refresh">Vérifier à nouveau</text>
+    <text key="refreshing">Vérification</text>
+    <text key="refreshWait">Ce trajet a été vérifié il y a quelques minutes. Réessayez dans un instant.</text>
+    <text key="refreshFailed">Impossible de lancer une nouvelle vérification. Réessayez dans un instant.</text>
+  </section>
+  <section name="flight">
+    <text key="nonstop">direct</text>
+    <text key="stop">1 escale à {city} ({wait} de correspondance)</text>
+    <plural key="taxes">
+      <one>+ {tax} de taxes, {n} place libre</one>
+      <other>+ {tax} de taxes, {n} places libres</other>
+    </plural>
+    <text key="taxesMany">+ {tax} de taxes, 9+ places libres</text>
+    <text key="notOffered">{cabin} non proposée</text>
+    <text key="noSeats">Aucune place en {cabin}</text>
+    <text key="alsoOpen">Aussi disponible</text>
+    <text key="howToBook">Comment réserver</text>
+    <text key="saver">Saver</text>
+    <text key="flex">Prix flexible</text>
+    <text key="flexTitle">Ce n'est pas le prix prime le plus bas. Les places Saver d'un autre jour peuvent coûter moins de miles.</text>
+    <text key="separate">Billets séparés</text>
+    <text key="separateNote">Ce sont deux primes séparées. Si le premier vol a du retard, la compagnie n'est pas tenue de vous replacer. Prévoyez au moins 3 heures de correspondance.</text>
+    <text key="step1">Connectez-vous à {program} sur {site}.</text>
+    <text key="step2">Cherchez {from} à {to} le {date} avec l'option {term} activée.</text>
+    <text key="step3">Choisissez {flights} en {cabin}. Pour {pax}, cela fait {miles} {unit} plus {tax}.</text>
+    <text key="step3None">Ce vol n'a pas de places primes en {cabin} pour {pax} aujourd'hui. Choisissez un jour vert dans le calendrier.</text>
+    <text key="and" xml:space="preserve"> et </text>
+    <text key="open">Ouvrir {site}</text>
+  </section>
+  <section name="alert">
+    <text key="title">Recevoir une alerte quand des places s'ouvrent</text>
+    <text key="body">Nous surveillerons les places en {cabin} de {from} à {to} avec {program}, pour {pax}.</text>
+    <text key="email">Adresse e-mail</text>
+    <text key="help">Deux e-mails par jour au plus. Chaque e-mail contient un lien pour couper l'alerte.</text>
+    <text key="invalid">Saisissez une adresse e-mail valide.</text>
+    <text key="submit">Activer l'alerte</text>
+    <text key="cancel">Annuler</text>
+    <text key="on">Nous vous écrirons quand des places en {cabin} s'ouvriront de {from} à {to}.</text>
+    <text key="off">Alerte désactivée.</text>
+    <text key="failed">Impossible d'enregistrer l'alerte. Réessayez.</text>
+    <text key="channel">Recevoir les alertes par</text>
+    <section name="channels">
+      <text key="email">E-mail</text>
+      <text key="telegram">Telegram</text>
+      <text key="whatsapp">WhatsApp</text>
+    </section>
+    <text key="phone">Numéro WhatsApp</text>
+    <text key="phoneHelp">Avec l'indicatif du pays, par exemple +33 6 12 34 56 78. Deux messages par jour au plus. Chacun contient un lien pour couper l'alerte.</text>
+    <text key="phoneInvalid">Saisissez votre numéro avec l'indicatif du pays, en commençant par +.</text>
+    <text key="telegramHelp">Ensuite, ouvrez notre bot Telegram et touchez Démarrer. Deux messages par jour au plus. Envoyez /stop au bot pour couper les alertes.</text>
+    <text key="telegramNext">Dernière étape : ouvrez Telegram et touchez Démarrer pour activer cette alerte.</text>
+    <text key="telegramOpen">Ouvrir Telegram</text>
+    <text key="onMessage">Nous vous écrirons quand des places en {cabin} s'ouvriront de {from} à {to}.</text>
+    <text key="robot">Confirmez que vous n'êtes pas un robot, puis réessayez.</text>
+  </section>
+  <section name="how">
+    <text key="title">Comment ça marche</text>
+    <text key="intro">Openseat montre les jours où il reste des places primes. Vous réservez toujours directement auprès de la compagnie, avec vos propres miles.</text>
+    <text key="examples">Voir des exemples</text>
+    <list key="steps">
+      <item>
+        <text key="title">Composez votre recherche</text>
+        <text key="text">Chaque partie verte de la phrase est un menu. Commencez par votre programme de miles, puis choisissez la classe, les voyageurs, les aéroports et un éventuel retour.</text>
+      </item>
+      <item>
+        <text key="title">Parcourez les 90 prochains jours</text>
+        <text key="text">Le chiffre de chaque jour indique combien de places restent sur le meilleur vol de ce jour. Plus le vert est foncé, plus il y a de places.</text>
+      </item>
+      <item>
+        <text key="title">Ouvrez un jour</text>
+        <text key="text">Voyez chaque vol direct ou avec une escale, le prix par voyageur avec les taxes, et les autres classes libres sur le même vol. Pour un retour, passez à l'onglet Retour.</text>
+      </item>
+      <item>
+        <text key="title">Réservez auprès de la compagnie</text>
+        <text key="text">Suivez les étapes sous Comment réserver et terminez sur le site de la compagnie. S'il n'y a encore rien, activez une alerte et nous vous écrirons par e-mail, WhatsApp ou Telegram.</text>
+      </item>
+    </list>
+    <text key="reading">Lire le calendrier</text>
+    <list key="key">
+      <item>Aucune place prime dans votre classe pour tous les voyageurs de votre recherche.</item>
+      <item>Une place libre sur au moins un vol.</item>
+      <item>Deux ou trois places libres sur un même vol.</item>
+      <item>Quatre places ou plus. Le jour encadré est celui de la liste des vols.</item>
+      <item>Dans l'onglet Retour, une petite barre marque les jours qui conviennent à la durée de votre voyage.</item>
+    </list>
+    <text key="notesTitle">Conseils de réservation par programme</text>
+    <section name="notes">
+      <list key="EK">
+        <item>Cherchez avec Classic Rewards sélectionné, sinon vous ne verrez que les tarifs payants.</item>
+        <item>L'Économique Premium n'est vendue que sur certaines lignes en A380 et A350.</item>
+        <item>Les taxes incluent la surcharge transporteur, elles sont donc souvent plus élevées que chez Etihad ou Qatar.</item>
+      </list>
+      <list key="EY">
+        <item>Choisissez Réserver avec des miles sur etihad.com avant de chercher.</item>
+        <item>La Première n'existe que sur l'A380. La plupart des lignes proposent Économique et Affaires.</item>
+        <item>Les réservations en miles sont en aller simple, vous pouvez donc mélanger classes ou dates sur un aller-retour.</item>
+      </list>
+      <list key="QR">
+        <item>Les prix sont en Avios. Vous pouvez transférer des Avios depuis et vers le British Airways Executive Club.</item>
+        <item>La Première n'existe que sur l'A380. La classe Affaires Qsuite est sur la plupart des long-courriers.</item>
+        <item>Cherchez avec Réserver avec des Avios activé pour voir les places primes.</item>
+      </list>
+    </section>
+    <text key="goodTitle">Bon à savoir</text>
+    <list key="good">
+      <item>Les trajets très demandés sont vérifiés toutes les quelques heures, les autres au moment de la recherche. Chaque jour indique sa dernière vérification.</item>
+      <item>Les prix sont en aller simple et par voyageur. Les étapes de réservation donnent le total pour votre groupe.</item>
+      <item>Un jour n'affiche des places que si un même vol en a assez pour tous les voyageurs.</item>
+      <item>Les vols avec escale passent par le hub de la compagnie : Dubaï, Abou Dabi ou Doha.</item>
+      <item>Les taxes et frais sont des estimations en dollars américains. La compagnie affiche le montant final au paiement.</item>
+      <item>Les primes sur les compagnies partenaires ne sont pas encore incluses. Vous ne voyez que les vols des trois compagnies.</item>
+    </list>
+    <text key="back">Retour à la recherche</text>
+  </section>
+  <section name="howPage">
+    <text key="title">Comment utiliser Openseat</text>
+    <text key="lede">Trouvez un jour avec des places primes, puis réservez-le sur le site de la compagnie avec vos propres miles. Voici quatre recherches réelles, étape par étape.</text>
+    <text key="basics">L'essentiel en quatre gestes</text>
+    <list key="moves">
+      <item>
+        <text key="title">Partez de vos miles</text>
+        <text key="text">Choisissez le programme où vous avez des miles : Skywards, Etihad Guest ou Privilege Club.</text>
+      </item>
+      <item>
+        <text key="title">Complétez la phrase</text>
+        <text key="text">Choisissez la classe, les voyageurs, les aéroports et un retour si besoin. Cherchez par ville, code ou nom arabe.</text>
+      </item>
+      <item>
+        <text key="title">Lisez les chiffres</text>
+        <text key="text">Chaque jour indique combien de places restent sur son meilleur vol : 1, 2, 3 ou 4+. Les jours vides n'en ont aucune.</text>
+      </item>
+      <item>
+        <text key="title">Réservez auprès de la compagnie</text>
+        <text key="text">Ouvrez le jour, suivez Comment réserver et terminez sur le site de la compagnie avant que la place parte.</text>
+      </item>
+    </list>
+    <text key="examples">Exemples</text>
+    <text key="tryIt">Essayer cette recherche</text>
+    <text key="faqTitle">Questions fréquentes</text>
+    <list key="faq">
+      <item>
+        <text key="q">Pourquoi une place a-t-elle disparu quand j'ai voulu réserver ?</text>
+        <text key="a">Les trajets très demandés sont vérifiés toutes les quelques heures, les autres au moment de la recherche. Des places peuvent partir entre deux vérifications, c'est donc le site de la compagnie qui fait foi. Chaque jour indique sa dernière vérification, et Vérifier à nouveau demande un nouveau coup d'œil.</text>
+      </item>
+      <item>
+        <text key="q">Pourquoi ne puis-je pas choisir des dates plus lointaines ?</text>
+        <text key="a">La fenêtre couvre toujours les 90 prochains jours. Les recherches restent rapides, et un lien partagé montre les mêmes dates à tout le monde.</text>
+      </item>
+      <item>
+        <text key="q">Les prix sont-ils exacts ?</text>
+        <text key="a">Les miles sont le prix prime publié pour un aller simple, par voyageur. Les taxes sont une estimation en dollars américains et peuvent changer au paiement. Le badge Prix flexible signale une place qui n'est pas au prix prime le plus bas.</text>
+      </item>
+      <item>
+        <text key="q">Comment partager une recherche ?</text>
+        <text key="a">Touchez Copier le lien à côté de la date. Le lien garde votre programme, la classe, les voyageurs, les aéroports et le retour, pour que les autres voient ce que vous voyez.</text>
+      </item>
+    </list>
+    <text key="start">Lancer une recherche</text>
+  </section>
+  <section name="examples">
+    <list key="list">
+      <item>
+        <text key="title">Une famille de quatre à Londres pour les vacances d'hiver</text>
+        <list key="tips">
+          <item>Avec 4 voyageurs, un jour n'affiche des places que si un même vol en a 4 de libres. Cherchez les jours marqués 4+ en vert foncé.</item>
+          <item>Choisissez un jour d'aller, puis passez à l'onglet Retour. Les jours avec une petite barre conviennent à un voyage de 11 à 17 nuits.</item>
+          <item>Réservez les deux trajets dans la même session sur emirates.com, pour que les places trouvées soient encore là pour le retour.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Une place en Affaires de dernière minute pour Bangkok</text>
+        <list key="tips">
+          <item>Les compagnies libèrent souvent les places invendues dans les deux dernières semaines, regardez donc les premières lignes du calendrier.</item>
+          <item>Utilisez les flèches à côté de la date pour passer d'un jour à l'autre sans revenir au calendrier.</item>
+          <item>Si la classe Affaires est pleine mais qu'Aussi disponible montre l'Économique, touchez-la pour voir ce prix sur le même vol.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Deux places en Première pour Tokyo avec des Avios</text>
+        <list key="tips">
+          <item>Qatar ne vend la Première que sur son A380, beaucoup de trajets affichent donc non proposée. Cela tient à l'avion, pas au manque de places.</item>
+          <item>Deux places ensemble en Première sont rares. Si le calendrier est vide, touchez M'alerter quand des places s'ouvrent.</item>
+          <item>Pas assez d'Avios ? Vous pouvez en transférer depuis le British Airways Executive Club avant de réserver.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Partir d'une ville qui n'est pas un hub</text>
+        <list key="tips">
+          <item>Les vols au départ de Riyad passent par Dubaï. Un jour n'affiche des places que si les deux vols en ont une de libre.</item>
+          <item>Chaque carte de vol montre l'escale et le temps au sol, pour éviter les longues correspondances.</item>
+          <item>Comparez avec une recherche au départ de Dubaï. Si vous pouvez rejoindre le hub par vous-même, il y a souvent plus de jours au choix.</item>
+        </list>
+      </item>
+    </list>
+  </section>
+  <section name="terms">
+    <text key="title">Conditions d'utilisation</text>
+    <text key="updated">Dernière mise à jour le 2 octobre 2026</text>
+    <text key="sectionsLabel">Sections</text>
+    <text key="intro">En utilisant Openseat, vous acceptez ces conditions. Elles sont écrites pour être lues, chaque section est donc courte.</text>
+    <list key="sections">
+      <item>
+        <text key="title">Ce qu'est Openseat</text>
+        <list key="body">
+          <item>Openseat est un outil d'information indépendant qui montre les places primes disponibles sur Emirates, Etihad Airways et Qatar Airways. Nous ne vendons pas de billets, ne bloquons pas de places et ne touchons ni à vos miles ni à vos paiements. Toutes les réservations se font directement auprès de la compagnie.</item>
+          <item>Openseat n'est ni affilié, ni lié, ni soutenu par l'une de ces compagnies ou par leurs programmes de fidélité.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Exactitude</text>
+        <list key="body">
+          <item>Les places primes changent sans cesse. Une place affichée ici peut avoir disparu quand vous cherchez sur le site de la compagnie. Les prix en miles sont les tarifs publiés pour un aller simple et les taxes sont des estimations. Nous ne garantissons pas que les résultats sont exacts, complets ou à jour.</item>
+          <item>Vérifiez toujours les places, les miles et les frais sur le site de la compagnie avant de réserver ou de transférer des miles entre programmes.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Usage loyal</text>
+        <list key="body">
+          <item>Openseat est destiné à un usage personnel. Ne l'aspirez pas, ne l'interrogez pas de façon automatique, ne revendez pas ses données et n'essayez pas de contourner les limites d'usage. Nous limitons le nombre de recherches par heure et pouvons bloquer un accès qui nuit au service pour les autres.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Alertes</text>
+        <list key="body">
+          <item>Si vous activez une alerte, nous utilisons votre adresse e-mail, votre numéro WhatsApp ou votre discussion Telegram uniquement pour vous parler des places sur les trajets choisis. Nous envoyons au plus deux messages par jour et par alerte. Chaque e-mail et message WhatsApp contient un lien pour couper l'alerte, et sur Telegram vous pouvez envoyer /stop. Nous ne vendons ni ne partageons vos données.</item>
+          <item>Les taxes sont des estimations. Quand vous choisissez une devise du Golfe, nous convertissons depuis le dollar américain au taux officiel fixe.</item>
+          <item>Une alerte est faite au mieux. Elle peut arriver après le départ des places, et nous ne sommes pas responsables d'une alerte manquée.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Marques</text>
+        <list key="body">
+          <item>Emirates, Etihad Airways, Qatar Airways et les noms de leurs programmes, dont Emirates Skywards, Etihad Guest et Privilege Club, sont des marques de leurs propriétaires, utilisées ici seulement pour décrire les vols affichés. Le nom et le design Openseat appartiennent à Openseat.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Responsabilité</text>
+        <list key="body">
+          <item>Openseat est fourni tel quel, sans aucune garantie. Dans la mesure permise par la loi, nous ne sommes pas responsables des pertes liées à son utilisation. Cela inclut les miles que vous transférez ou dépensez, les frais que vous payez et les voyages que vous manquez ou modifiez.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">Modifications</text>
+        <list key="body">
+          <item>Nous pouvons modifier ces conditions ou arrêter le service à tout moment. Quand nous changeons les conditions, nous mettons à jour la date en haut de cette page. Si vous continuez à utiliser Openseat après un changement, vous acceptez la nouvelle version.</item>
+        </list>
+      </item>
+    </list>
+    <text key="start">Lancer une recherche</text>
+  </section>
+  <section name="botCheck">
+    <!-- The page the apps open for the bot check. -->
+    <text key="ask">Une petite vérification pour savoir que vous n'êtes pas un robot.</text>
+    <text key="invalid">Ce lien n'est pas valide.</text>
+  </section>
+  <section name="app">
+    <section name="tabs">
+      <text key="search">Recherche</text>
+      <text key="alerts">Alertes</text>
+      <text key="settings">Réglages</text>
+    </section>
+    <section name="search">
+      <text key="title">Recherche</text>
+      <text key="androidTitle">Trouver des places primes</text>
+      <text key="sub">Places primes sur Emirates, Etihad et Qatar Airways.</text>
+      <text key="androidSub">Emirates, Etihad et Qatar Airways, sur les 90 prochains jours.</text>
+      <text key="program">Programme de miles</text>
+      <section name="airlines">
+        <text key="EK">Emirates</text>
+        <text key="EY">Etihad</text>
+        <text key="QR">Qatar Airways</text>
+      </section>
+      <text key="route">Trajet</text>
+      <text key="trip">Voyage</text>
+      <text key="from">De</text>
+      <text key="to">À</text>
+      <text key="swap">Inverser les aéroports</text>
+      <text key="returnTrip">Aller-retour</text>
+      <text key="backAfter">Retour après</text>
+      <plural key="weeks">
+        <one>{n} semaine</one>
+        <other>{n} semaines</other>
+      </plural>
+      <text key="fewer">Moins de voyageurs</text>
+      <text key="more">Plus de voyageurs</text>
+      <text key="note">Un jour n'affiche des places que si un même vol en a assez pour chaque voyageur.</text>
+      <text key="find">Voir les places</text>
+      <text key="findAndroid">Rechercher</text>
+      <text key="live">Les changements mettent le calendrier à jour tout de suite.</text>
+      <text key="sentence">Votre recherche</text>
+    </section>
+    <section name="cal">
+      <text key="route">{from} → {to}</text>
+      <text key="navSub">{cabin} · {pax}</text>
+      <text key="navSubAlert">{cabin} · {pax} · Alerte activée</text>
+      <text key="back">Retour</text>
+      <text key="open">Ouvrir le {date}</text>
+      <text key="noReply">Impossible de joindre openseat. Vérifiez votre connexion et réessayez.</text>
+    </section>
+    <section name="day">
+      <text key="book">Réserver</text>
+      <text key="hide">Masquer les étapes</text>
+      <text key="share">Partager le lien</text>
+      <text key="choose">Choisissez {flights} en {cabin}.</text>
+      <text key="total">Total pour {pax}</text>
+      <text key="totalValue">{miles} {unit} + {tax}</text>
+      <text key="shareText">Places primes en {cabin} de {from} à {to} sur openseat</text>
+    </section>
+    <section name="alerts">
+      <text key="title">Alertes</text>
+      <text key="sub">Les trajets que vous suivez sur cet appareil. Nous vous écrivons quand des places s'ouvrent.</text>
+      <text key="empty">Pas encore d'alerte. Ouvrez un trajet et touchez la cloche pour recevoir un message quand des places s'ouvrent.</text>
+      <text key="turnOff">Couper l'alerte pour {route}</text>
+      <text key="undo">Annuler</text>
+      <text key="to">À {address}</text>
+      <text key="telegram">Par Telegram</text>
+    </section>
+    <section name="settings">
+      <text key="title">Réglages</text>
+      <text key="language">Langue</text>
+      <text key="system">Comme l'appareil</text>
+      <text key="systemSub">Actuellement {name}</text>
+      <text key="languageNote">L'app suit la langue de votre appareil, sauf si vous en choisissez une ici.</text>
+      <text key="currencyNote">Les taxes en dollars, dirhams et riyals sont converties au taux officiel fixe. Les autres devises s'affichent telles que la compagnie les facture.</text>
+      <text key="appearance">Apparence</text>
+      <text key="appearanceNote">Les modes clair et sombre suivent votre appareil.</text>
+      <text key="help">Aide</text>
+      <text key="data">Données</text>
+      <text key="sample">Cette version affiche des données d'exemple, pas les vraies places des compagnies.</text>
+      <text key="live">Les places viennent du service openseat.</text>
+      <text key="about">À propos</text>
+    </section>
+  </section>
+  <section name="names">
+    <section name="cabin">
+      <text key="economy">Économique</text>
+      <text key="premium">Économique Premium</text>
+      <text key="business">Affaires</text>
+      <text key="first">Première</text>
+    </section>
+    <section name="cabinShort">
+      <text key="economy">Économique</text>
+      <text key="premium">Premium</text>
+      <text key="business">Affaires</text>
+      <text key="first">Première</text>
+    </section>
+    <section name="airline">
+      <text key="EK">Emirates</text>
+      <text key="EY">Etihad</text>
+      <text key="QR">Qatar Airways</text>
+    </section>
+    <section name="program">
+      <text key="EK">Emirates Skywards</text>
+      <text key="EY">Etihad Guest</text>
+      <text key="QR">Qatar Airways Privilege Club</text>
+    </section>
+    <section name="programOnly">
+      <text key="EK">Skywards</text>
+      <text key="EY">Etihad Guest</text>
+      <text key="QR">Privilege Club</text>
+    </section>
+    <section name="unit">
+      <text key="EK">miles</text>
+      <text key="EY">miles</text>
+      <text key="QR">Avios</text>
+    </section>
+    <section name="term">
+      <text key="EK">Classic Rewards</text>
+      <text key="EY">Réserver avec des miles</text>
+      <text key="QR">Réserver avec des Avios</text>
+    </section>
+    <section name="city">
+      <text key="DXB">Dubaï</text>
+      <text key="AUH">Abou Dabi</text>
+      <text key="DOH">Doha</text>
+      <text key="RUH">Riyad</text>
+      <text key="JED">Djeddah</text>
+      <text key="KWI">Koweït</text>
+      <text key="BAH">Manama</text>
+      <text key="MCT">Mascate</text>
+      <text key="LHR">Londres</text>
+      <text key="CDG">Paris</text>
+      <text key="IST">Istanbul</text>
+      <text key="JFK">New York</text>
+      <text key="BOM">Bombay</text>
+      <text key="MLE">Malé</text>
+      <text key="BKK">Bangkok</text>
+      <text key="SIN">Singapour</text>
+      <text key="NRT">Tokyo</text>
+      <text key="SYD">Sydney</text>
+    </section>
+    <section name="country">
+      <text key="DXB">Émirats arabes unis</text>
+      <text key="AUH">Émirats arabes unis</text>
+      <text key="DOH">Qatar</text>
+      <text key="RUH">Arabie saoudite</text>
+      <text key="JED">Arabie saoudite</text>
+      <text key="KWI">Koweït</text>
+      <text key="BAH">Bahreïn</text>
+      <text key="MCT">Oman</text>
+      <text key="LHR">Royaume-Uni</text>
+      <text key="CDG">France</text>
+      <text key="IST">Turquie</text>
+      <text key="JFK">États-Unis</text>
+      <text key="BOM">Inde</text>
+      <text key="MLE">Maldives</text>
+      <text key="BKK">Thaïlande</text>
+      <text key="SIN">Singapour</text>
+      <text key="NRT">Japon</text>
+      <text key="SYD">Australie</text>
+    </section>
+  </section>
+  <section name="format">
+    <text key="duration">{h} h {m}</text>
+  </section>
+</language>

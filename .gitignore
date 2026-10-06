@@ -4,3 +4,4 @@ dist/
 .env
 .env.local
 coverage/
+apps/web/src/i18n/lang-data.ts

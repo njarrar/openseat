@@ -2,7 +2,7 @@
 // Hermes does not ship every Intl API on every platform, so each formatter
 // falls back to plain English formatting instead of throwing.
 
-import { AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, convert, programName, programNameAr, toUtc, type CabinId, type CarrierId, type CurrencyId } from '@openseat/shared';
+import { convert, toUtc, type CabinId, type CarrierId, type CurrencyId } from '@openseat/shared';
 import type { Lang } from './dicts';
 import { DICTS } from './dicts';
 
@@ -64,8 +64,8 @@ export function makeFormat(lang: Lang, currency: CurrencyId = 'USD') {
       const s = money[code](v ?? n);
       // A bare number means the currency format is missing; add the code.
       const out = /^[\d.,\s]+$/.test(s) ? `${code} ${s}` : s;
-      // In Arabic text, isolate the amount so "US$ 412" is not reordered.
-      return lang === 'ar' ? '⁦' + out + '⁩' : out;
+      // In right-to-left text, isolate the amount so "US$ 412" is not reordered.
+      return t.dir === 'rtl' ? '⁦' + out + '⁩' : out;
     },
     dateLong: (iso: string) => long(toUtc(iso)),
     dateShort: (iso: string) => short(toUtc(iso)),
@@ -73,7 +73,7 @@ export function makeFormat(lang: Lang, currency: CurrencyId = 'USD') {
     duration: (min: number) => {
       const m = Math.round(min / 5) * 5;
       const h = Math.floor(m / 60), r = String(m % 60).padStart(2, '0');
-      return lang === 'ar' ? `${h} س ${r} د` : `${h}h ${r}m`;
+      return t.format.duration(h, r);
     },
     ago: (iso: string, now = Date.now()) => {
       const min = Math.round((now - Date.parse(iso)) / 60000);
@@ -81,15 +81,15 @@ export function makeFormat(lang: Lang, currency: CurrencyId = 'USD') {
       const h = Math.round(min / 60);
       return h < 48 ? rel(-h, 'hour') : rel(-Math.round(h / 24), 'day');
     },
-    city: (code: string) => (lang === 'ar' ? AIRPORT_BY_CODE[code].cityAr : AIRPORT_BY_CODE[code].city),
-    country: (code: string) => (lang === 'ar' ? AIRPORT_BY_CODE[code].countryAr : AIRPORT_BY_CODE[code].country),
-    cabin: (id: CabinId) => (lang === 'ar' ? CABIN_BY_ID[id].ar : CABIN_BY_ID[id].en),
-    cabinShort: (id: CabinId) => (lang === 'ar' ? CABIN_BY_ID[id].arShort : CABIN_BY_ID[id].short),
-    airline: (id: CarrierId) => (lang === 'ar' ? CARRIER_BY_ID[id].airlineAr : CARRIER_BY_ID[id].airline),
-    program: (id: CarrierId) => (lang === 'ar' ? programNameAr(CARRIER_BY_ID[id]) : programName(CARRIER_BY_ID[id])),
-    programOnly: (id: CarrierId) => (lang === 'ar' ? CARRIER_BY_ID[id].programAr : CARRIER_BY_ID[id].program),
-    unit: (id: CarrierId) => (lang === 'ar' ? CARRIER_BY_ID[id].unitAr : CARRIER_BY_ID[id].unit),
-    term: (id: CarrierId) => (lang === 'ar' ? CARRIER_BY_ID[id].termAr : CARRIER_BY_ID[id].term),
+    city: (code: string) => t.names.city[code],
+    country: (code: string) => t.names.country[code],
+    cabin: (id: CabinId) => t.names.cabin[id],
+    cabinShort: (id: CabinId) => t.names.cabinShort[id],
+    airline: (id: CarrierId) => t.names.airline[id],
+    program: (id: CarrierId) => t.names.program[id],
+    programOnly: (id: CarrierId) => t.names.programOnly[id],
+    unit: (id: CarrierId) => t.names.unit[id],
+    term: (id: CarrierId) => t.names.term[id],
   };
 }
 

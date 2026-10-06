@@ -44,7 +44,7 @@ export function Picker({ kind, anchor, q, isMobile, onPick, onClose }: Props) {
     const r = anchor.getBoundingClientRect();
     const w = Math.min(380, document.documentElement.clientWidth - 24);
     const vw = document.documentElement.clientWidth;
-    const left = lang === 'ar' ? Math.max(12, Math.min(r.right - w, vw - w - 12)) : Math.max(12, Math.min(r.left, vw - w - 12));
+    const left = t.dir === 'rtl' ? Math.max(12, Math.min(r.right - w, vw - w - 12)) : Math.max(12, Math.min(r.left, vw - w - 12));
     const top = Math.min(r.bottom + 8, window.innerHeight - 200);
     el.style.top = `${top}px`;
     el.style.left = `${left}px`;
@@ -69,7 +69,7 @@ export function Picker({ kind, anchor, q, isMobile, onPick, onClose }: Props) {
   } else if (search) {
     title = kind === 'from' ? t.picker.from : t.picker.to;
     const raw = query.trim(), qq = raw.toLowerCase();
-    options = AIRPORTS.filter((a) => !raw || a.code.toLowerCase().includes(qq) || a.city.toLowerCase().includes(qq) || a.country.toLowerCase().includes(qq) || a.cityAr.includes(raw) || a.countryAr.includes(raw))
+    options = AIRPORTS.filter((a) => !raw || a.code.toLowerCase().includes(qq) || a.city.toLowerCase().includes(qq) || a.country.toLowerCase().includes(qq) || a.cityAr.includes(raw) || a.countryAr.includes(raw) || f.city(a.code).toLowerCase().includes(qq) || f.country(a.code).toLowerCase().includes(qq))
       .map((a) => ({
         key: a.code,
         label: `${f.city(a.code)} (${a.code})`,

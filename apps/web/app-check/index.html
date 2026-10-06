@@ -18,7 +18,7 @@
 <script>
 /*
  * Bot check for the openseat apps. The app opens this page in an in-app
- * browser with ?k=<site key>&to=<app link>&lang=<en|ar>, and the page sends
+ * browser with ?k=<site key>&to=<app link>&lang=<language code>, and the page sends
  * the Turnstile token back to the app. Only app links are allowed as the
  * destination, so a token can never be sent to another website.
  */
@@ -26,16 +26,17 @@
   var q = new URLSearchParams(location.search);
   var key = q.get('k') || '';
   var to = q.get('to') || '';
-  var lang = q.get('lang') === 'ar' ? 'ar' : 'en';
+  /* Each language's two messages and text direction, filled in from the lang folder (botCheck) by vite.config.ts. */
+  var texts = __OPENSEAT_BOT_CHECK__;
+  var lang = texts.hasOwnProperty(q.get('lang')) ? q.get('lang') : 'en';
+  var text = texts[lang];
   var msg = document.getElementById('msg');
-  if (lang === 'ar') {
-    document.documentElement.lang = 'ar';
-    document.documentElement.dir = 'rtl';
-    msg.textContent = 'تحقّق سريع من أنك لست روبوتًا.';
-  }
+  document.documentElement.lang = lang;
+  document.documentElement.dir = text.dir;
+  msg.textContent = text.ask;
   var allowed = /^(openseat|exp|exps):\/\//.test(to);
   if (!key || !allowed) {
-    msg.textContent = lang === 'ar' ? 'هذا الرابط غير صالح.' : 'This link is not valid.';
+    msg.textContent = text.invalid;
     return;
   }
   var back = function (params) {

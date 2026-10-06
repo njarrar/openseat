@@ -5,6 +5,9 @@ COPY package.json package-lock.json tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
 COPY apps/api/package.json apps/api/
 COPY apps/web/package.json apps/web/
+# npm ci builds the translations in lang/ (see scripts/lang.mjs).
+COPY scripts scripts
+COPY lang lang
 RUN npm ci --workspace @openseat/api --workspace @openseat/shared --include-workspace-root
 COPY packages/shared packages/shared
 COPY apps/api apps/api

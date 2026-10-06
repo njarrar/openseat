@@ -142,12 +142,15 @@ button:disabled { cursor: default; }
 .nav a.pill { border-color: var(--border); }
 .nav a.pill:hover { border-color: var(--ink); color: var(--ink); }
 .nav a[aria-current='page'] { background: var(--tint); }
-.lang {
-  height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
-  display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--ink);
-  transition: border-color 0.2s;
+.lang { position: relative; display: inline-flex; align-items: center; }
+.lang select {
+  height: 38px; padding-block: 0; padding-inline: 38px 30px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
+  font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); cursor: pointer; appearance: none; transition: border-color 0.2s;
 }
-.lang:hover { border-color: var(--ink); }
+.lang select:hover { border-color: var(--ink); }
+.lang svg { position: absolute; pointer-events: none; }
+.lang svg:first-child { inset-inline-start: 14px; color: var(--accent); }
+.lang svg:last-child { inset-inline-end: 12px; color: var(--muted); }
 .currency { position: relative; display: inline-flex; align-items: center; }
 .currency select {
   height: 38px; padding-block: 0; padding-inline: 12px 30px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
@@ -160,9 +163,6 @@ button:disabled { cursor: default; }
 .turnstile-slot > * { pointer-events: auto; }
 /* On small phones Terms lives in the footer, so the header stays on one line. */
 @media (max-width: 480px) { .nav a.secondary { display: none; } .header { gap: 8px; } .nav a { padding: 8px 10px; } }
-.lang svg { color: var(--accent); }
-.lang [lang='ar'] { font-family: var(--font-ar); }
-.lang [lang='en'] { font-family: 'Hanken Grotesk', system-ui, sans-serif; }
 
 /* Footer */
 .footer { margin-top: 64px; padding: 28px 0 56px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }

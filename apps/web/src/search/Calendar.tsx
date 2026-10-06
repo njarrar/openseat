@@ -53,7 +53,7 @@ interface Props {
 }
 
 export function Calendar({ dates, summaries, failed, cabin, selIdx, minIdx, fitRange, unit, ariaLabel, onSelect }: Props) {
-  const { t, f, lang } = useLang();
+  const { t, f } = useLang();
   const root = useRef<HTMLDivElement>(null);
   const focusNext = useRef(false);
   // Where the last key press sent us, so fast repeats keep counting before the re-render lands.
@@ -95,7 +95,7 @@ export function Calendar({ dates, summaries, failed, cabin, selIdx, minIdx, fitR
     const el = e.target as HTMLElement;
     if (el.dataset.idx == null) return;
     // In right-to-left layout the next day sits to the left.
-    const rtl = lang === 'ar';
+    const rtl = t.dir === 'rtl';
     const step = ({ ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1, ArrowUp: -7, ArrowDown: 7 } as Record<string, number>)[e.key];
     if (step == null) return;
     e.preventDefault();

@@ -14,12 +14,20 @@
 <script>
 /* Pick the language before first paint: ?lang=, then the saved choice, then the browser. Preload only the fonts it needs. */
 (function () {
-  var d = document.documentElement, l = null;
+  var langs = __OPENSEAT_LANGS__; /* each language code and its text direction, filled in from the lang folder by vite.config.ts */
+  var d = document.documentElement, l = null, i;
   try { l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('openseat-lang'); } catch (e) {}
-  if (l !== 'ar' && l !== 'en') l = String((navigator.languages && navigator.languages[0]) || navigator.language || 'en').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
-  d.lang = l; d.dir = l === 'ar' ? 'rtl' : 'ltr';
-  var f = l === 'ar' ? ['ibm-plex-sans-arabic-500', 'ibm-plex-sans-arabic-400', 'hanken-grotesk-latin'] : ['hanken-grotesk-latin'];
-  for (var i = 0; i < f.length; i++) {
+  if (!langs.hasOwnProperty(l)) {
+    var tags = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (l = 'en', i = 0; i < tags.length; i++) {
+      var t = String(tags[i]).toLowerCase(), hit = null;
+      for (var c in langs) if (c.toLowerCase() === t || (!hit && c.toLowerCase() === t.split('-')[0])) hit = c;
+      if (hit) { l = hit; break; }
+    }
+  }
+  d.lang = l; d.dir = langs[l];
+  var f = langs[l] === 'rtl' ? ['ibm-plex-sans-arabic-500', 'ibm-plex-sans-arabic-400', 'hanken-grotesk-latin'] : ['hanken-grotesk-latin'];
+  for (i = 0; i < f.length; i++) {
     var k = document.createElement('link');
     k.rel = 'preload'; k.as = 'font'; k.type = 'font/woff2'; k.crossOrigin = 'anonymous'; k.href = '/fonts/' + f[i] + '.woff2';
     document.head.appendChild(k);
