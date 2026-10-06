@@ -1,13 +1,12 @@
 import { View } from 'react-native';
-import { TERMS } from '../../../web/src/content/terms';
 import { Screen, TopBar, Txt, WIDE } from '../components/ui';
 import { useLang } from '../i18n';
 import { useTheme } from '../theme';
 
 export default function TermsScreen() {
   const th = useTheme();
-  const { t, f, lang } = useLang();
-  const c = TERMS[lang];
+  const { t, f } = useLang();
+  const c = t.terms;
   const body = { fontSize: 15, lineHeight: 22, color: th.text2 };
   return (
     <Screen header={<TopBar title={t.nav.terms} />} style={WIDE}>

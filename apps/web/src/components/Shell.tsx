@@ -1,20 +1,23 @@
 import type { ComponentChildren } from 'preact';
 import { CURRENCIES, isCurrency } from '@openseat/shared';
 import { CaretDown, Translate } from '@phosphor-icons/react';
-import { LangContext, useLang, useLangState } from '../i18n';
-import type { Dict } from '../i18n/en';
+import { LANGS, LangContext, isLang, useLang, useLangState, type Dict } from '../i18n';
 
 export type PageId = 'search' | 'how' | 'terms';
 
 const HREF: Record<PageId, string> = { search: '/', how: '/how-to-use/', terms: '/terms/' };
 
+/** Every language in lang/*.xml, each named in its own script so people can find theirs. */
 function LangSwitch() {
-  const { t, setLang } = useLang();
+  const { t, lang, setLang } = useLang();
   return (
-    <button type="button" class="lang" onClick={() => setLang(t.nav.switchLang)} aria-label={t.nav.switchLabel} lang={t.nav.switchLang}>
+    <span class="lang">
       <Translate size={17} aria-hidden="true" />
-      <span lang={t.nav.switchLang}>{t.nav.switchTo}</span>
-    </button>
+      <select value={lang} aria-label={t.nav.language} title={t.nav.language} onChange={(e) => isLang(e.currentTarget.value) && setLang(e.currentTarget.value)}>
+        {LANGS.map((l) => <option key={l.code} value={l.code} lang={l.code} dir={l.dir}>{l.name}</option>)}
+      </select>
+      <CaretDown size={13} aria-hidden="true" />
+    </span>
   );
 }
 

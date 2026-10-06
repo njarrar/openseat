@@ -3,12 +3,11 @@ import { render } from 'preact';
 import '../styles/base.css';
 import '../styles/pages.css';
 import { Footer, Header, Page } from '../components/Shell';
-import { TERMS } from '../content/terms';
 import { useLang } from '../i18n';
 
 function Terms() {
-  const { lang, f } = useLang();
-  const c = TERMS[lang];
+  const { t, f } = useLang();
+  const c = t.terms;
   return (
     <>
       <Header page="terms" />

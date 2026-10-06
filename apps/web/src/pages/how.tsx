@@ -3,7 +3,7 @@ import { render } from 'preact';
 import '../styles/base.css';
 import '../styles/pages.css';
 import { Footer, Header, Page } from '../components/Shell';
-import { EXAMPLES, HOW_COPY as COPY, type Example } from '../content/how';
+import { EXAMPLES, type Example } from '../content/how';
 import { useLang } from '../i18n';
 import type { ChipId } from '../i18n/types';
 import { queryString } from '../lib/url';
@@ -26,8 +26,8 @@ function ExampleSentence({ q }: { q: Example['q'] }) {
 }
 
 function How() {
-  const { lang } = useLang();
-  const c = COPY[lang];
+  const { t } = useLang();
+  const c = t.howPage;
   return (
     <>
       <Header page="how" />
@@ -53,10 +53,10 @@ function How() {
 
         <section class="examples" aria-labelledby="examples">
           <h2 id="examples">{c.examples}</h2>
-          {EXAMPLES.map((ex) => (
-            <article class="card example" key={ex.title.en}>
+          {EXAMPLES.map((ex, i) => (
+            <article class="card example" key={i}>
               <div class="ex-main">
-                <h3>{ex.title[lang]}</h3>
+                <h3>{t.examples[i]?.title}</h3>
                 <ExampleSentence q={ex.q} />
                 <a class="btn dark small" href={'/' + queryString({ carrier: ex.q.carrier, from: ex.q.from, to: ex.q.to, cabin: ex.q.cabin, pax: ex.q.pax, ret: ex.q.ret })}>
                   {c.tryIt}
@@ -64,7 +64,7 @@ function How() {
                 </a>
               </div>
               <ol class="steps">
-                {ex.tips[lang].map((tip) => <li key={tip}>{tip}</li>)}
+                {(t.examples[i]?.tips ?? []).map((tip) => <li key={tip}>{tip}</li>)}
               </ol>
             </article>
           ))}

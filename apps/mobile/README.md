@@ -41,10 +41,10 @@ Native apps do not send an `Origin` header, so the API's `ALLOWED_ORIGINS` list 
 
 ## Language and look
 
-- The app follows the phone language: Arabic if the phone prefers Arabic, English otherwise. **Settings > Language** changes it at once and remembers the choice. The search screen also has a quick switch at the top.
+- The app follows the phone language when it has it, else English. **Settings > Language** changes it at once and remembers the choice. The search screen also has a language button at the top.
 - Arabic mirrors the whole layout. The app does this itself, so a change needs no restart.
 - Light and dark mode follow the phone.
-- The copy is shared with the website: the app reads `apps/web/src/i18n/en.ts` and `ar.ts`, and the How to use and Terms text from `apps/web/src/content`. Lines only the app needs are in `src/i18n/app.ts`. A test fails if Arabic is missing any of them.
+- The copy is shared with the website: every string, including How to use, Terms and the lines only the app needs (the `app` section), comes from the XML files in [lang/](../../lang/). `src/i18n/app.ts` maps the `app` section to the screens. A test fails if Arabic or French is missing any of them.
 - In the browser preview, add `?look=android` to see the Android design.
 
 ## Build for the stores
@@ -80,7 +80,7 @@ npm test -w @openseat/mobile
 npm run export:web -w @openseat/mobile   # bundles the app; output in apps/mobile/dist
 ```
 
-The tests cover the event stream reader, the search state in links, and the English and Arabic copy.
+The tests cover the event stream reader, the search state in links, and the English, Arabic and French copy.
 
 ## How it is put together
 

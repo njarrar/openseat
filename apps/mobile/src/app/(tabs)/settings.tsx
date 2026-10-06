@@ -4,12 +4,12 @@ import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Icon } from '../../components/Icon';
 import { Choice, Group, Note, Press, Row, Screen, SectionLabel, Sep, Txt, WIDE } from '../../components/ui';
-import { useLang, type LangSetting } from '../../i18n';
+import { LANGS, useLang, type LangSetting } from '../../i18n';
 import { offline } from '../../lib/config';
 import { useTheme } from '../../theme';
 
-// Each language is named in its own script, so it can be found from either one.
-const NAMES = { en: 'English', ar: 'العربية' } as const;
+// Each language is named in its own script, so people can find theirs.
+const NAMES = Object.fromEntries(LANGS.map((l) => [l.code, l.name]));
 
 export default function SettingsScreen() {
   const th = useTheme();
@@ -18,8 +18,7 @@ export default function SettingsScreen() {
   const ios = th.look === 'ios';
   const options: { value: LangSetting; label: string; sub?: string }[] = [
     { value: 'system', label: a.settings.system, sub: a.settings.systemSub(NAMES[deviceLang]) },
-    { value: 'en', label: NAMES.en },
-    { value: 'ar', label: NAMES.ar },
+    ...LANGS.map((l) => ({ value: l.code, label: l.name })),
   ];
   const card = ios ? undefined : { marginHorizontal: 16, borderRadius: 12 };
 

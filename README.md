@@ -2,11 +2,11 @@
 
 openseat shows which of the next 90 days have reward seats on **Emirates Skywards**, **Etihad Guest** and **Qatar Airways Privilege Club**. You pick a day, see every flight with its miles and taxes, then book on the airline site with your own miles. openseat never sells tickets or touches miles.
 
-The site works in English and Arabic (right to left), on desktop and phones, in light and dark mode. There are also native apps for iPhone and Android.
+The site works in English, Arabic (right to left) and French, on desktop and phones, in light and dark mode. There are also native apps for iPhone and Android.
 
-| English | Arabic |
-| --- | --- |
-| ![Search page in English](docs/screenshots/search-en.png) | ![Search page in Arabic](docs/screenshots/search-ar.png) |
+| English | Arabic | French |
+| --- | --- | --- |
+| ![Search page in English](docs/screenshots/search-en.png) | ![Search page in Arabic](docs/screenshots/search-ar.png) | ![Search page in French](docs/screenshots/search-fr.png) |
 
 | Phone | Dark mode |
 | --- | --- |
@@ -26,6 +26,9 @@ The site works in English and Arabic (right to left), on desktop and phones, in 
 
 Changes since the first release, 3 October 2026:
 
+- **Translations anyone can add.** Every word on the site and in the apps now lives in one XML file per language in [lang/](lang/). To fix a string or add a language, edit or copy a file and open a pull request; the new language shows up with no code change. See [lang/README.md](lang/README.md).
+- **French.** The site and the apps now come in French, with French city and cabin names, dates, numbers and prices.
+- **Language menu.** The header has a menu with every language, in its own name. It replaces the English and Arabic switch. On first visit the site picks the browser's language when it has it, else English. The apps list every language in Settings and on the search screen.
 - **Real seat data.** The API can read reward seats for Emirates and Etihad from the seats.aero partner API. Qatar stays on sample data until seats.aero lists it. See [docs/data-sources.md](docs/data-sources.md).
 - **Telegram and WhatsApp alerts.** Alerts can go by Telegram or WhatsApp as well as email, on the website and in the apps. See [docs/alerts.md](docs/alerts.md).
 - **Currency choice.** Taxes show in US dollars, UAE dirhams, Saudi riyals or Qatari riyals. The first choice comes from your region.
@@ -98,6 +101,7 @@ Site on http://localhost:8080, API on http://localhost:8787, with Postgres and R
 | `npm run typecheck` | Type check every package |
 | `npm test` | Run all tests. API tests also run against Postgres and Redis when `DATABASE_URL` and `REDIS_URL` are set |
 | `npm run migrate` | Apply database migrations |
+| `npm run lang` | Check the files in `lang/` and rebuild the text the site and apps read. Also runs on install and before builds |
 
 ## How it works
 
@@ -112,9 +116,9 @@ Results stream in. Days the API already has show at once, and the rest arrive in
 
 ## Language
 
-The site follows the browser language: Arabic if the browser prefers Arabic, English otherwise. The switch in the header changes it at once and remembers the choice. `?lang=ar` or `?lang=en` in a link also works.
+The site follows the browser language when it has it, else English. The language menu in the header changes it at once and remembers the choice. `?lang=fr` (or `en`, `ar`) in a link also works.
 
-All copy lives in `apps/web/src/i18n/en.ts` and `ar.ts`. The mobile app reads the same files. A test fails if Arabic is missing any English string. The Arabic text, and the Terms page in both languages, should be reviewed by a native editor and by counsel before launch.
+All text lives in `lang/en.xml`, `ar.xml` and `fr.xml`. The website and the apps read the same files. English is the reference: a string missing from another language shows in English, and the build lists it. A test fails if Arabic or French is missing any English string. [lang/README.md](lang/README.md) explains the format and how to add a language. The Arabic and French text, and the Terms page in every language, should be reviewed by a native editor and by counsel before launch.
 
 ## Configuration
 
@@ -139,8 +143,8 @@ Every setting is in [.env.example](.env.example) with a short note. The ones tha
 Done:
 
 - Web app from the design: search sentence, pickers, 90-day calendar, return trips, day panel and bottom sheet on phones, booking steps, alerts, copy link, How to use and Terms pages.
-- Native apps for iOS and Android with the same features: the search sentence, 90-day calendar, day and flights, booking steps, alerts by email, Telegram or WhatsApp, a currency setting, How to use and Terms. iOS and Android each get their own look. English and Arabic, following the phone language with a setting to change it, and light and dark mode. See [apps/mobile/README.md](apps/mobile/README.md).
-- English and Arabic with right-to-left layout, and dark mode.
+- Native apps for iOS and Android with the same features: the search sentence, 90-day calendar, day and flights, booking steps, alerts by email, Telegram or WhatsApp, a currency setting, How to use and Terms. iOS and Android each get their own look. English, Arabic and French, following the phone language with a setting to change it, and light and dark mode. See [apps/mobile/README.md](apps/mobile/README.md).
+- English, Arabic with right-to-left layout, and French, from XML files anyone can add to. Dark mode.
 - API with streaming search, request merging, per-search ids, refresh with cooldowns, alerts with email, a tiered refresh scheduler, Postgres storage and Redis coordination.
 - Tests for shared logic, the API (including real Postgres and Redis), the web app's URL and copy, and the mobile app's stream reader, links and copy.
 - Real data for Emirates and Etihad through the seats.aero partner API. Needs a key and, for a public site, their written approval.

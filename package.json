@@ -13,7 +13,9 @@
     "build": "npm run build -w @openseat/shared && npm run build -w @openseat/api && npm run build -w @openseat/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
-    "migrate": "npm run migrate -w @openseat/api"
+    "migrate": "npm run migrate -w @openseat/api",
+    "lang": "node scripts/lang.mjs",
+    "postinstall": "node scripts/lang.mjs"
   },
   "overrides": {
     "react": "19.2.3",

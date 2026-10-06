@@ -6,7 +6,7 @@ import { Icon } from '../../../components/Icon';
 import { Sentence } from '../../../components/Sentence';
 import { ChoiceSheet } from '../../../components/Sheet';
 import { Button, Choice, Field, Group, Note, Press, Row, Screen, SectionLabel, Sep, Switch, Txt, WIDE } from '../../../components/ui';
-import { useLang } from '../../../i18n';
+import { LANGS, useLang, type Lang } from '../../../i18n';
 import type { ChipId } from '../../../i18n/dicts';
 import { hasQuery, readParams } from '../../../lib/query';
 import { useTrip } from '../../../lib/search';
@@ -16,12 +16,12 @@ import { Panes } from '../../../components/Panes';
 import { DayView } from '../../day';
 import { CalendarView } from './calendar';
 
-type Picker = 'program' | 'cabin' | 'pax' | 'ret' | null;
+type Picker = 'program' | 'cabin' | 'pax' | 'ret' | 'lang' | null;
 
 /** The search form. As a tablet pane it has no Find button: the calendar beside it updates at once. */
 export function SearchForm({ pane }: { pane?: boolean }) {
   const th = useTheme();
-  const { t, a, f, setSetting } = useLang();
+  const { t, a, f, lang, setSetting } = useLang();
   const { q, update, invalid } = useTrip();
   const router = useRouter();
   const params = useLocalSearchParams();
@@ -40,18 +40,26 @@ export function SearchForm({ pane }: { pane?: boolean }) {
 
   const langSwitch = (
     <Press
-      onPress={() => setSetting(t.nav.switchLang)}
+      onPress={() => setPicker('lang')}
       accessibilityRole="button"
-      accessibilityLabel={t.nav.switchLabel}
+      accessibilityLabel={t.nav.language}
       style={{ height: 36, paddingHorizontal: 12, borderRadius: 999, backgroundColor: ios ? th.card : 'transparent', borderWidth: ios ? 0 : 1, borderColor: th.outline, flexDirection: 'row', alignItems: 'center', gap: 6 }}
     >
       <Icon name="language" size={17} color={th.text2} />
-      <Txt style={{ fontSize: 15 }}>{t.nav.switchTo}</Txt>
+      <Txt style={{ fontSize: 15 }}>{LANGS.find((l) => l.code === lang)?.name}</Txt>
     </Press>
   );
 
   const pickers = (
     <>
+      <ChoiceSheet<Lang>
+        open={picker === 'lang'}
+        onClose={() => setPicker(null)}
+        title={t.nav.language}
+        value={lang}
+        options={LANGS.map((l) => ({ value: l.code, label: l.name }))}
+        onPick={setSetting}
+      />
       <ChoiceSheet<CarrierId>
         open={picker === 'program'}
         onClose={() => setPicker(null)}

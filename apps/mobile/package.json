@@ -4,12 +4,19 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
+    "prestart": "node ../../scripts/lang.mjs",
     "start": "expo start",
+    "preios": "node ../../scripts/lang.mjs",
     "ios": "expo start --ios",
+    "preandroid": "node ../../scripts/lang.mjs",
     "android": "expo start --android",
+    "preweb": "node ../../scripts/lang.mjs",
     "web": "expo start --web",
+    "preexport:web": "node ../../scripts/lang.mjs",
     "export:web": "expo export --platform web",
+    "pretypecheck": "node ../../scripts/lang.mjs",
     "typecheck": "tsc --noEmit",
+    "pretest": "node ../../scripts/lang.mjs",
     "test": "node --import tsx --test \"test/*.test.ts\""
   },
   "dependencies": {

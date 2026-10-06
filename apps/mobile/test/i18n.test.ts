@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { appAr, appEn } from '../src/i18n/app';
-import { DICTS, pickLang } from '../src/i18n/dicts';
+import { APP_DICTS, DICTS, pickLang } from '../src/i18n/dicts';
 import { makeFormat } from '../src/i18n/format';
+
+const appEn = APP_DICTS.en, appAr = APP_DICTS.ar, appFr = APP_DICTS.fr;
 
 function shape(v: unknown): unknown {
   if (Array.isArray(v)) return v.map(shape);
@@ -19,12 +20,14 @@ function strings(v: unknown, out: string[] = []): string[] {
 }
 
 describe('app copy', () => {
-  it('Arabic has every English app string', () => {
+  it('every language has every English app string', () => {
     assert.deepEqual(shape(appAr), shape(appEn));
+    assert.deepEqual(shape(appFr), shape(appEn));
   });
 
   it('shares the website dictionaries rather than a copy', () => {
     assert.deepEqual(shape(DICTS.ar), shape(DICTS.en));
+    assert.deepEqual(shape(DICTS.fr), shape(DICTS.en));
     assert.equal(DICTS.ar.dir, 'rtl');
     assert.equal(DICTS.en.dir, 'ltr');
   });
@@ -34,19 +37,22 @@ describe('app copy', () => {
     assert.equal(appAr.search.weeks(2), 'أسبوعين');
     assert.equal(appAr.search.weeks(3), '3 أسابيع');
     assert.equal(appEn.search.weeks(1), '1 week');
+    assert.equal(appFr.search.weeks(2), '2 semaines');
   });
 
   it('uses no em dash in any copy', () => {
     const dash = '—';
-    for (const s of [...strings(appEn), ...strings(appAr)]) assert.ok(!s.includes(dash), s);
-    for (const fn of [appEn.cal.navSub, appAr.cal.navSub]) assert.ok(!fn('a', 'b', true).includes(dash));
+    for (const s of [...strings(appEn), ...strings(appAr), ...strings(appFr)]) assert.ok(!s.includes(dash), s);
+    for (const fn of [appEn.cal.navSub, appAr.cal.navSub, appFr.cal.navSub]) assert.ok(!fn('a', 'b', true).includes(dash));
   });
 
-  it('follows the device language, Arabic or English', () => {
+  it('follows the device language when we have it, else English', () => {
     assert.equal(pickLang('ar'), 'ar');
     assert.equal(pickLang('AR'), 'ar');
     assert.equal(pickLang('en'), 'en');
-    assert.equal(pickLang('fr'), 'en');
+    assert.equal(pickLang('fr'), 'fr');
+    assert.equal(pickLang('fr-CA'), 'fr');
+    assert.equal(pickLang('de'), 'en');
     assert.equal(pickLang(null), 'en');
   });
 });

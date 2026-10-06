@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arabic. To add or fix a translation, see lang/README.md. -->
+<language code="ar" name="العربية" english="Arabic" dir="rtl" locale="ar-u-nu-latn-ca-gregory" numbers="ar-u-nu-latn">
+  <section name="meta">
+    <text key="searchTitle">openseat: مقاعد المكافآت على الإمارات والاتحاد والقطرية</text>
+    <text key="howTitle">طريقة استخدام openseat</text>
+    <text key="termsTitle">شروط الاستخدام، openseat</text>
+  </section>
+  <section name="nav">
+    <text key="home">الصفحة الرئيسية لـ openseat</text>
+    <text key="search">البحث</text>
+    <text key="howToUse">طريقة الاستخدام</text>
+    <text key="terms">الشروط</text>
+    <text key="language">اللغة</text>
+    <text key="currency">عملة الضرائب</text>
+    <section name="currencies">
+      <text key="USD">دولار</text>
+      <text key="AED">درهم</text>
+      <text key="SAR">ريال سعودي</text>
+      <text key="QAR">ريال قطري</text>
+    </section>
+  </section>
+  <section name="footer">
+    <text key="disclaimer">Openseat خدمة مستقلة، ولا ترتبط بطيران الإمارات أو الاتحاد للطيران أو الخطوط الجوية القطرية ولا تحظى بتأييدها. أسماء البرامج علامات تجارية لأصحابها.</text>
+    <text key="sample">الأسعار وأعداد المقاعد المعروضة بيانات تجريبية.</text>
+    <text key="copyright">© 2026 Openseat · v1.0.0</text>
+  </section>
+  <section name="search">
+    <text key="eyebrow">ابحث عن مقاعد المكافآت على طيران الإمارات والاتحاد للطيران والخطوط الجوية القطرية</text>
+    <text key="sentence">باستخدام {program}، اعرض لي مقاعد {cabin} لـ {pax} من {from} إلى {to}، {ret}.</text>
+    <plural key="pax">
+      <one>مسافر واحد</one>
+      <two>مسافرَين</two>
+      <few>{n} مسافرين</few>
+      <many>{n} مسافرًا</many>
+      <other>{n} مسافرًا</other>
+    </plural>
+    <text key="oneWay">ذهاب فقط</text>
+    <plural key="ret">
+      <one>والعودة بعد أسبوع</one>
+      <two>والعودة بعد أسبوعين</two>
+      <few>والعودة بعد {n} أسابيع</few>
+      <many>والعودة بعد {n} أسبوعًا</many>
+      <other>والعودة بعد {n} أسبوعًا</other>
+    </plural>
+    <text key="sameAirport">اختر مطارين مختلفين لعرض المقاعد.</text>
+    <text key="chipLabel">{what}: {value}</text>
+  </section>
+  <section name="picker">
+    <text key="program">برنامج الأميال</text>
+    <text key="programSub">الأسعار بـ{unit}. المحور: {hub}</text>
+    <text key="cabin">الدرجة</text>
+    <text key="premiumSub">على طيران الإمارات فقط، في بعض رحلات A380 وA350</text>
+    <text key="pax">المسافرون</text>
+    <plural key="paxSub">
+      <one>لا تظهر المقاعد إلا إذا توفر مقعد واحد على رحلة واحدة</one>
+      <two>لا تظهر المقاعد إلا إذا توفر مقعدان على رحلة واحدة</two>
+      <few>لا تظهر المقاعد إلا إذا توفر {n} مقاعد على رحلة واحدة</few>
+      <many>لا تظهر المقاعد إلا إذا توفر {n} مقعدًا على رحلة واحدة</many>
+      <other>لا تظهر المقاعد إلا إذا توفر {n} مقعدًا على رحلة واحدة</other>
+    </plural>
+    <text key="ret">العودة</text>
+    <text key="oneWay">ذهاب فقط</text>
+    <plural key="retOption">
+      <one>العودة بعد أسبوع</one>
+      <two>العودة بعد أسبوعين</two>
+      <few>العودة بعد {n} أسابيع</few>
+      <many>العودة بعد {n} أسبوعًا</many>
+      <other>العودة بعد {n} أسبوعًا</other>
+    </plural>
+    <text key="retSubOneWay">رحلة الذهاب فقط</text>
+    <text key="retSub">نميّز أيام العودة بعد {from} إلى {to} ليلة من سفرك</text>
+    <text key="from">السفر من</text>
+    <text key="to">السفر إلى</text>
+    <text key="airportLabel">المدينة أو رمز المطار أو الاسم بالعربية</text>
+    <text key="airportPlaceholder">مثلًا: لندن أو LHR</text>
+    <text key="popular">مسارات شائعة</text>
+    <text key="all">كل المطارات</text>
+    <text key="routeAria">من {from} إلى {to}</text>
+    <text key="empty">لا توجد مطارات مطابقة. جرّب اسم مدينة أو رمزًا من 3 أحرف.</text>
+    <text key="close">إغلاق</text>
+  </section>
+  <section name="cal">
+    <text key="outbound">الذهاب</text>
+    <text key="return">العودة</text>
+    <text key="tablist">جزء الرحلة</text>
+    <text key="titleOne">المقاعد في {cabin}</text>
+    <text key="titleOut">مقاعد الذهاب في {cabin}</text>
+    <text key="titleRet">مقاعد العودة في {cabin}</text>
+    <text key="subFrom">{cabin} تبدأ من {miles} {unit} للاتجاه الواحد. تتوفر مقاعد في {open} من الأيام الـ{total} القادمة.</text>
+    <text key="subNone">لا توجد مقاعد في {cabin} خلال الأيام الـ90 القادمة. فعّل التنبيه لنخبرك عند توفرها.</text>
+    <text key="subNotOffered">لا يقدم {program} {cabin} على هذا المسار. جرّب درجة أخرى.</text>
+    <text key="subLoading">نتحقق من الأيام الـ90 القادمة.</text>
+    <list key="legend">
+      <item>لا مقاعد</item>
+      <item>مقعد واحد</item>
+      <item>2 إلى 3</item>
+      <item>4 أو أكثر</item>
+    </list>
+    <plural key="fits">
+      <one>يناسب رحلة مدتها أسبوع</one>
+      <two>يناسب رحلة مدتها أسبوعين</two>
+      <few>يناسب رحلة مدتها {n} أسابيع</few>
+      <many>يناسب رحلة مدتها {n} أسبوعًا</many>
+      <other>يناسب رحلة مدتها {n} أسبوعًا</other>
+    </plural>
+    <list key="weekdays">
+      <item>إثنين</item>
+      <item>ثلاثاء</item>
+      <item>أربعاء</item>
+      <item>خميس</item>
+      <item>جمعة</item>
+      <item>سبت</item>
+      <item>أحد</item>
+    </list>
+    <text key="keys">استخدم مفاتيح الأسهم للتنقل بين الأيام.</text>
+    <text key="aria">التقويم، من {from} إلى {to}، {cabin}</text>
+    <plural key="seats">
+      <one>مقعد واحد</one>
+      <two>مقعدان</two>
+      <few>{n} مقاعد</few>
+      <many>{n} مقعدًا</many>
+      <other>{n} مقعدًا</other>
+    </plural>
+    <text key="seatsMany">4 مقاعد أو أكثر</text>
+    <text key="dayAria">{date}، {seats} بدءًا من {miles} {unit}</text>
+    <text key="dayAriaFits">{date}، {seats} بدءًا من {miles} {unit}، يناسب رحلتك</text>
+    <text key="dayNone">{date}، لا مقاعد في {cabin}</text>
+    <text key="dayPending">{date}، جارٍ التحقق</text>
+    <text key="dayFailed">{date}، تعذر التحقق</text>
+    <plural key="checking">
+      <one>نتحقق من يوم واحد أخرى لدى شركة الطيران</one>
+      <two>نتحقق من يومين أخرى لدى شركة الطيران</two>
+      <few>نتحقق من {n} أيام أخرى لدى شركة الطيران</few>
+      <many>نتحقق من {n} يومًا أخرى لدى شركة الطيران</many>
+      <other>نتحقق من {n} يومًا أخرى لدى شركة الطيران</other>
+    </plural>
+    <text key="stop">إيقاف</text>
+    <text key="stopped">توقف البحث. تركنا الأيام التي لم نتحقق منها فارغة.</text>
+    <text key="failed">تعذر التحقق من بعض الأيام. نعرض آخر نتائج محفوظة حيثما توفرت.</text>
+    <text key="retry">حاول مجددًا</text>
+  </section>
+  <section name="day">
+    <text key="prev">اليوم السابق</text>
+    <text key="next">اليوم التالي</text>
+    <text key="close">إغلاق</text>
+    <plural key="sub">
+      <one>{open} من رحلة واحدة من {from} إلى {to} فيها مقاعد في {cabin}. الأسعار للمسافر الواحد وللاتجاه الواحد.</one>
+      <two>{open} من رحلتين من {from} إلى {to} فيها مقاعد في {cabin}. الأسعار للمسافر الواحد وللاتجاه الواحد.</two>
+      <few>{open} من {n} رحلات من {from} إلى {to} فيها مقاعد في {cabin}. الأسعار للمسافر الواحد وللاتجاه الواحد.</few>
+      <many>{open} من {n} رحلة من {from} إلى {to} فيها مقاعد في {cabin}. الأسعار للمسافر الواحد وللاتجاه الواحد.</many>
+      <other>{open} من {n} رحلة من {from} إلى {to} فيها مقاعد في {cabin}. الأسعار للمسافر الواحد وللاتجاه الواحد.</other>
+    </plural>
+    <text key="noFlights">لا رحلات من {from} إلى {to} في هذا اليوم.</text>
+    <plural key="trip">
+      <one>الذهاب {out}، والعودة {ret}، ليلة واحدة.</one>
+      <two>الذهاب {out}، والعودة {ret}، ليلتان.</two>
+      <few>الذهاب {out}، والعودة {ret}، {n} ليالٍ.</few>
+      <many>الذهاب {out}، والعودة {ret}، {n} ليلة.</many>
+      <other>الذهاب {out}، والعودة {ret}، {n} ليلة.</other>
+    </plural>
+    <text key="alertOff">نبّهني عند توفر مقاعد</text>
+    <text key="alertOn">التنبيه مفعّل</text>
+    <text key="copy">نسخ الرابط</text>
+    <text key="copied">تم النسخ</text>
+    <text key="updated">آخر تحديث {time}</text>
+    <text key="refresh">تحقق مجددًا</text>
+    <text key="refreshing">جارٍ التحقق</text>
+    <text key="refreshWait">تحققنا من هذا المسار قبل دقائق. حاول بعد قليل.</text>
+    <text key="refreshFailed">تعذر بدء تحقق جديد. حاول بعد قليل.</text>
+  </section>
+  <section name="flight">
+    <text key="nonstop">رحلة مباشرة</text>
+    <text key="stop">توقف واحد في {city} ({wait} للتحويل)</text>
+    <plural key="taxes">
+      <one>+ {tax} ضرائب، مقعد واحد متاحة</one>
+      <two>+ {tax} ضرائب، مقعدان متاحة</two>
+      <few>+ {tax} ضرائب، {n} مقاعد متاحة</few>
+      <many>+ {tax} ضرائب، {n} مقعدًا متاحة</many>
+      <other>+ {tax} ضرائب، {n} مقعدًا متاحة</other>
+    </plural>
+    <text key="taxesMany">+ {tax} ضرائب، 9+ مقاعد متاحة</text>
+    <text key="notOffered">{cabin} غير متوفرة</text>
+    <text key="noSeats">لا مقاعد في {cabin}</text>
+    <text key="alsoOpen">متاح أيضًا</text>
+    <text key="howToBook">طريقة الحجز</text>
+    <text key="saver">سعر التوفير</text>
+    <text key="flex">سعر مرن</text>
+    <text key="flexTitle">ليس أقل سعر بالأميال. قد تكلف مقاعد التوفير في يوم آخر أميالًا أقل.</text>
+    <text key="separate">تذكرتان منفصلتان</text>
+    <text key="separateNote">هذه مكافأتان منفصلتان. إذا تأخرت الرحلة الأولى فلا تلتزم شركة الطيران بإعادة حجزك. اترك 3 ساعات على الأقل للتحويل.</text>
+    <text key="step1">سجّل الدخول إلى {program} على {site}.</text>
+    <text key="step2">ابحث من {from} إلى {to} يوم {date} مع تفعيل خيار {term}.</text>
+    <text key="step3">اختر {flights} في {cabin}. المجموع لـ{pax}: {miles} {unit} و{tax}.</text>
+    <text key="step3None">لا توجد مقاعد مكافآت في {cabin} لـ{pax} على هذه الرحلة اليوم. اختر يومًا أخضر من التقويم.</text>
+    <text key="and" xml:space="preserve"> و</text>
+    <text key="open">افتح {site}</text>
+  </section>
+  <section name="alert">
+    <text key="title">استلم تنبيهًا عند توفر المقاعد</text>
+    <text key="body">سنراقب مقاعد {cabin} من {from} إلى {to} على {program}، لـ{pax}.</text>
+    <text key="email">البريد الإلكتروني</text>
+    <text key="help">رسالتان كحد أقصى في اليوم. في كل رسالة رابط لإيقاف التنبيه.</text>
+    <text key="invalid">أدخل بريدًا إلكترونيًا صحيحًا.</text>
+    <text key="submit">فعّل التنبيه</text>
+    <text key="cancel">إلغاء</text>
+    <text key="on">سنراسلك عند توفر مقاعد {cabin} من {from} إلى {to}.</text>
+    <text key="off">أُوقف التنبيه.</text>
+    <text key="failed">تعذر حفظ التنبيه. حاول مجددًا.</text>
+    <text key="channel">أرسل التنبيه عبر</text>
+    <section name="channels">
+      <text key="email">البريد</text>
+      <text key="telegram">تيليجرام</text>
+      <text key="whatsapp">واتساب</text>
+    </section>
+    <text key="phone">رقم واتساب</text>
+    <text key="phoneHelp">مع رمز الدولة، مثل ‎+971 50 123 4567. رسالتان كحد أقصى في اليوم، وفي كل رسالة رابط لإيقاف التنبيه.</text>
+    <text key="phoneInvalid">أدخل رقمك مع رمز الدولة، يبدأ بعلامة +.</text>
+    <text key="telegramHelp">بعد ذلك افتح بوت تيليجرام واضغط ابدأ. رسالتان كحد أقصى في اليوم. أرسل ‎/stop للبوت لإيقاف التنبيهات.</text>
+    <text key="telegramNext">خطوة أخيرة: افتح تيليجرام واضغط ابدأ لتفعيل التنبيه.</text>
+    <text key="telegramOpen">افتح تيليجرام</text>
+    <text key="onMessage">سنراسلك عند توفر مقاعد {cabin} من {from} إلى {to}.</text>
+    <text key="robot">أكّد أنك لست روبوتًا ثم حاول مجددًا.</text>
+  </section>
+  <section name="how">
+    <text key="title">كيف يعمل</text>
+    <text key="intro">يعرض Openseat الأيام التي تتوفر فيها مقاعد المكافآت. أما الحجز فيبقى مباشرة مع شركة الطيران وبأميالك أنت.</text>
+    <text key="examples">شاهد أمثلة عملية</text>
+    <list key="steps">
+      <item>
+        <text key="title">كوّن بحثك</text>
+        <text key="text">كل جزء أخضر في الجملة قائمة اختيار. ابدأ ببرنامج الأميال، ثم حدد الدرجة وعدد المسافرين والمطارات، وهل تحتاج رحلة عودة.</text>
+      </item>
+      <item>
+        <text key="title">تصفّح الأيام الـ90 القادمة</text>
+        <text key="text">الرقم في كل يوم هو عدد المقاعد المتاحة على أفضل رحلة في ذلك اليوم. كلما كان الأخضر أغمق زادت المقاعد.</text>
+      </item>
+      <item>
+        <text key="title">افتح يومًا</text>
+        <text key="text">شاهد كل الرحلات المباشرة وذات التوقف الواحد، والسعر للمسافر مع الضرائب، والدرجات الأخرى المتاحة على الرحلة نفسها. لرحلة العودة انتقل إلى تبويب العودة.</text>
+      </item>
+      <item>
+        <text key="title">احجز مع شركة الطيران</text>
+        <text key="text">اتبع خطوات «طريقة الحجز» وأكمل الحجز على موقع شركة الطيران. وإن لم تتوفر مقاعد بعد، فعّل التنبيه وسنراسلك.</text>
+      </item>
+    </list>
+    <text key="reading">قراءة التقويم</text>
+    <list key="key">
+      <item>لا مقاعد مكافآت في درجتك تكفي كل المسافرين في بحثك.</item>
+      <item>مقعد واحد متاح على رحلة واحدة على الأقل.</item>
+      <item>مقعدان أو ثلاثة متاحة على رحلة واحدة.</item>
+      <item>أربعة مقاعد أو أكثر. اليوم المحاط بإطار هو المعروض في قائمة الرحلات.</item>
+      <item>في تبويب العودة، يميّز خط قصير الأيام التي تناسب مدة رحلتك.</item>
+    </list>
+    <text key="notesTitle">ملاحظات الحجز حسب البرنامج</text>
+    <section name="notes">
+      <list key="EK">
+        <item>ابحث مع اختيار Classic Rewards، وإلا فسترى الأسعار النقدية فقط.</item>
+        <item>السياحية الممتازة متوفرة فقط في بعض رحلات A380 وA350.</item>
+        <item>تشمل الضرائب رسوم الناقل، لذلك تكون عادة أعلى من الاتحاد أو القطرية.</item>
+      </list>
+      <list key="EY">
+        <item>اختر «الحجز بالأميال» على etihad.com قبل البحث.</item>
+        <item>الدرجة الأولى متوفرة على A380 فقط. معظم المسارات فيها السياحية والأعمال.</item>
+        <item>الحجز بالأميال للاتجاه الواحد، فيمكنك المزج بين الدرجات أو التواريخ في رحلة العودة.</item>
+      </list>
+      <list key="QR">
+        <item>الأسعار بنقاط أفيوس. يمكنك نقل أفيوس من وإلى برنامج الخطوط البريطانية Executive Club.</item>
+        <item>الدرجة الأولى على A380 فقط. درجة الأعمال Qsuite متوفرة في معظم الرحلات الطويلة.</item>
+        <item>ابحث مع تفعيل «الحجز بنقاط أفيوس» لترى مقاعد المكافآت.</item>
+      </list>
+    </section>
+    <text key="goodTitle">معلومات مفيدة</text>
+    <list key="good">
+      <item>نتحقق من المسارات المزدحمة كل بضع ساعات، ومن غيرها عند البحث. يظهر لكل يوم وقت آخر تحقق.</item>
+      <item>الأسعار للاتجاه الواحد وللمسافر الواحد. تعرض خطوات الحجز المجموع لمجموعتك.</item>
+      <item>لا يظهر اليوم متاحًا إلا إذا كانت على رحلة واحدة مقاعد تكفي الجميع.</item>
+      <item>الرحلات ذات التوقف الواحد تمر بمحور شركة الطيران: دبي أو أبوظبي أو الدوحة.</item>
+      <item>الضرائب والرسوم تقديرية بالدولار الأمريكي. تعرض شركة الطيران المبلغ النهائي عند الدفع.</item>
+      <item>لا نشمل بعد مكافآت شركات الطيران الشريكة. ترى فقط الرحلات التي تشغلها الشركات الثلاث.</item>
+    </list>
+    <text key="back">العودة إلى البحث</text>
+  </section>
+  <section name="howPage">
+    <text key="title">طريقة استخدام Openseat</text>
+    <text key="lede">اعثر على يوم فيه مقاعد مكافآت، ثم احجزه على موقع شركة الطيران بأميالك. فيما يلي أربع طرق حقيقية يبحث بها الناس، خطوة بخطوة.</text>
+    <text key="basics">الأساسيات في أربع خطوات</text>
+    <list key="moves">
+      <item>
+        <text key="title">ابدأ بأميالك</text>
+        <text key="text">اختر البرنامج الذي تملك فيه أميالًا: سكاي واردز أو ضيف الاتحاد أو نادي الامتياز.</text>
+      </item>
+      <item>
+        <text key="title">أكمل الجملة</text>
+        <text key="text">حدد الدرجة والمسافرين والمطارات ورحلة العودة إن أردت. ابحث باسم المدينة أو الرمز أو الاسم العربي.</text>
+      </item>
+      <item>
+        <text key="title">اقرأ الأرقام</text>
+        <text key="text">يعرض كل يوم عدد المقاعد المتاحة على أفضل رحلة فيه: 1 أو 2 أو 3 أو 4+. الأيام الفارغة لا مقاعد فيها.</text>
+      </item>
+      <item>
+        <text key="title">احجز مع شركة الطيران</text>
+        <text key="text">افتح اليوم واتبع «طريقة الحجز»، وأكمل على موقع شركة الطيران قبل أن يُحجز المقعد.</text>
+      </item>
+    </list>
+    <text key="examples">أمثلة</text>
+    <text key="tryIt">جرّب هذا البحث</text>
+    <text key="faqTitle">أسئلة شائعة</text>
+    <list key="faq">
+      <item>
+        <text key="q">لماذا اختفى المقعد عندما حاولت الحجز؟</text>
+        <text key="a">نتحقق من المسارات المزدحمة كل بضع ساعات، ومن غيرها عند البحث. قد تُحجز المقاعد بين تحقق وآخر، لذلك تبقى الكلمة الأخيرة لموقع شركة الطيران. يظهر لكل يوم وقت آخر تحقق، ويطلب زر «تحقق مجددًا» نظرة جديدة.</text>
+      </item>
+      <item>
+        <text key="q">لماذا لا أستطيع اختيار تواريخ أبعد؟</text>
+        <text key="a">النافذة دائمًا الأيام الـ90 القادمة. هذا يبقي البحث سريعًا، ويعرض الرابط المشترك التواريخ نفسها للجميع.</text>
+      </item>
+      <item>
+        <text key="q">هل الأسعار دقيقة؟</text>
+        <text key="a">الأميال هي سعر المكافأة المنشور للاتجاه الواحد وللمسافر الواحد. الضرائب تقديرية بالدولار الأمريكي وقد تتغير عند الدفع. وشارة «سعر مرن» تعني أن المقعد ليس بأقل سعر مكافأة.</text>
+      </item>
+      <item>
+        <text key="q">كيف أشارك بحثًا؟</text>
+        <text key="a">اضغط «نسخ الرابط» بجانب التاريخ. يحفظ الرابط البرنامج والدرجة والمسافرين والمطارات والعودة، فيرى غيرك ما تراه.</text>
+      </item>
+    </list>
+    <text key="start">ابدأ البحث</text>
+  </section>
+  <section name="examples">
+    <list key="list">
+      <item>
+        <text key="title">عائلة من أربعة أفراد إلى لندن في عطلة الشتاء</text>
+        <list key="tips">
+          <item>مع 4 مسافرين، لا يظهر اليوم متاحًا إلا إذا توفرت 4 مقاعد على رحلة واحدة. ابحث عن الأيام المعلّمة بـ4+ باللون الأخضر الداكن.</item>
+          <item>اختر يوم الذهاب، ثم انتقل إلى تبويب العودة. الأيام التي تحتها خط قصير تناسب رحلة من 11 إلى 17 ليلة.</item>
+          <item>احجز الاتجاهين في جلسة واحدة على emirates.com، حتى تبقى المقاعد التي وجدتها متاحة للرحلة الثانية.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">مقعد أعمال في اللحظة الأخيرة إلى بانكوك</text>
+        <list key="tips">
+          <item>كثيرًا ما تطرح شركات الطيران المقاعد غير المباعة في آخر أسبوعين، فراجع الصفوف الأولى من التقويم.</item>
+          <item>استخدم السهمين بجانب التاريخ للتنقل بين الأيام دون العودة إلى التقويم.</item>
+          <item>إذا امتلأت درجة الأعمال وظهرت السياحية تحت «متاح أيضًا»، فاضغط عليها لترى سعرها على الرحلة نفسها.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">مقعدان في الدرجة الأولى إلى طوكيو بنقاط أفيوس</text>
+        <list key="tips">
+          <item>تبيع القطرية الدرجة الأولى على طائرات A380 فقط، لذلك تظهر «غير متوفرة» في مسارات كثيرة. هذا يتعلق بالطائرة لا بنفاد المقاعد.</item>
+          <item>توفر مقعدين معًا في الدرجة الأولى أمر نادر. إذا كان التقويم فارغًا فاضغط «نبّهني عند توفر مقاعد».</item>
+          <item>نقاط أفيوس لا تكفي؟ يمكنك نقلها من برنامج الخطوط البريطانية Executive Club قبل الحجز.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">السفر من مدينة ليست محورًا</text>
+        <list key="tips">
+          <item>الرحلات من الرياض تمر بدبي. لا يظهر اليوم متاحًا إلا إذا توفر مقعد على الرحلتين.</item>
+          <item>تعرض بطاقة كل رحلة مكان التوقف ومدة الانتظار، فتتجنب التحويلات الطويلة.</item>
+          <item>قارن ببحث يبدأ من دبي. إذا استطعت الوصول إلى المحور بنفسك، فغالبًا ستجد أيامًا أكثر.</item>
+        </list>
+      </item>
+    </list>
+  </section>
+  <section name="terms">
+    <text key="title">شروط الاستخدام</text>
+    <text key="updated">آخر تحديث 2 أكتوبر 2026</text>
+    <text key="sectionsLabel">الأقسام</text>
+    <text key="intro">باستخدامك Openseat فإنك توافق على هذه الشروط. كُتبت لتُقرأ، لذلك جاء كل قسم قصيرًا.</text>
+    <list key="sections">
+      <item>
+        <text key="title">ما هو Openseat</text>
+        <list key="body">
+          <item>Openseat أداة معلومات مستقلة تعرض توفر مقاعد المكافآت على طيران الإمارات والاتحاد للطيران والخطوط الجوية القطرية. لا نبيع التذاكر ولا نحجز المقاعد ولا نتعامل مع أميالك أو مدفوعاتك. تتم كل الحجوزات مباشرة مع شركة الطيران.</item>
+          <item>لا يرتبط Openseat بأي من شركات الطيران هذه أو برامج ولائها، ولا يتصل بها ولا يحظى بتأييدها.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">الدقة</text>
+        <list key="body">
+          <item>يتغير توفر المكافآت باستمرار. قد يختفي مقعد معروض هنا قبل أن تبحث عنه على موقع شركة الطيران. أسعار الأميال هي الأسعار المنشورة للاتجاه الواحد، والضرائب تقديرية. لا نضمن أن تكون النتائج دقيقة أو كاملة أو محدّثة.</item>
+          <item>تحقق دائمًا من المقاعد والأميال والرسوم على موقع شركة الطيران قبل الحجز أو نقل الأميال بين البرامج.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">الاستخدام العادل</text>
+        <list key="body">
+          <item>Openseat للاستخدام الشخصي. لا تستخرج بياناته آليًا ولا تستعلم عنه بشكل آلي ولا تُعِد بيع بياناته ولا تحاول تجاوز حدود الاستخدام. نحدد عدد عمليات البحث في الساعة، وقد نمنع أي استخدام يضر بالخدمة للآخرين.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">التنبيهات</text>
+        <list key="body">
+          <item>إذا فعّلت تنبيهًا، نستخدم بريدك الإلكتروني أو رقم واتساب أو محادثة تيليجرام فقط لإخبارك بالمقاعد على المسارات التي اخترتها. نرسل رسالتين كحد أقصى في اليوم لكل تنبيه. في كل رسالة بريد أو واتساب رابط لإيقاف التنبيه، وفي تيليجرام يمكنك إرسال ‎/stop. لا نبيع بياناتك ولا نشاركها.</item>
+          <item>الضرائب تقديرية. عند اختيار عملة خليجية نحوّل من الدولار الأمريكي بسعر الصرف الرسمي الثابت.</item>
+          <item>التنبيه جهد نبذله دون ضمان. قد يصل بعد نفاد المقاعد، ولسنا مسؤولين عن تنبيه فائت.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">العلامات التجارية</text>
+        <list key="body">
+          <item>طيران الإمارات والاتحاد للطيران والخطوط الجوية القطرية وأسماء برامجها، ومنها سكاي واردز وضيف الاتحاد ونادي الامتياز، علامات تجارية لأصحابها، ونستخدمها هنا فقط لوصف الرحلات المعروضة. اسم Openseat وتصميمه ملك لـ Openseat.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">المسؤولية</text>
+        <list key="body">
+          <item>يُقدَّم Openseat كما هو، دون أي ضمانات. وبالقدر الذي يسمح به القانون، لسنا مسؤولين عن أي خسارة تنتج عن الاعتماد عليه، بما في ذلك الأميال التي تنقلها أو تنفقها، والرسوم التي تدفعها، والرحلات التي تفوتك أو تغيّرها.</item>
+        </list>
+      </item>
+      <item>
+        <text key="title">التغييرات</text>
+        <list key="body">
+          <item>قد نحدّث هذه الشروط أو نوقف الخدمة في أي وقت. عند تغيير الشروط نحدّث التاريخ أعلى هذه الصفحة. واستمرارك في استخدام Openseat بعد التغيير يعني قبولك للنسخة الجديدة.</item>
+        </list>
+      </item>
+    </list>
+    <text key="start">ابدأ البحث</text>
+  </section>
+  <section name="botCheck">
+    <!-- The page the apps open for the bot check. -->
+    <text key="ask">تحقّق سريع من أنك لست روبوتًا.</text>
+    <text key="invalid">هذا الرابط غير صالح.</text>
+  </section>
+  <section name="app">
+    <section name="tabs">
+      <text key="search">البحث</text>
+      <text key="alerts">التنبيهات</text>
+      <text key="settings">الإعدادات</text>
+    </section>
+    <section name="search">
+      <text key="title">البحث</text>
+      <text key="androidTitle">ابحث عن مقاعد المكافآت</text>
+      <text key="sub">مقاعد المكافآت على طيران الإمارات والاتحاد للطيران والخطوط الجوية القطرية.</text>
+      <text key="androidSub">الإمارات والاتحاد والقطرية، خلال الأيام الـ90 القادمة.</text>
+      <text key="program">برنامج الأميال</text>
+      <section name="airlines">
+        <text key="EK">الإمارات</text>
+        <text key="EY">الاتحاد</text>
+        <text key="QR">القطرية</text>
+      </section>
+      <text key="route">المسار</text>
+      <text key="trip">الرحلة</text>
+      <text key="from">من</text>
+      <text key="to">إلى</text>
+      <text key="swap">بدّل المطارين</text>
+      <text key="returnTrip">رحلة عودة</text>
+      <text key="backAfter">العودة بعد</text>
+      <plural key="weeks">
+        <one>أسبوع</one>
+        <two>أسبوعين</two>
+        <few>{n} أسابيع</few>
+        <many>{n} أسبوعًا</many>
+        <other>{n} أسبوعًا</other>
+      </plural>
+      <text key="fewer">مسافرون أقل</text>
+      <text key="more">مسافرون أكثر</text>
+      <text key="note">لا يظهر اليوم متاحًا إلا إذا كانت على رحلة واحدة مقاعد تكفي كل المسافرين.</text>
+      <text key="find">اعرض المقاعد</text>
+      <text key="findAndroid">ابحث</text>
+      <text key="live">تظهر التغييرات في التقويم فورًا.</text>
+      <text key="sentence">بحثك</text>
+    </section>
+    <section name="cal">
+      <text key="route">{from} → {to}</text>
+      <text key="navSub">{cabin} · {pax}</text>
+      <text key="navSubAlert">{cabin} · {pax} · التنبيه مفعّل</text>
+      <text key="back">رجوع</text>
+      <text key="open">افتح {date}</text>
+      <text key="noReply">تعذّر الوصول إلى openseat. تحقّق من اتصالك وحاول مرة أخرى.</text>
+    </section>
+    <section name="day">
+      <text key="book">احجز</text>
+      <text key="hide">إخفاء الخطوات</text>
+      <text key="share">شارك الرابط</text>
+      <text key="choose">اختر {flights} في {cabin}.</text>
+      <text key="total">المجموع لـ{pax}</text>
+      <text key="totalValue">{miles} {unit} + {tax}</text>
+      <text key="shareText">مقاعد مكافآت في {cabin} من {from} إلى {to} على openseat</text>
+    </section>
+    <section name="alerts">
+      <text key="title">التنبيهات</text>
+      <text key="sub">المسارات التي تراقبها على هذا الجهاز. نراسلك عند توفر المقاعد.</text>
+      <text key="empty">لا توجد تنبيهات بعد. افتح مسارًا واضغط الجرس لتصلك رسالة عند توفر المقاعد.</text>
+      <text key="turnOff">أوقف التنبيه لمسار {route}</text>
+      <text key="undo">تراجع</text>
+      <text key="to">إلى {address}</text>
+      <text key="telegram">عبر تيليجرام</text>
+    </section>
+    <section name="settings">
+      <text key="title">الإعدادات</text>
+      <text key="language">اللغة</text>
+      <text key="system">لغة الجهاز</text>
+      <text key="systemSub">حاليًا {name}</text>
+      <text key="languageNote">يتبع التطبيق لغة جهازك ما لم تختر لغة هنا.</text>
+      <text key="currencyNote">تُحوَّل الضرائب بالدولار والدرهم والريال بالسعر الرسمي الثابت. تظهر العملات الأخرى كما تفرضها شركة الطيران.</text>
+      <text key="appearance">المظهر</text>
+      <text key="appearanceNote">الوضع الفاتح والداكن يتبعان إعداد جهازك.</text>
+      <text key="help">المساعدة</text>
+      <text key="data">البيانات</text>
+      <text key="sample">تعرض هذه النسخة بيانات تجريبية، لا مقاعد حقيقية من شركات الطيران.</text>
+      <text key="live">تأتي المقاعد من خدمة openseat.</text>
+      <text key="about">حول التطبيق</text>
+    </section>
+  </section>
+  <section name="names">
+    <section name="cabin">
+      <text key="economy">الدرجة السياحية</text>
+      <text key="premium">السياحية الممتازة</text>
+      <text key="business">درجة رجال الأعمال</text>
+      <text key="first">الدرجة الأولى</text>
+    </section>
+    <section name="cabinShort">
+      <text key="economy">السياحية</text>
+      <text key="premium">الممتازة</text>
+      <text key="business">الأعمال</text>
+      <text key="first">الأولى</text>
+    </section>
+    <section name="airline">
+      <text key="EK">طيران الإمارات</text>
+      <text key="EY">الاتحاد للطيران</text>
+      <text key="QR">الخطوط الجوية القطرية</text>
+    </section>
+    <section name="program">
+      <text key="EK">سكاي واردز من طيران الإمارات</text>
+      <text key="EY">ضيف الاتحاد من الاتحاد للطيران</text>
+      <text key="QR">نادي الامتياز من الخطوط الجوية القطرية</text>
+    </section>
+    <section name="programOnly">
+      <text key="EK">سكاي واردز</text>
+      <text key="EY">ضيف الاتحاد</text>
+      <text key="QR">نادي الامتياز</text>
+    </section>
+    <section name="unit">
+      <text key="EK">ميل</text>
+      <text key="EY">ميل</text>
+      <text key="QR">أفيوس</text>
+    </section>
+    <section name="term">
+      <text key="EK">Classic Rewards</text>
+      <text key="EY">الحجز بالأميال</text>
+      <text key="QR">الحجز بنقاط أفيوس</text>
+    </section>
+    <section name="city">
+      <text key="DXB">دبي</text>
+      <text key="AUH">أبوظبي</text>
+      <text key="DOH">الدوحة</text>
+      <text key="RUH">الرياض</text>
+      <text key="JED">جدة</text>
+      <text key="KWI">الكويت</text>
+      <text key="BAH">المنامة</text>
+      <text key="MCT">مسقط</text>
+      <text key="LHR">لندن</text>
+      <text key="CDG">باريس</text>
+      <text key="IST">إسطنبول</text>
+      <text key="JFK">نيويورك</text>
+      <text key="BOM">مومباي</text>
+      <text key="MLE">ماليه</text>
+      <text key="BKK">بانكوك</text>
+      <text key="SIN">سنغافورة</text>
+      <text key="NRT">طوكيو</text>
+      <text key="SYD">سيدني</text>
+    </section>
+    <section name="country">
+      <text key="DXB">الإمارات</text>
+      <text key="AUH">الإمارات</text>
+      <text key="DOH">قطر</text>
+      <text key="RUH">السعودية</text>
+      <text key="JED">السعودية</text>
+      <text key="KWI">الكويت</text>
+      <text key="BAH">البحرين</text>
+      <text key="MCT">عُمان</text>
+      <text key="LHR">المملكة المتحدة</text>
+      <text key="CDG">فرنسا</text>
+      <text key="IST">تركيا</text>
+      <text key="JFK">الولايات المتحدة</text>
+      <text key="BOM">الهند</text>
+      <text key="MLE">المالديف</text>
+      <text key="BKK">تايلاند</text>
+      <text key="SIN">سنغافورة</text>
+      <text key="NRT">اليابان</text>
+      <text key="SYD">أستراليا</text>
+    </section>
+  </section>
+  <section name="format">
+    <text key="duration">{h} س {m} د</text>
+  </section>
+</language>

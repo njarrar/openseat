@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import type { ReactNode } from 'react';
 import { View } from 'react-native';
 import { CARRIERS } from '@openseat/shared';
-import { EXAMPLES, HOW_COPY } from '../../../web/src/content/how';
+import { EXAMPLES } from '../../../web/src/content/how';
 import { Button, Screen, TopBar, Txt, WIDE } from '../components/ui';
 import { useLang } from '../i18n';
 import { useTrip } from '../lib/search';
@@ -37,10 +37,10 @@ function Steps({ items }: { items: string[] }) {
 /** The website's How to use page, plus the How it works notes from its search page. */
 export default function HowScreen() {
   const th = useTheme();
-  const { t, f, lang } = useLang();
+  const { t, f } = useLang();
   const { update } = useTrip();
   const router = useRouter();
-  const c = HOW_COPY[lang];
+  const c = t.howPage;
   const muted = { fontSize: 15, lineHeight: 21, color: th.text2 };
 
   return (
@@ -59,13 +59,13 @@ export default function HowScreen() {
       </Card>
 
       <H2>{c.examples}</H2>
-      {EXAMPLES.map((ex) => (
-        <Card key={ex.title.en}>
-          <Txt style={{ fontSize: 17, fontWeight: '600' }}>{ex.title[lang]}</Txt>
+      {EXAMPLES.map((ex, i) => (
+        <Card key={i}>
+          <Txt style={{ fontSize: 17, fontWeight: '600' }}>{t.examples[i]?.title}</Txt>
           <Txt style={muted}>
             {[f.program(ex.q.carrier), f.cabin(ex.q.cabin), t.search.pax(ex.q.pax), t.picker.routeAria(f.city(ex.q.from), f.city(ex.q.to)), t.search.ret(ex.q.ret)].join(' · ')}
           </Txt>
-          <Steps items={ex.tips[lang]} />
+          <Steps items={t.examples[i]?.tips ?? []} />
           <Button
             kind="tonal"
             label={c.tryIt}

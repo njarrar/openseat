@@ -1,4 +1,9 @@
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import type { ExpoConfig } from 'expo/config';
+
+// Every language in lang/*.xml, so the phone offers the app in each of them.
+const LOCALES = readdirSync(join(__dirname, '../../lang')).filter((f) => f.endsWith('.xml')).map((f) => f.slice(0, -4));
 
 // App identity, in one place. Change these before the first store upload:
 // the bundle id and package name cannot change once an app is published.
@@ -54,9 +59,9 @@ const config: ExpoConfig = {
         dark: { image: './assets/splash-icon.png', backgroundColor: '#0f1513' },
       },
     ],
-    // The app mirrors its own layout for Arabic, so the language setting can
-    // switch at once without a restart. Native RTL stays off.
-    ['expo-localization', { supportsRTL: false, supportedLocales: ['en', 'ar'] }],
+    // The app mirrors its own layout for right-to-left languages, so the language
+    // setting can switch at once without a restart. Native RTL stays off.
+    ['expo-localization', { supportsRTL: false, supportedLocales: LOCALES }],
   ],
   extra: {
     ...(APP.easProjectId ? { eas: { projectId: APP.easProjectId } } : {}),

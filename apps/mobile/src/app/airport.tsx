@@ -30,7 +30,7 @@ export default function AirportScreen() {
   };
 
   const text = query.trim(), qq = text.toLowerCase();
-  const list = AIRPORTS.filter((a) => !text || a.code.toLowerCase().includes(qq) || a.city.toLowerCase().includes(qq) || a.country.toLowerCase().includes(qq) || a.cityAr.includes(text) || a.countryAr.includes(text));
+  const list = AIRPORTS.filter((a) => !text || a.code.toLowerCase().includes(qq) || a.city.toLowerCase().includes(qq) || a.country.toLowerCase().includes(qq) || a.cityAr.includes(text) || a.countryAr.includes(text) || f.city(a.code).toLowerCase().includes(qq) || f.country(a.code).toLowerCase().includes(qq));
 
   const head = (
     <View style={{ gap: 12, paddingBottom: 8 }}>

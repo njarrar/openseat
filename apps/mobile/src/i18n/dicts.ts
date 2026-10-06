@@ -1,16 +1,15 @@
-// The website's dictionaries are the source for every shared string. The app
-// imports them from apps/web rather than keeping a copy.
+// Every string comes from lang/*.xml, through the website's dictionaries, so
+// the app and the site never drift apart.
 
-import { ar } from '../../../web/src/i18n/ar';
-import { en, type Dict } from '../../../web/src/i18n/en';
-import type { Lang } from '../../../web/src/i18n/types';
-import { appAr, appEn, type AppDict } from './app';
+import { DICTS, LANGS, isLang, pickLang as pickFromTags, type Dict, type Lang } from '../../../web/src/i18n/dicts';
+import { LANG_CODES, LANG_DATA } from '../../../web/src/i18n/lang-data';
+import { makeAppDict, type AppDict } from './app';
 
 export type { AppDict, Dict, Lang };
 export type { ChipId, Seg } from '../../../web/src/i18n/types';
+export { DICTS, LANGS, isLang };
 
-export const DICTS: Record<Lang, Dict> = { en, ar };
-export const APP_DICTS: Record<Lang, AppDict> = { en: appEn, ar: appAr };
+export const APP_DICTS = Object.fromEntries(LANG_CODES.map((c) => [c, makeAppDict(LANG_DATA[c], LANG_DATA.en)])) as Record<Lang, AppDict>;
 
-/** Arabic when the device prefers it, English otherwise, like the website. */
-export const pickLang = (languageCode: string | null | undefined): Lang => (languageCode?.toLowerCase().startsWith('ar') ? 'ar' : 'en');
+/** The device language when we have it, English otherwise, like the website. */
+export const pickLang = (languageTag: string | null | undefined): Lang => pickFromTags([languageTag]);
