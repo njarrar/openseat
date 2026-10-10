@@ -1,11 +1,21 @@
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import preact from '@preact/preset-vite';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
+// The language files in languages/ at the repo root load as their text.
+const xmlText: Plugin = {
+  name: 'xml-text',
+  enforce: 'pre',
+  load(id) {
+    if (id.endsWith('.xml')) return `export default ${JSON.stringify(readFileSync(id, 'utf8'))};`;
+  },
+};
+
 export default defineConfig({
-  plugins: [preact()],
+  plugins: [xmlText, preact()],
   resolve: {
     // Use the shared package's source so changes show up without a separate build.
     alias: { '@openseat/shared': r('../../packages/shared/src/index.ts') },
