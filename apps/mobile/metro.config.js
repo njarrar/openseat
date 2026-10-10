@@ -1,5 +1,5 @@
 // Metro in an npm workspace. Packages are hoisted to the repo root, and the app
-// imports shared code and the web copy from outside this folder, so Metro has
+// imports shared code, the web copy and the language files from outside this folder, so Metro has
 // to watch the whole repo and look in both node_modules folders.
 
 const path = require('path');
@@ -12,6 +12,11 @@ const sharedSrc = path.join(repoRoot, 'packages', 'shared', 'src');
 const config = getDefaultConfig(projectRoot);
 
 config.watchFolders = [repoRoot];
+
+// The language files in languages/ are read as text, not bundled as assets.
+config.resolver.assetExts = config.resolver.assetExts.filter((ext) => ext !== 'xml');
+config.resolver.sourceExts = [...config.resolver.sourceExts, 'xml'];
+config.transformer.babelTransformerPath = require.resolve('./xml-transformer.js');
 config.resolver.nodeModulesPaths = [path.join(projectRoot, 'node_modules'), path.join(repoRoot, 'node_modules')];
 
 // Use @openseat/shared from source, like the web build, so it needs no build

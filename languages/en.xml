@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English text for the openseat website and apps. See the Language section of README.md. -->
+<language code="en" name="English" dir="ltr" locale="en-GB" numberLocale="en-US">
+
+  <group name="meta">
+    <text name="searchTitle">openseat: reward seats on Emirates, Etihad and Qatar Airways</text>
+    <text name="howTitle">How to use openseat</text>
+    <text name="termsTitle">Terms of use, openseat</text>
+  </group>
+
+  <group name="nav">
+    <text name="home">openseat home</text>
+    <text name="search">Search</text>
+    <text name="howToUse">How to use</text>
+    <text name="terms">Terms</text>
+    <text name="switchTo">العربية</text>
+    <text name="switchLang">ar</text>
+    <text name="switchLabel">اقرأ هذه الصفحة بالعربية</text>
+    <text name="currency">Currency for taxes</text>
+    <group name="currencies">
+      <text name="USD">USD</text>
+      <text name="AED">AED</text>
+      <text name="SAR">SAR</text>
+      <text name="QAR">QAR</text>
+    </group>
+  </group>
+
+  <group name="footer">
+    <text name="disclaimer">Openseat is independent and not affiliated with or endorsed by Emirates, Etihad Airways or Qatar Airways. Program names are trademarks of their owners.</text>
+    <text name="sample">Prices and seat counts shown are sample data.</text>
+    <text name="copyright">© 2026 Openseat · v1.0.0</text>
+  </group>
+
+  <group name="search">
+    <text name="eyebrow">Find reward seats on Emirates, Etihad and Qatar Airways</text>
+    <text name="sentence">Using {program}, show me {cabin} seats for {pax} from {from} to {to}, {ret}.</text>
+    <plural name="pax">
+      <one>{n} traveller</one>
+      <other>{n} travellers</other>
+    </plural>
+    <text name="retNone">one way</text>
+    <plural name="ret">
+      <one>and back {n} week later</one>
+      <other>and back {n} weeks later</other>
+    </plural>
+    <text name="sameAirport">Pick two different airports to see seats.</text>
+    <text name="chipLabel">{what}: {value}</text>
+  </group>
+
+  <group name="picker">
+    <text name="program">Miles program</text>
+    <text name="programSub">Priced in {unit}. Hub: {hub}</text>
+    <text name="cabin">Cabin</text>
+    <text name="premiumSub">Emirates only, on some A380 and A350 routes</text>
+    <text name="pax">Travellers</text>
+    <plural name="paxSub">
+      <other>Days show seats only when one flight has {n} open</other>
+    </plural>
+    <text name="ret">Return</text>
+    <text name="retOptionNone">One way</text>
+    <plural name="retOption">
+      <one>Back {n} week later</one>
+      <other>Back {n} weeks later</other>
+    </plural>
+    <text name="retSubNone">Outbound only</text>
+    <text name="retSub">Return days {min} to {max} nights after you leave are marked</text>
+    <text name="from">Flying from</text>
+    <text name="to">Flying to</text>
+    <text name="airportLabel">City, airport code or Arabic name</text>
+    <text name="airportPlaceholder">e.g. London, LHR or لندن</text>
+    <text name="popular">Popular routes</text>
+    <text name="all">All airports</text>
+    <text name="routeAria">{from} to {to}</text>
+    <text name="empty">No airports match. Try a city, a 3-letter code or the Arabic name.</text>
+    <text name="close">Close</text>
+  </group>
+
+  <group name="cal">
+    <text name="outbound">Outbound</text>
+    <text name="return">Return</text>
+    <text name="tablist">Trip leg</text>
+    <text name="titleOne">Seats in {cabin}</text>
+    <text name="titleOut">Outbound seats in {cabin}</text>
+    <text name="titleRet">Return seats in {cabin}</text>
+    <text name="subFrom">{cabin} from {miles} {unit}, one way. Seats on {open} of the next {total} days.</text>
+    <text name="subNone">No {cabin} seats in the next 90 days. Turn on an alert to hear when they open.</text>
+    <text name="subNotOffered">{program} does not offer {cabin} on this route. Try another cabin.</text>
+    <text name="subLoading">Checking the next 90 days.</text>
+    <list name="legend">
+      <text>No seats</text>
+      <text>1 seat</text>
+      <text>2 to 3</text>
+      <text>4 or more</text>
+    </list>
+    <plural name="fits">
+      <other>Fits a {n}-week trip</other>
+    </plural>
+    <list name="weekdays">
+      <text>Mon</text>
+      <text>Tue</text>
+      <text>Wed</text>
+      <text>Thu</text>
+      <text>Fri</text>
+      <text>Sat</text>
+      <text>Sun</text>
+    </list>
+    <text name="keys">Use the arrow keys to move between days.</text>
+    <text name="aria">Calendar, {from} to {to}, {cabin}</text>
+    <text name="seatsMany">4 or more seats</text>
+    <plural name="seats">
+      <one>{n} seat</one>
+      <other>{n} seats</other>
+    </plural>
+    <text name="dayAria">{date}, {seats} from {miles} {unit}</text>
+    <text name="dayAriaFits">{date}, {seats} from {miles} {unit}, fits your trip</text>
+    <text name="dayNone">{date}, no {cabin} seats</text>
+    <text name="dayPending">{date}, still checking</text>
+    <text name="dayFailed">{date}, could not check</text>
+    <plural name="checking">
+      <one>Checking {n} more day with the airline</one>
+      <other>Checking {n} more days with the airline</other>
+    </plural>
+    <text name="stop">Stop</text>
+    <text name="stopped">Stopped. Days not checked yet are left blank.</text>
+    <text name="failed">Some days could not be checked. Showing the last saved results where we have them.</text>
+    <text name="retry">Try again</text>
+  </group>
+
+  <group name="day">
+    <text name="prev">Previous day</text>
+    <text name="next">Next day</text>
+    <text name="close">Close</text>
+    <plural name="sub">
+      <one>{count} of {n} flight from {from} to {to} with {cabin} seats. Prices per traveller, one way.</one>
+      <other>{count} of {n} flights from {from} to {to} with {cabin} seats. Prices per traveller, one way.</other>
+    </plural>
+    <text name="noFlights">No flights from {from} to {to} on this day.</text>
+    <plural name="trip">
+      <one>Outbound {out}, return {ret}, {n} night.</one>
+      <other>Outbound {out}, return {ret}, {n} nights.</other>
+    </plural>
+    <text name="alertOff">Alert me when seats open</text>
+    <text name="alertOn">Alert on</text>
+    <text name="copy">Copy link</text>
+    <text name="copied">Copied</text>
+    <text name="updated">Updated {time}</text>
+    <text name="refresh">Check again</text>
+    <text name="refreshing">Checking</text>
+    <text name="refreshWait">This route was checked a few minutes ago. Try again shortly.</text>
+    <text name="refreshFailed">Could not start a new check. Try again shortly.</text>
+  </group>
+
+  <group name="flight">
+    <text name="nonstop">nonstop</text>
+    <text name="stop">1 stop in {city} ({wait} to connect)</text>
+    <text name="taxesMany">+ {tax} taxes, 9+ seats open</text>
+    <plural name="taxes">
+      <one>+ {tax} taxes, {n} seat open</one>
+      <other>+ {tax} taxes, {n} seats open</other>
+    </plural>
+    <text name="notOffered">{cabin} not offered</text>
+    <text name="noSeats">No {cabin} seats</text>
+    <text name="alsoOpen">Also open</text>
+    <text name="howToBook">How to book</text>
+    <text name="saver">Saver</text>
+    <text name="flex">Flex price</text>
+    <text name="flexTitle">Not the lowest reward price. Saver seats on another day may cost fewer miles.</text>
+    <text name="separate">Separate tickets</text>
+    <text name="separateNote">These are two separate awards. If the first flight is late, the airline does not have to rebook you. Leave at least 3 hours to connect.</text>
+    <text name="step1">Sign in to {program} on {site}.</text>
+    <text name="step2">Search {from} to {to} on {date} with {term} turned on.</text>
+    <text name="step3">Choose {flights} in {cabin}. For {pax} it comes to {miles} {unit} plus {tax}.</text>
+    <text name="step3None">This flight has no {cabin} reward seats for {pax} today. Pick a green day in the calendar.</text>
+    <text name="and" xml:space="preserve"> and </text>
+    <text name="open">Open {site}</text>
+  </group>
+
+  <group name="alert">
+    <text name="title">Get an alert when seats open</text>
+    <text name="body">We will watch {cabin} seats from {from} to {to} on {program}, for {pax}.</text>
+    <text name="email">Email address</text>
+    <text name="help">At most two emails a day. Every email has a link to turn the alert off.</text>
+    <text name="invalid">Enter a valid email address.</text>
+    <text name="submit">Turn on alert</text>
+    <text name="cancel">Cancel</text>
+    <text name="on">We will email you when {cabin} seats open on {from} to {to}.</text>
+    <text name="off">Alert turned off.</text>
+    <text name="failed">Could not save the alert. Try again.</text>
+    <text name="channel">Send alerts by</text>
+    <group name="channels">
+      <text name="email">Email</text>
+      <text name="telegram">Telegram</text>
+      <text name="whatsapp">WhatsApp</text>
+    </group>
+    <text name="phone">WhatsApp number</text>
+    <text name="phoneHelp">With the country code, for example +971 50 123 4567. At most two messages a day. Each one has a link to turn the alert off.</text>
+    <text name="phoneInvalid">Enter your number with the country code, starting with +.</text>
+    <text name="telegramHelp">Next, open our Telegram bot and tap Start. At most two messages a day. Send /stop to the bot to turn alerts off.</text>
+    <text name="telegramNext">One more step: open Telegram and tap Start to turn this alert on.</text>
+    <text name="telegramOpen">Open Telegram</text>
+    <text name="onMessage">We will message you when {cabin} seats open on {from} to {to}.</text>
+    <text name="robot">Please confirm you are not a robot and try again.</text>
+  </group>
+
+  <group name="how">
+    <text name="title">How it works</text>
+    <text name="intro">Openseat shows which days have reward seats. You still book directly with the airline, using your own miles.</text>
+    <text name="examples">See worked examples</text>
+    <list name="steps">
+      <group>
+        <text name="title">Build your search</text>
+        <text name="text">Each green part of the sentence is a picker. Start with your miles program, then set the cabin, travellers, airports and whether you need a return.</text>
+      </group>
+      <group>
+        <text name="title">Scan the next 90 days</text>
+        <text name="text">The number in each day is how many seats are open on the best flight that day. Darker green means more seats.</text>
+      </group>
+      <group>
+        <text name="title">Open a day</text>
+        <text name="text">See every direct and one-stop flight, the price per traveller with taxes, and other cabins open on the same flight. For a return, switch to the Return tab.</text>
+      </group>
+      <group>
+        <text name="title">Book with the airline</text>
+        <text name="text">Follow the steps under How to book and finish on the airline site. If nothing is open yet, turn on an alert and we will message you by email, WhatsApp or Telegram.</text>
+      </group>
+    </list>
+    <text name="reading">Reading the calendar</text>
+    <list name="key">
+      <text>No reward seats in your cabin for everyone in your search.</text>
+      <text>One seat open on at least one flight.</text>
+      <text>Two or three seats open on one flight.</text>
+      <text>Four or more seats. The outlined day is the one in the flight list.</text>
+      <text>On the Return tab, a short bar marks days that fit your trip length.</text>
+    </list>
+    <text name="notesTitle">Booking notes by program</text>
+    <group name="notes">
+      <list name="EK">
+        <text>Search with Classic Rewards selected, otherwise you see cash fares only.</text>
+        <text>Premium Economy is only sold on some A380 and A350 routes.</text>
+        <text>Taxes include carrier surcharges, so they are usually higher than on Etihad or Qatar.</text>
+      </list>
+      <list name="EY">
+        <text>Choose Book with miles on etihad.com before you search.</text>
+        <text>First is only on the A380. Most routes offer Economy and Business.</text>
+        <text>Miles bookings are one way, so you can mix cabins or dates on a return trip.</text>
+      </list>
+      <list name="QR">
+        <text>Prices are in Avios. You can move Avios to and from British Airways Executive Club.</text>
+        <text>First is only on the A380. Qsuites Business is on most long-haul routes.</text>
+        <text>Search with Book with Avios turned on to see reward seats.</text>
+      </list>
+    </group>
+    <text name="goodTitle">Good to know</text>
+    <list name="good">
+      <text>Busy routes are checked every few hours, other routes when you search. Each day shows when it was last checked.</text>
+      <text>Prices are one way and per traveller. The booking steps show the total for your group.</text>
+      <text>A day only shows seats when one flight has enough for everyone in your search.</text>
+      <text>One-stop flights connect at the airline hub: Dubai, Abu Dhabi or Doha.</text>
+      <text>Taxes and fees are estimates in US dollars. The airline shows the final amount at checkout.</text>
+      <text>Partner airline awards are not included yet. You only see flights run by the three airlines.</text>
+    </list>
+    <text name="back">Back to search</text>
+  </group>
+
+  <group name="app">
+    <group name="tabs">
+      <text name="search">Search</text>
+      <text name="alerts">Alerts</text>
+      <text name="settings">Settings</text>
+    </group>
+    <group name="search">
+      <text name="title">Search</text>
+      <text name="androidTitle">Find reward seats</text>
+      <text name="sub">Reward seats on Emirates, Etihad and Qatar Airways.</text>
+      <text name="androidSub">Emirates, Etihad and Qatar Airways, the next 90 days.</text>
+      <text name="program">Miles program</text>
+      <group name="airlines">
+        <text name="EK">Emirates</text>
+        <text name="EY">Etihad</text>
+        <text name="QR">Qatar Airways</text>
+      </group>
+      <text name="route">Route</text>
+      <text name="trip">Trip</text>
+      <text name="from">From</text>
+      <text name="to">To</text>
+      <text name="swap">Swap airports</text>
+      <text name="returnTrip">Return trip</text>
+      <text name="backAfter">Back after</text>
+      <plural name="weeks">
+        <one>{n} week</one>
+        <other>{n} weeks</other>
+      </plural>
+      <text name="fewer">Fewer travellers</text>
+      <text name="more">More travellers</text>
+      <text name="note">A day shows seats only when one flight has enough for every traveller.</text>
+      <text name="find">Find seats</text>
+      <text name="findAndroid">Search</text>
+      <text name="live">Changes update the calendar straight away.</text>
+      <text name="sentence">Your search</text>
+    </group>
+    <group name="cal">
+      <text name="route">{from} → {to}</text>
+      <text name="navSub">{cabin} · {pax}</text>
+      <text name="navSubAlert">{cabin} · {pax} · Alert on</text>
+      <text name="back">Back</text>
+      <text name="open">Open {date}</text>
+      <text name="noReply">Could not reach openseat. Check your connection and try again.</text>
+    </group>
+    <group name="day">
+      <text name="book">Book</text>
+      <text name="hide">Hide steps</text>
+      <text name="share">Share link</text>
+      <text name="choose">Choose {flights} in {cabin}.</text>
+      <text name="total">Total for {pax}</text>
+      <text name="totalValue">{miles} {unit} + {tax}</text>
+      <text name="shareText">Reward seats in {cabin} from {from} to {to} on openseat</text>
+    </group>
+    <group name="alerts">
+      <text name="title">Alerts</text>
+      <text name="sub">Routes you are watching on this device. We message you when seats open.</text>
+      <text name="empty">No alerts yet. Open a route and tap the bell to get a message when seats open.</text>
+      <text name="turnOff">Turn off the alert for {route}</text>
+      <text name="undo">Undo</text>
+      <text name="to">To {address}</text>
+      <text name="telegram">By Telegram</text>
+    </group>
+    <group name="settings">
+      <text name="title">Settings</text>
+      <text name="language">Language</text>
+      <text name="system">Match device</text>
+      <text name="systemSub">Now {name}</text>
+      <text name="languageNote">The app follows your device language unless you pick one here.</text>
+      <text name="currencyNote">Taxes in dollars, dirhams and riyals convert at the fixed official rate. Other currencies show as the airline charges them.</text>
+      <text name="appearance">Appearance</text>
+      <text name="appearanceNote">Light and dark mode follow your device.</text>
+      <text name="help">Help</text>
+      <text name="data">Data</text>
+      <text name="sample">This build shows sample data, not live airline seats.</text>
+      <text name="live">Seats come from the openseat service.</text>
+      <text name="about">About</text>
+    </group>
+  </group>
+
+  <group name="howPage">
+    <text name="title">How to use Openseat</text>
+    <text name="lede">Find a day with reward seats, then book it on the airline site with your own miles. Below are four real ways people search, step by step.</text>
+    <text name="basics">The basics in four moves</text>
+    <list name="moves">
+      <group>
+        <text name="title">Start with your miles</text>
+        <text name="text">Pick the program you hold miles in. Skywards, Etihad Guest or Privilege Club.</text>
+      </group>
+      <group>
+        <text name="title">Finish the sentence</text>
+        <text name="text">Set cabin, travellers, airports and an optional return. Search by city, code or Arabic name.</text>
+      </group>
+      <group>
+        <text name="title">Read the numbers</text>
+        <text name="text">Each day shows how many seats are open on its best flight: 1, 2, 3 or 4+. Empty days have none.</text>
+      </group>
+      <group>
+        <text name="title">Book with the airline</text>
+        <text name="text">Open the day, follow How to book, and finish on the airline site before the seat goes.</text>
+      </group>
+    </list>
+    <text name="examples">Examples</text>
+    <text name="tryIt">Try this search</text>
+    <text name="faqTitle">Common questions</text>
+    <list name="faq">
+      <group>
+        <text name="q">Why did a seat disappear when I tried to book?</text>
+        <text name="a">Busy routes are checked every few hours, other routes when you search. Seats can be taken in between, so the airline site always has the final word. Each day shows when it was last checked, and Check again asks for a fresh look.</text>
+      </group>
+      <group>
+        <text name="q">Why can't I pick dates further out?</text>
+        <text name="a">The window is always the next 90 days. That keeps searches fast, and a shared link shows everyone the same dates.</text>
+      </group>
+      <group>
+        <text name="q">Are the prices exact?</text>
+        <text name="a">Miles are the published reward price for one way, per traveller. Taxes are an estimate in US dollars and can change at checkout. A Flex price badge means the seat is not at the lowest reward price.</text>
+      </group>
+      <group>
+        <text name="q">How do I share a search?</text>
+        <text name="a">Tap Copy link next to the date. The link keeps your program, cabin, travellers, airports and return, so others see what you see.</text>
+      </group>
+    </list>
+    <text name="start">Start a search</text>
+    <list name="cases">
+      <group>
+        <text name="title">A family of four to London for the winter break</text>
+        <list name="tips">
+          <text>With 4 travellers, a day only shows seats when one flight has 4 open. Look for days marked 4+ in dark green.</text>
+          <text>Pick an outbound day, then switch to the Return tab. Days with a short bar fit a trip of 11 to 17 nights.</text>
+          <text>Book both legs in one session on emirates.com, so the seats you found are still there for the second leg.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">A last-minute Business seat to Bangkok</text>
+        <list name="tips">
+          <text>Airlines often release unsold seats in the last two weeks, so check the first rows of the calendar.</text>
+          <text>Use the arrows next to the date to step through days without going back to the calendar.</text>
+          <text>If Business is full but Also open shows Economy, tap it to see that price on the same flight.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Two First seats to Tokyo with Avios</text>
+        <list name="tips">
+          <text>Qatar sells First only on its A380, so many routes show not offered. That is a fact about the plane, not a lack of seats.</text>
+          <text>Two seats together in First are rare. If the calendar is empty, tap Alert me when seats open.</text>
+          <text>Short on Avios? You can move Avios from British Airways Executive Club before you book.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Starting from a city that is not a hub</text>
+        <list name="tips">
+          <text>Flights from Riyadh connect in Dubai. A day shows seats only when both flights have one open.</text>
+          <text>Each flight card shows the stop and the time on the ground, so you can skip long connections.</text>
+          <text>Compare with a search from Dubai. If you can reach the hub yourself, there are often more days to choose from.</text>
+        </list>
+      </group>
+    </list>
+  </group>
+
+  <group name="terms">
+    <text name="title">Terms of use</text>
+    <text name="updated">Last updated 2 October 2026</text>
+    <text name="sectionsLabel">Sections</text>
+    <text name="intro">By using Openseat you agree to these terms. They are written to be read, so each section is short.</text>
+    <list name="sections">
+      <group>
+        <text name="title">What Openseat is</text>
+        <list name="paras">
+          <text>Openseat is an independent information tool that shows reward seat availability on Emirates, Etihad Airways and Qatar Airways. We do not sell tickets, hold seats, or handle your miles or payments. All bookings are made directly with the airline.</text>
+          <text>Openseat is not affiliated with, connected to or endorsed by any of these airlines or their loyalty programs.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Accuracy</text>
+        <list name="paras">
+          <text>Reward availability changes all the time. A seat shown here may be gone by the time you search on the airline site. Miles prices are published one-way rates and taxes are estimates. We do not guarantee that results are accurate, complete or current.</text>
+          <text>Always confirm seats, miles and fees on the airline site before you book or move miles between programs.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Fair use</text>
+        <list name="paras">
+          <text>Openseat is for personal use. Do not scrape it, query it automatically, resell its data or try to get around usage limits. We limit the number of searches per hour and may block access that harms the service for others.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Alerts</text>
+        <list name="paras">
+          <text>If you turn on an alert, we use your email address, WhatsApp number or Telegram chat only to tell you about seats on the routes you chose. We send at most two messages a day per alert. Every email and WhatsApp message has a link to turn the alert off, and on Telegram you can send /stop. We do not sell or share your details.</text>
+          <text>Taxes are estimates. When you pick a Gulf currency, we convert from US dollars at the fixed official rate.</text>
+          <text>An alert is a best effort. It may arrive after the seats have gone, and we are not responsible for a missed alert.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Trademarks</text>
+        <list name="paras">
+          <text>Emirates, Etihad Airways, Qatar Airways and their program names, including Emirates Skywards, Etihad Guest and Privilege Club, are trademarks of their owners and are used here only to describe the flights shown. The Openseat name and design belong to Openseat.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Liability</text>
+        <list name="paras">
+          <text>Openseat is provided as is, without warranties of any kind. To the extent the law allows, we are not liable for any loss that comes from relying on it. This includes miles you transfer or spend, fees you pay, and trips you miss or change.</text>
+        </list>
+      </group>
+      <group>
+        <text name="title">Changes</text>
+        <list name="paras">
+          <text>We may update these terms or stop the service at any time. When we change the terms, we update the date at the top of this page. If you keep using Openseat after a change, you accept the new version.</text>
+        </list>
+      </group>
+    </list>
+    <text name="start">Start a search</text>
+  </group>
+</language>

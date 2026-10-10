@@ -1,160 +1,84 @@
-// Copy that only the app needs. Everything shared with the website comes from
-// apps/web/src/i18n, so the two never drift apart.
+// Copy that only the app needs, from the app group in languages/<code>.xml.
+// Everything shared with the website is built in apps/web/src/i18n/dict.ts.
 
-const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
+import type { Strings } from '../../../web/src/i18n/strings';
 
-export const appEn = {
-  tabs: { search: 'Search', alerts: 'Alerts', settings: 'Settings' },
+export function buildAppDict(s: Strings) {
+  const x = s.text.bind(s);
 
-  search: {
-    title: 'Search',
-    androidTitle: 'Find reward seats',
-    sub: 'Reward seats on Emirates, Etihad and Qatar Airways.',
-    androidSub: 'Emirates, Etihad and Qatar Airways, the next 90 days.',
-    program: 'Miles program',
-    // Short airline names for the program switch.
-    airlines: { EK: 'Emirates', EY: 'Etihad', QR: 'Qatar Airways' },
-    route: 'Route',
-    trip: 'Trip',
-    from: 'From',
-    to: 'To',
-    swap: 'Swap airports',
-    returnTrip: 'Return trip',
-    backAfter: 'Back after',
-    weeks: (w: number) => `${w} ${plural(w, 'week', 'weeks')}`,
-    fewer: 'Fewer travellers',
-    more: 'More travellers',
-    note: 'A day shows seats only when one flight has enough for every traveller.',
-    find: 'Find seats',
-    findAndroid: 'Search',
-    live: 'Changes update the calendar straight away.',
-    sentence: 'Your search',
-  },
+  return {
+    tabs: s.map<'search' | 'alerts' | 'settings'>('app.tabs'),
 
-  cal: {
-    route: (o: string, d: string) => `${o} → ${d}`,
-    navSub: (cabin: string, pax: string, alert: boolean) => `${cabin} · ${pax}${alert ? ' · Alert on' : ''}`,
-    back: 'Back',
-    open: (date: string) => `Open ${date}`,
-    noReply: 'Could not reach openseat. Check your connection and try again.',
-  },
+    search: {
+      title: x('app.search.title'),
+      androidTitle: x('app.search.androidTitle'),
+      sub: x('app.search.sub'),
+      androidSub: x('app.search.androidSub'),
+      program: x('app.search.program'),
+      // Short airline names for the program switch.
+      airlines: s.map<'EK' | 'EY' | 'QR'>('app.search.airlines'),
+      route: x('app.search.route'),
+      trip: x('app.search.trip'),
+      from: x('app.search.from'),
+      to: x('app.search.to'),
+      swap: x('app.search.swap'),
+      returnTrip: x('app.search.returnTrip'),
+      backAfter: x('app.search.backAfter'),
+      weeks: (w: number) => s.plural('app.search.weeks', w),
+      fewer: x('app.search.fewer'),
+      more: x('app.search.more'),
+      note: x('app.search.note'),
+      find: x('app.search.find'),
+      findAndroid: x('app.search.findAndroid'),
+      live: x('app.search.live'),
+      sentence: x('app.search.sentence'),
+    },
 
-  day: {
-    book: 'Book',
-    hide: 'Hide steps',
-    share: 'Share link',
-    choose: (nums: string, cabin: string) => `Choose ${nums} in ${cabin}.`,
-    total: (pax: string) => `Total for ${pax}`,
-    totalValue: (miles: string, unit: string, tax: string) => `${miles} ${unit} + ${tax}`,
-    shareText: (o: string, d: string, cabin: string) => `Reward seats in ${cabin} from ${o} to ${d} on openseat`,
-  },
+    cal: {
+      // Airport codes read left to right in both languages, as on the website.
+      route: (from: string, to: string) => x('app.cal.route', { from, to }),
+      navSub: (cabin: string, pax: string, alert: boolean) => x(alert ? 'app.cal.navSubAlert' : 'app.cal.navSub', { cabin, pax }),
+      back: x('app.cal.back'),
+      open: (date: string) => x('app.cal.open', { date }),
+      noReply: x('app.cal.noReply'),
+    },
 
-  alerts: {
-    title: 'Alerts',
-    sub: 'Routes you are watching on this device. We message you when seats open.',
-    empty: 'No alerts yet. Open a route and tap the bell to get a message when seats open.',
-    turnOff: (route: string) => `Turn off the alert for ${route}`,
-    undo: 'Undo',
-    to: (address: string) => `To ${address}`,
-    telegram: 'By Telegram',
-  },
+    day: {
+      book: x('app.day.book'),
+      hide: x('app.day.hide'),
+      share: x('app.day.share'),
+      choose: (flights: string, cabin: string) => x('app.day.choose', { flights, cabin }),
+      total: (pax: string) => x('app.day.total', { pax }),
+      totalValue: (miles: string, unit: string, tax: string) => x('app.day.totalValue', { miles, unit, tax }),
+      shareText: (from: string, to: string, cabin: string) => x('app.day.shareText', { from, to, cabin }),
+    },
 
-  settings: {
-    title: 'Settings',
-    language: 'Language',
-    system: 'Match device',
-    systemSub: (name: string) => `Now ${name}`,
-    languageNote: 'The app follows your device language unless you pick one here.',
-    currencyNote: 'Taxes in dollars, dirhams and riyals convert at the fixed official rate. Other currencies show as the airline charges them.',
-    appearance: 'Appearance',
-    appearanceNote: 'Light and dark mode follow your device.',
-    help: 'Help',
-    data: 'Data',
-    sample: 'This build shows sample data, not live airline seats.',
-    live: 'Seats come from the openseat service.',
-    about: 'About',
-  },
-};
+    alerts: {
+      title: x('app.alerts.title'),
+      sub: x('app.alerts.sub'),
+      empty: x('app.alerts.empty'),
+      turnOff: (route: string) => x('app.alerts.turnOff', { route }),
+      undo: x('app.alerts.undo'),
+      to: (address: string) => x('app.alerts.to', { address }),
+      telegram: x('app.alerts.telegram'),
+    },
 
-export type AppDict = typeof appEn;
-
-/** Arabic counted nouns: 1, 2, 3 to 10, 11 and up. */
-function count(n: number, one: string, two: string, few: string, many: string) {
-  if (n === 1) return one;
-  if (n === 2) return two;
-  if (n >= 3 && n <= 10) return `${n} ${few}`;
-  return `${n} ${many}`;
+    settings: {
+      title: x('app.settings.title'),
+      language: x('app.settings.language'),
+      system: x('app.settings.system'),
+      systemSub: (name: string) => x('app.settings.systemSub', { name }),
+      languageNote: x('app.settings.languageNote'),
+      currencyNote: x('app.settings.currencyNote'),
+      appearance: x('app.settings.appearance'),
+      appearanceNote: x('app.settings.appearanceNote'),
+      help: x('app.settings.help'),
+      data: x('app.settings.data'),
+      sample: x('app.settings.sample'),
+      live: x('app.settings.live'),
+      about: x('app.settings.about'),
+    },
+  };
 }
 
-export const appAr: AppDict = {
-  tabs: { search: 'البحث', alerts: 'التنبيهات', settings: 'الإعدادات' },
-
-  search: {
-    title: 'البحث',
-    androidTitle: 'ابحث عن مقاعد المكافآت',
-    sub: 'مقاعد المكافآت على طيران الإمارات والاتحاد للطيران والخطوط الجوية القطرية.',
-    androidSub: 'الإمارات والاتحاد والقطرية، خلال الأيام الـ90 القادمة.',
-    program: 'برنامج الأميال',
-    airlines: { EK: 'الإمارات', EY: 'الاتحاد', QR: 'القطرية' },
-    route: 'المسار',
-    trip: 'الرحلة',
-    from: 'من',
-    to: 'إلى',
-    swap: 'بدّل المطارين',
-    returnTrip: 'رحلة عودة',
-    backAfter: 'العودة بعد',
-    weeks: (w: number) => count(w, 'أسبوع', 'أسبوعين', 'أسابيع', 'أسبوعًا'),
-    fewer: 'مسافرون أقل',
-    more: 'مسافرون أكثر',
-    note: 'لا يظهر اليوم متاحًا إلا إذا كانت على رحلة واحدة مقاعد تكفي كل المسافرين.',
-    find: 'اعرض المقاعد',
-    findAndroid: 'ابحث',
-    live: 'تظهر التغييرات في التقويم فورًا.',
-    sentence: 'بحثك',
-  },
-
-  cal: {
-    // Airport codes read left to right in both languages, as on the website.
-    route: (o: string, d: string) => `${o} → ${d}`,
-    navSub: (cabin: string, pax: string, alert: boolean) => `${cabin} · ${pax}${alert ? ' · التنبيه مفعّل' : ''}`,
-    back: 'رجوع',
-    open: (date: string) => `افتح ${date}`,
-    noReply: 'تعذّر الوصول إلى openseat. تحقّق من اتصالك وحاول مرة أخرى.',
-  },
-
-  day: {
-    book: 'احجز',
-    hide: 'إخفاء الخطوات',
-    share: 'شارك الرابط',
-    choose: (nums: string, cabin: string) => `اختر ${nums} في ${cabin}.`,
-    total: (pax: string) => `المجموع لـ${pax}`,
-    totalValue: (miles: string, unit: string, tax: string) => `${miles} ${unit} + ${tax}`,
-    shareText: (o: string, d: string, cabin: string) => `مقاعد مكافآت في ${cabin} من ${o} إلى ${d} على openseat`,
-  },
-
-  alerts: {
-    title: 'التنبيهات',
-    sub: 'المسارات التي تراقبها على هذا الجهاز. نراسلك عند توفر المقاعد.',
-    empty: 'لا توجد تنبيهات بعد. افتح مسارًا واضغط الجرس لتصلك رسالة عند توفر المقاعد.',
-    turnOff: (route: string) => `أوقف التنبيه لمسار ${route}`,
-    undo: 'تراجع',
-    to: (address: string) => `إلى ${address}`,
-    telegram: 'عبر تيليجرام',
-  },
-
-  settings: {
-    title: 'الإعدادات',
-    language: 'اللغة',
-    system: 'لغة الجهاز',
-    systemSub: (name: string) => `حاليًا ${name}`,
-    languageNote: 'يتبع التطبيق لغة جهازك ما لم تختر لغة هنا.',
-    currencyNote: 'تُحوَّل الضرائب بالدولار والدرهم والريال بالسعر الرسمي الثابت. تظهر العملات الأخرى كما تفرضها شركة الطيران.',
-    appearance: 'المظهر',
-    appearanceNote: 'الوضع الفاتح والداكن يتبعان إعداد جهازك.',
-    help: 'المساعدة',
-    data: 'البيانات',
-    sample: 'تعرض هذه النسخة بيانات تجريبية، لا مقاعد حقيقية من شركات الطيران.',
-    live: 'تأتي المقاعد من خدمة openseat.',
-    about: 'حول التطبيق',
-  },
-};
+export type AppDict = ReturnType<typeof buildAppDict>;

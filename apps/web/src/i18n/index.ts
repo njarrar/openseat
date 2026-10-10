@@ -4,12 +4,11 @@ import {
   AIRPORT_BY_CODE, CABIN_BY_ID, CARRIER_BY_ID, convert, currencyForLocale, isCurrency, programName, programNameAr, toUtc,
   type CabinId, type CarrierId, type CurrencyId,
 } from '@openseat/shared';
-import { ar } from './ar';
-import { en, type Dict } from './en';
+import type { Dict } from './dict';
+import { DICTS } from './languages';
 import type { Lang } from './types';
 
 export type { Lang } from './types';
-const DICTS: Record<Lang, Dict> = { en, ar };
 const KEY = 'openseat-lang';
 const CURRENCY_KEY = 'openseat-currency';
 
@@ -138,3 +137,4 @@ export function useLang() {
 }
 
 export { DICTS };
+export type { Dict };

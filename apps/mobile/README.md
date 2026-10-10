@@ -44,7 +44,7 @@ Native apps do not send an `Origin` header, so the API's `ALLOWED_ORIGINS` list 
 - The app follows the phone language: Arabic if the phone prefers Arabic, English otherwise. **Settings > Language** changes it at once and remembers the choice. The search screen also has a quick switch at the top.
 - Arabic mirrors the whole layout. The app does this itself, so a change needs no restart.
 - Light and dark mode follow the phone.
-- The copy is shared with the website: the app reads `apps/web/src/i18n/en.ts` and `ar.ts`, and the How to use and Terms text from `apps/web/src/content`. Lines only the app needs are in `src/i18n/app.ts`. A test fails if Arabic is missing any of them.
+- The copy is shared with the website: the app reads the same language files, `languages/en.xml` and `languages/ar.xml` at the repo root. Lines only the app needs sit in the `app` group of each file. Metro loads the files as text through `xml-transformer.js`. A test fails if Arabic is missing any of them.
 - In the browser preview, add `?look=android` to see the Android design.
 
 ## Build for the stores

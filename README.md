@@ -31,6 +31,7 @@ Changes since the first release, 3 October 2026:
 - **Currency choice.** Taxes show in US dollars, UAE dirhams, Saudi riyals or Qatari riyals. The first choice comes from your region.
 - **Bot check.** Turning on an alert or asking for a fresh check can require a Cloudflare Turnstile check. The apps run it through a small page on the website.
 - **iPhone and Android apps.** Native apps with the same search, calendar, flights, booking steps and alerts, in English and Arabic, light and dark. See [apps/mobile/README.md](apps/mobile/README.md).
+- **Language files.** Every line of text, on the website and in the apps, now lives in one XML file per language in [languages/](languages): `en.xml` and `ar.xml`. The website and apps read the file for the chosen language when it is first needed. To add a language later, add a file there. See [Language](#language).
 - **Tablet layouts.** On iPad and Android tablets, search, calendar and the day's flights sit side by side, and the booking steps open inside the flight card. iPad has its tabs along the top; Android tablets get a navigation rail.
 
 Each new service stays off until its keys are set, so with no new settings the site works as before.
@@ -38,6 +39,7 @@ Each new service stays off until its keys are set, so with no new settings the s
 ## What is in this repo
 
 ```
+languages/       The text for every screen, one XML file per language
 apps/web         The website (Preact + Vite + TypeScript)
 apps/api         The API (Node + Fastify + Postgres + Redis)
 apps/mobile      The iOS and Android app (Expo + React Native + TypeScript)
@@ -114,7 +116,34 @@ Results stream in. Days the API already has show at once, and the rest arrive in
 
 The site follows the browser language: Arabic if the browser prefers Arabic, English otherwise. The switch in the header changes it at once and remembers the choice. `?lang=ar` or `?lang=en` in a link also works.
 
-All copy lives in `apps/web/src/i18n/en.ts` and `ar.ts`. The mobile app reads the same files. A test fails if Arabic is missing any English string. The Arabic text, and the Terms page in both languages, should be reviewed by a native editor and by counsel before launch.
+All text lives in the [languages](languages) folder, one XML file per language: `en.xml` for English and `ar.xml` for Arabic. The website and the mobile apps read the same files, so they never drift apart. Each file sets its own direction, so Arabic lays out right to left.
+
+A file looks like this:
+
+```xml
+<language code="ar" name="العربية" dir="rtl" locale="ar-u-nu-latn-ca-gregory" numberLocale="ar-u-nu-latn">
+  <group name="nav">
+    <text name="search">البحث</text>
+  </group>
+  <group name="day">
+    <text name="updated">آخر تحديث {time}</text>
+  </group>
+  <group name="search">
+    <plural name="pax">
+      <one>مسافر واحد</one>
+      <two>مسافرَين</two>
+      <few>{n} مسافرين</few>
+      <other>{n} مسافرًا</other>
+    </plural>
+  </group>
+</language>
+```
+
+- `<group>` holds related lines. `<text>` is one line, and `{name}` marks a value the app fills in.
+- `<plural>` picks a line by count, using the forms zero, one, two, few, many and other. English needs only one and other.
+- `<list>` holds lines in order, such as the days of the week.
+
+To add a language, copy `en.xml` to `languages/<code>.xml`, translate it, set `dir="rtl"` if it reads right to left, then add the code to `LANGS` in `apps/web/src/i18n/types.ts` and an import in `apps/web/src/i18n/languages.ts`. Any line the new file leaves out shows in English. Tests fail if Arabic is missing an English line, if a file does not parse, or if a `{value}` is left unfilled. The Arabic text, and the Terms page in both languages, should be reviewed by a native editor and by counsel before launch.
 
 ## Configuration
 

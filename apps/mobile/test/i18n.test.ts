@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { appAr, appEn } from '../src/i18n/app';
-import { DICTS, pickLang } from '../src/i18n/dicts';
+import { APP_DICTS, DICTS, pickLang } from '../src/i18n/dicts';
 import { makeFormat } from '../src/i18n/format';
 
 function shape(v: unknown): unknown {
@@ -18,12 +17,15 @@ function strings(v: unknown, out: string[] = []): string[] {
   return out;
 }
 
+const appEn = APP_DICTS.en;
+const appAr = APP_DICTS.ar;
+
 describe('app copy', () => {
   it('Arabic has every English app string', () => {
     assert.deepEqual(shape(appAr), shape(appEn));
   });
 
-  it('shares the website dictionaries rather than a copy', () => {
+  it('reads the same language files as the website', () => {
     assert.deepEqual(shape(DICTS.ar), shape(DICTS.en));
     assert.equal(DICTS.ar.dir, 'rtl');
     assert.equal(DICTS.en.dir, 'ltr');

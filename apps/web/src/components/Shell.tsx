@@ -2,7 +2,7 @@ import type { ComponentChildren } from 'preact';
 import { CURRENCIES, isCurrency } from '@openseat/shared';
 import { CaretDown, Translate } from '@phosphor-icons/react';
 import { LangContext, useLang, useLangState } from '../i18n';
-import type { Dict } from '../i18n/en';
+import type { Dict } from '../i18n/dict';
 
 export type PageId = 'search' | 'how' | 'terms';
 
